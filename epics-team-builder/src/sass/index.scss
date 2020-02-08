@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .epics-team-builder {
+    @import './widgets/setup-page.scss';
+    @import './widgets/team-builder-page.scss';
+
+    .gray-background {
+      position: absolute;
+      height: 80%;
+      width: 100%;
+      z-index: -1;
+      background-color: #ececec;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
