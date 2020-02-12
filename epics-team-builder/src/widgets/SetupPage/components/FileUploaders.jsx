@@ -63,7 +63,7 @@ const FileUpload = () => {
         />
       </form>
 
-      <form>
+      <form onSubmit = {onSubmit}>
         <div className="custom-file mb-4">
           <input
             type="file"
