@@ -1,37 +1,35 @@
 .setup-page {
+  height: 100vh;
+
   .header {
     background-color: white;
-    height: 75px;
+    height: 10%;
   }
 
   .setup-grid {
     margin: 0 auto;
     display: grid;
-    height: 680px;
-    max-width: 1600px;
+    height: 80%;
+    min-width: 1920px;
     grid-template-columns: auto;
     grid-template-rows: auto;
   }
-  .File-Uploader {
+
+  .file-uploader {
     background-color: yellowgreen;
     grid-column: 1/13;
-    grid-row: 1/4;
+    grid-row: 1/18;
   }
-  .Manual-project-Assignment {
+
+  .manual-project-assignment {
     background-color: lightblue;
-    grid-column: 1/8;
+    grid-column: 1/13;
     grid-row: 4/18;
   }
 
-  .Manually-Assigned-Students {
+  .manually-assigned-students {
     background-color: lightpink;
     grid-column: 8/13;
     grid-row: 4/18;
-  }
-
-  .Build-Team {
-    background-color: lightseagreen;
-    grid-column: 1/13;
-    grid-row: 18/20;
   }
 }
