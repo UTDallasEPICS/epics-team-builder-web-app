@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
 
 export default class Header extends React.Component {
   render() {
-    return <div className="header">HEADER PLACE HOLDER</div>;
+    return (
+      <div className="header">
+        <img src={require('./Epics.png')} />
+      </div>
+    );
   }
 }
