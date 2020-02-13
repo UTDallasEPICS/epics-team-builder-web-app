@@ -1,86 +1,65 @@
 import React, { Fragment, useState } from 'react';
 import Axios from 'axios';
+import readXlsxFile from 'read-excel-file' ;
+
 
 const FileUpload = () => {
   // File Uploader using ReactHooks
   // Const[] is used to display the file name once it is uploaded
-
   // ONCHANGE FUNCTIONS
-  const [file, setFile] = useState('');
-  const [filename, setFilename] = useState('Choose File');
-  const [uploadedFile, setUploadedFile] = useState({});
 
-  //If the file is changed, this will display the file name in the box
-  const onChange = e => {
-    setFile(e.target.files[0]);
-    setFilename(e.target.files[0].name);
-  };
+
+  const projectSchema = {
+    'PROJECT NAME':{
+      prop:'name',
+      type: String
+    },
+    'RETURNING(Y/N)' :{
+      prop: 'returning',
+      type: Boolean,
+    },
+    'SKILL 1':{
+      prop: 'skill1' ,
+      type: String,
+    },
+    'SKILL 2':{
+      prop: 'skill2' ,
+      type: String,
+    },
+    'SKILL 3':{
+      prop: 'skill3' ,
+      type: String,
+    },
+  }
+
+
+  const onChangeProjects = e =>{
+    readXlsxFile( document.getElementById('input').files[0], {projectSchema}).then((rows,errors) => {
+     
+      console.log(rows) ;
+
+      })
+  }
+
+  const onChangeStudent = e =>{
+    readXlsxFile( document.getElementById('studentinput').files[0]).then((rows,errors) => {
+     
+      console.log(rows) ;
+
+      })
+  }
 
   // Once the user hits upload
-  const onSubmit = async e => {
-    e.preventDefault();
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    try {
-      const res = await Axios.post('/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      const { filename, filePath } = res.data;
-      setUploadedFile({ filename, filePath });
-    } catch (err) {
-      if (err.response.status === 500) {
-        console.log('Server Issue');
-      } else {
-        console.log(err.response.data.msg);
-      }
-    }
-  }; // Function submit the file to the server * MAY NOT BE NECESSARY *
 
   return (
     // FORM 1 = PROJECT FILE UPLOAD
     // FORM 2 = STUDENT FILE UPLOAD
     <Fragment>
-      <form onSubmit={onSubmit}>
-        <div className="custom-file mb-4">
-          <input
-            type="file"
-            className="custom-file-input"
-            id="customFile"
-            onChange={onChange}
-          />
-          <label className="custom-file-label" htmlFor="customFile">
-            {filename}
-          </label>
-        </div>
-        <input
-          type="submit"
-          value="Upload"
-          className="btm btn-primary btn-block mt-4"
-        />
-      </form>
 
-      <form onSubmit = {onSubmit}>
-        <div className="custom-file mb-4">
-          <input
-            type="file"
-            className="custom-file-input"
-            id="customFile"
-            onChange={onChange}
-          />
-          <label className="custom-file-label" htmlFor="customFile">
-            {filename}
-          </label>
-        </div>
-        <input
-          type="submit"
-          value="Upload"
-          className="btm btn-primary btn-block mt-4"
-        />
-      </form>
+      <input type = "file" id = "input" accept = ".xls, .xlsx" onChange = {onChangeProjects}/>
+      
+      <input type = "file" id = "studentinput" accept = ".xls,.xlsx" onChange = {onChangeStudent} />
+
     </Fragment>
   );
 };
