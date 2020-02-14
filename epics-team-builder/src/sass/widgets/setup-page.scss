@@ -2,14 +2,18 @@
   height: 100vh;
 
   .header {
-    background-color: white;
-    height: 10%;
+    background-color: #008542;
+    height: 7%;
+    padding: 10px 0;
+    img {
+      height: 100%;
+    }
   }
 
   .setup-grid {
     margin: 0 auto;
     display: grid;
-    height: 80%;
+    height: 73%;
     max-width: 1920px;
     grid-template-columns: auto;
     grid-template-rows: auto;
