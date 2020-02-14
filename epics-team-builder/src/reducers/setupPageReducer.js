@@ -21,8 +21,16 @@ const projectByStudentId = (state = {}, { type, payload }) => {
   }
 };
 
+const numOfPreferredProjects = (state = 5, { type, payload }) => {
+  switch (type) {
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   students,
   projects,
-  projectByStudentId
+  projectByStudentId,
+  numOfPreferredProjects
 });
