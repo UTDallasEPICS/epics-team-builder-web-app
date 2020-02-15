@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
+import MAS from './ManuallyAssignedStudents';
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed
@@ -21,7 +22,9 @@ class SetupPage extends React.Component {
 
           <div className="manual-project-assignment"></div>
 
-          <div className="manually-assigned-students"></div>
+          <div className="manually-assigned-students">
+            <MAS/>
+          </div>
         </div>
         <div className="preferred-project-slider">
           <h3>Number of Preferred Projects:</h3>
