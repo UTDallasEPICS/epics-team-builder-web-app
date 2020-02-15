@@ -1,8 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
-export default class SetupPage extends React.Component {
+
+class SetupPage extends React.Component {
+  //Store current value of slider when changed
+  onSlide = (render, handle, value) => {
+    this.props.changeNumOfPreferredProjects(value[0]);
+  };
+
   render() {
+    const { numOfPreferredProjects } = this.props;
+
     return (
       <div className="setup-page">
         <Header />
@@ -14,15 +23,28 @@ export default class SetupPage extends React.Component {
 
           <div className="manually-assigned-students"></div>
         </div>
-
-        <Nouislider
-          range={{ min: 3, max: 10 }}
-          start={[5]}
-          pips={{ mode: 'count', values: 8 }}
-          step={1}
-          clickablePips
-        />
+        <div className="preferred-project-slider">
+          <h3>Number of Preferred Projects:</h3>
+          <Nouislider
+            range={{ min: 3, max: 10 }}
+            start={[numOfPreferredProjects]}
+            pips={{ mode: 'steps', density: 16 }}
+            step={1}
+            onSlide={this.onSlide}
+          />
+        </div>
       </div>
     );
   }
 }
+
+SetupPage.defaultProps = {
+  numOfPreferredProjects: 5
+};
+
+SetupPage.propTypes = {
+  numOfPreferredProjects: PropTypes.number,
+  changeNumOfPreferredProjects: PropTypes.func
+};
+
+export default SetupPage;

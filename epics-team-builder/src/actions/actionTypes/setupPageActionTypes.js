@@ -1,0 +1,2 @@
+//Slider types
+export const CHANGE_NUM_PROJECT_SLIDER = 'CHANGE_NUM_PROJECT_SLIDER';
