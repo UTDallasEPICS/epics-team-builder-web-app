@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       }
     },
     eslint: {
-      target: ['*.js', 'src/**.js']
+      target: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
     },
     run: {
       options: {

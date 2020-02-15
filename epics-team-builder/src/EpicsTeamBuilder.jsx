@@ -15,8 +15,8 @@ export default class EpicsTeamBuilder extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <div className='epics-team-builder'>
-          <div className='gray-background' />
+        <div className="epics-team-builder">
+          <div className="gray-background" />
           {this.state.showSetupPage ? <SetupPage /> : <TeamBuilderPage />}
         </div>
       </Provider>
