@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
 export default class Header extends React.Component {
   render() {
     return (
       <div className="header">
-        <img src={require('./Epics.png')} />
+        <img src={require('./Epics.png')} alt={"EPIC's Logo"} />
       </div>
     );
   }
