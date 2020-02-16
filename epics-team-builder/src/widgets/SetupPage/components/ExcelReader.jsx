@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import XLSX from 'xlsx';
 import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './types';
@@ -42,7 +40,7 @@ class ExcelReader extends Component {
       /* Update state */
       this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
         console.log(JSON.stringify(this.state.data, null, 2));
-        console.log(this.state.data[0]) ;
+        
       });
     };
 
@@ -56,41 +54,44 @@ class ExcelReader extends Component {
   render() {
     return (
       <div>
-        <label htmlFor="file">Upload Project Files</label>
+        <div className = "upload-project">
+          <label htmlFor="file">Upload Project Files</label>
+          <br />
+          <input
+            type="file"
+            className="form-control-file"
+            id="file"
+            accept={SheetJSFT}
+            onChange={this.handleChange}
+          />
+            <input
+            class="btn btn-primary"
+            type="submit"
+            value="Upload"
+            onClick={this.handleFile}
+            style = {{background: "#124734"}}
+          ></input>
+        </div>
         <br />
-        <input
-          type="file"
-          className="form-control"
-          id="file"
-          accept={SheetJSFT}
-          onChange={this.handleChange}
-        />
         <br />
-        <input
-          type="submit"
-          value="Upload"
-          onClick={this.handleFile}
-        />
-
-        <br />
-        <br />
-
-
-<label htmlFor="file">Upload Student Files</label>
-        <br />
-        <input
-          type="file"
-          className="form-control"
-          id="file"
-          accept={SheetJSFT}
-          onChange={this.handleChange}
-        />
-        <br />
-        <input
-          type="submit"
-          value="Upload"
-          onClick={this.handleFile}
-        />
+        <div className = "upload-students">
+          <label htmlFor="file">Upload Student Files</label>
+          <br />
+          <input
+            type="file"
+            className="form-control-file"
+            id="file"
+            accept={SheetJSFT}
+            onChange={this.handleChange}
+          />
+          <input
+            class="btn btn-primary"
+            type="submit"
+            value="Upload"
+            onClick={this.handleFile}
+            style = {{background: "#124734"}}
+          ></input>
+        </div>
       </div>
     );
   }
