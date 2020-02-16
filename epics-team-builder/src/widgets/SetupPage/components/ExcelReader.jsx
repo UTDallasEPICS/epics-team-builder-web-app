@@ -87,7 +87,91 @@ class ExcelReader extends Component {
   }
 
   handleStudentFile(){
+        /* Boilerplate to set up FileReader */
+        const reader = new FileReader();
+        const rABS = !!reader.readAsBinaryString;
+        var tempChoices = [6];
+        var choiceArray = [];
+        var tempSkills =[3] ;
+        var studentSkillsArray =[];
 
+        var studentsArray = [{
+          "Student":"",
+          "Response Date":"",
+          "SSO ID":"",
+          "Course" :"",
+          "Choices": ["","","","","" ,""],
+          "Student Major": "",
+          "Student Classification": "",
+          "Gender": "",
+          "Skills":["","",""],
+          "Comments": "",
+        }]
+         
+     
+        reader.onload = (e) => {
+          /* Parse data */
+          const bstr = e.target.result;
+          const wb = XLSX.read(bstr, { type: rABS ? 'binary' : 'array', bookVBA : true });
+          /* Get first worksheet */
+          const wsname = wb.SheetNames[0];
+          const ws = wb.Sheets[wsname];
+          /* Convert array of arrays */
+          const data = XLSX.utils.sheet_to_json(ws);
+          /* Update state */
+          this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
+            console.log(JSON.stringify(this.state.data, null, 2));
+
+            for(var i = 0 ; i < this.state.data.length ;i++){
+              tempChoices[0] = this.state.data[i]["Choice 1"] ;
+              tempChoices[1] = this.state.data[i]["Choice 2"] ;
+              tempChoices[2] = this.state.data[i]["Choice 3"] ;
+              tempChoices[3] = this.state.data[i]["Choice 4"] ;
+              tempChoices[4] = this.state.data[i]["Choice 5"] ;
+              tempChoices[5] = this.state.data[i]["Choice 6"] ;
+
+              choiceArray[i] = tempChoices ;
+
+              tempChoices = [] ;
+            }
+
+            for(var j = 0 ; j < this.state.data.length ;j++){
+              tempSkills[0] = this.state.data[j]["Skill 1"] ;
+              tempSkills[1] = this.state.data[j]["Skill 2"] ;
+              tempSkills[2] = this.state.data[j]["Skill 3"] ;
+              
+              studentSkillsArray[j] = tempSkills ;
+
+              tempSkills = [] ;
+            }
+
+            for(var f = 0 ; f < this.state.data.length ; f++){
+              var tempObj = {
+                "Student": this.state.data[f]["Student"],
+                "Response Date": this.state.data[f]["Response Date"],
+                "SSO ID": this.state.data[f]["SSO ID"],
+                "Course": this.state.data[f]["Course"],
+                "Choices": choiceArray[f],
+                "Student Major": this.state.data[f]["Student Major"],
+                "Student Classification": this.state.data[f]["Student Classification"],
+                "Gender": this.state.data[f]["Gender"],
+                "Skills": studentSkillsArray[f],
+                "Comments": this.state.data[f]["Comments"],                
+              }
+              studentsArray.push(tempObj) ;
+
+              tempObj = {}
+            }
+              console.log(studentsArray[2])
+          });
+     
+        };
+     
+        if (rABS) {
+          reader.readAsBinaryString(this.state.file);
+        } else {
+          reader.readAsArrayBuffer(this.state.file);
+        };
   }
 
   render() {
