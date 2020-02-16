@@ -146,13 +146,25 @@ class ExcelReader extends Component {
             }
 
             for(var f = 0 ; f < this.state.data.length ; f++){
+            
+            if(this.state.data[f]["Student Major"]){
+              var cutoffIndex = this.state.data[f]["Student Major"].indexOf("::::") + 4;
+
+              console.log(cutoffIndex);
+
+              var majorLength = this.state.data[f]["Student Major"].length;
+              
+              var studentMajor = this.state.data[f]["Student Major"].substring(cutoffIndex,majorLength) ;
+            }
+
+
               var tempObj = {
                 "Student": this.state.data[f]["Student"],
                 "Response Date": this.state.data[f]["Response Date"],
                 "SSO ID": this.state.data[f]["SSO ID"],
                 "Course": this.state.data[f]["Course"],
                 "Choices": choiceArray[f],
-                "Student Major": this.state.data[f]["Student Major"],
+                "Student Major": studentMajor,
                 "Student Classification": this.state.data[f]["Student Classification"],
                 "Gender": this.state.data[f]["Gender"],
                 "Skills": studentSkillsArray[f],
