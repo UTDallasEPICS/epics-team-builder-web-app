@@ -11,22 +11,27 @@ class ExcelReader extends Component {
       data: [],
       cols: []
     };
-    this.handleFile = this.handleFile.bind(this);
+    this.handleProjectFile = this.handleProjectFile.bind(this);
+    this.handleStudentFile = this.handleStudentFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  
 
   handleChange(e) {
     const files = e.target.files;
     if (files && files[0]) this.setState({ file: files[0] });
   }
 
-  handleFile() {
+  handleProjectFile() {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
+    var tempskillsArray = [3] ; /* empty skills array */
+    var skillsArray = [];
 
     reader.onload = e => {
       /* Parse data */
+    
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, {
         type: rABS ? 'binary' : 'array',
@@ -40,8 +45,38 @@ class ExcelReader extends Component {
       /* Update state */
       this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
         console.log(JSON.stringify(this.state.data, null, 2));
-        
-      });
+        for(var i = 0 ; i < this.state.data.length ; i++){
+            tempskillsArray[0] = this.state.data[i]["Skill 1"] ;
+            tempskillsArray[1] = this.state.data[i]["Skill 2"] ;
+            tempskillsArray[2] = this.state.data[i]["Skill 3"] ;
+
+            skillsArray[i] = tempskillsArray ;
+
+            tempskillsArray = [] ;
+
+        } /* end of for loop */
+        console.log(skillsArray[1]) ;
+
+        var projectsArray = [
+          {
+            "Project Name": "",
+            "Returning (Y/N)": "",
+            "Skills" : ["", "", ""]
+          }] ; /* empty JSON array */
+
+          for(var j = 0 ; j < this.state.data.length ; j++){
+            var tempObject = {"Project Name":this.state.data[j]["Project Name"],
+             "Returning (Y/N)": this.state.data[j]["Returning (Y/N)"],
+              "Skills": skillsArray[j]} ;
+
+            projectsArray.push(tempObject) ;
+
+            tempObject = {} ;
+          }
+
+        console.log(projectsArray[1]) ;
+
+      }); /* End of this.setState */
     };
 
     if (rABS) {
@@ -49,6 +84,10 @@ class ExcelReader extends Component {
     } else {
       reader.readAsArrayBuffer(this.state.file);
     }
+  }
+
+  handleStudentFile(){
+
   }
 
   render() {
@@ -68,7 +107,7 @@ class ExcelReader extends Component {
             class="btn btn-primary"
             type="submit"
             value="Upload"
-            onClick={this.handleFile}
+            onClick={this.handleProjectFile}
             style = {{background: "#124734"}}
           ></input>
         </div>
@@ -88,7 +127,7 @@ class ExcelReader extends Component {
             class="btn btn-primary"
             type="submit"
             value="Upload"
-            onClick={this.handleFile}
+            onClick={this.handleStudentFile}
             style = {{background: "#124734"}}
           ></input>
         </div>
