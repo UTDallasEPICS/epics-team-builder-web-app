@@ -3,7 +3,6 @@ import XLSX from 'xlsx';
 import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './types';
 import PropTypes from 'prop-types';
-import { changeProjectsArray } from '../../../actions/setupPageActions';
 
 class ExcelReader extends Component {
   constructor(props) {
@@ -98,9 +97,9 @@ class ExcelReader extends Component {
           tempObject = {};
         }
 
-        projectsArray.shift() ;
-
-        changeProjectsArray(projectsArray);
+        projectsArray.shift();
+        console.log(this.props);
+        this.props.changeProjectsArray(projectsArray);
       }); /* End of this.setState */
     };
 
@@ -208,7 +207,7 @@ class ExcelReader extends Component {
           tempObj = {};
         }
 
-        studentsArray.shift() ;
+        studentsArray.shift();
 
         this.props.changeStudentsArray(studentsArray);
       });
@@ -270,7 +269,7 @@ class ExcelReader extends Component {
 }
 
 ExcelReader.propTypes = {
-  changeProjectArray: PropTypes.func,
+  changeProjectsArray: PropTypes.func,
   changeStudentsArray: PropTypes.func
 };
 export default ExcelReader;
