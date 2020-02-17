@@ -1,44 +1,51 @@
 import React, { Component } from 'react';
 import XLSX from 'xlsx';
-import { make_cols } from './MakeColumns';
-import { SheetJSFT } from './types';
+import { make_cols } from '../utility/MakeColumns';
 import PropTypes from 'prop-types';
 
 class ExcelReader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      file: {},
-      data: [],
-      cols: [],
-      disabledProjects: true,
-      disabledStudents: true
+      projectFileName: '',
+      studentFileName: ''
     };
-    this.handleProjectFile = this.handleProjectFile.bind(this);
-    this.handleStudentFile = this.handleStudentFile.bind(this);
     this.handleChangeProjects = this.handleChangeProjects.bind(this);
     this.handleChangeStudents = this.handleChangeStudents.bind(this);
   }
 
+  getExtension = fileName => {
+    let temp = fileName.split('.');
+    return temp[temp.length - 1];
+  };
+
   handleChangeProjects(e) {
     const files = e.target.files;
-    if (files && files[0])
-      this.setState(
-        { file: files[0] },
-        this.setState({ disabledProjects: false })
-      );
+    if (files && files[0]) {
+      if (this.getExtension(files[0].name) !== 'xlsx') {
+        //Remove file from input component
+        e.target.value = '';
+        return alert('File must be of type xlsx');
+      }
+      this.setState({ projectFileName: files[0].name });
+      this.handleProjectFile(files[0]);
+    }
   }
 
   handleChangeStudents(e) {
     const files = e.target.files;
-    if (files && files[0])
-      this.setState(
-        { file: files[0] },
-        this.setState({ disabledStudents: false })
-      );
+    if (files && files[0]) {
+      if (this.getExtension(files[0].name) !== 'xlsx') {
+        //Remove file from input component
+        e.target.value = '';
+        return alert('File must be of type xlsx');
+      }
+      this.setState({ studentFileName: files[0].name });
+      this.handleStudentFile(files[0]);
+    }
   }
 
-  handleProjectFile() {
+  handleProjectFile(file) {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
@@ -59,58 +66,60 @@ class ExcelReader extends Component {
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
       /* Update state */
-      this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
-        console.log(JSON.stringify(this.state.data, null, 2));
-        for (var i = 0; i < this.state.data.length; i++) {
-          tempskillsArray[0] = this.state.data[i]['Skill 1'];
-          tempskillsArray[1] = this.state.data[i]['Skill 2'];
-          tempskillsArray[2] = this.state.data[i]['Skill 3'];
 
-          skillsArray[i] = tempskillsArray;
+      let tempContainer = {
+        file: file,
+        data,
+        cols: make_cols(ws['!ref'])
+      };
 
-          tempskillsArray = [];
-        } /* end of for loop */
-        console.log(skillsArray[2]);
+      for (var i = 0; i < tempContainer.data.length; i++) {
+        tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
+        tempskillsArray[1] = tempContainer.data[i]['Skill 2'];
+        tempskillsArray[2] = tempContainer.data[i]['Skill 3'];
 
-        var projectsArray = [
-          {
-            'Project Name': '',
-            Returning: false,
-            Skills: ['', '', '']
-          }
-        ]; /* empty JSON array */
+        skillsArray[i] = tempskillsArray;
 
-        for (var j = 0; j < this.state.data.length; j++) {
-          var tempReturn = false;
+        tempskillsArray = [];
+      } /* end of for loop */
 
-          if (this.state.data[j]['Returning (Y/N)'] == 'Y') {
-            tempReturn = true;
-          }
-          var tempObject = {
-            'Project Name': this.state.data[j]['Project Name'],
-            Returning: tempReturn,
-            Skills: skillsArray[j]
-          };
-
-          projectsArray.push(tempObject);
-
-          tempObject = {};
+      var projectsArray = [
+        {
+          'Project Name': '',
+          Returning: false,
+          Skills: ['', '', '']
         }
+      ]; /* empty JSON array */
 
-        projectsArray.shift();
-        console.log(this.props);
-        this.props.changeProjectsArray(projectsArray);
-      }); /* End of this.setState */
+      for (var j = 0; j < tempContainer.data.length; j++) {
+        var tempReturn = false;
+
+        if (tempContainer.data[j]['Returning (Y/N)'] === 'Y') {
+          tempReturn = true;
+        }
+        var tempObject = {
+          'Project Name': tempContainer.data[j]['Project Name'],
+          Returning: tempReturn,
+          Skills: skillsArray[j]
+        };
+
+        projectsArray.push(tempObject);
+
+        tempObject = {};
+      }
+
+      projectsArray.shift();
+      this.props.changeProjectsArray(projectsArray);
     };
 
     if (rABS) {
-      reader.readAsBinaryString(this.state.file);
+      reader.readAsBinaryString(file);
     } else {
-      reader.readAsArrayBuffer(this.state.file);
+      reader.readAsArrayBuffer(file);
     }
   }
 
-  handleStudentFile() {
+  handleStudentFile(file) {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
@@ -149,119 +158,110 @@ class ExcelReader extends Component {
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
       /* Update state */
-      this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
-        /*  console.log(JSON.stringify(this.state.data, null, 2)); */
 
-        for (var i = 0; i < this.state.data.length; i++) {
-          tempChoices[0] = this.state.data[i]['Choice 1'];
-          tempChoices[1] = this.state.data[i]['Choice 2'];
-          tempChoices[2] = this.state.data[i]['Choice 3'];
-          tempChoices[3] = this.state.data[i]['Choice 4'];
-          tempChoices[4] = this.state.data[i]['Choice 5'];
-          tempChoices[5] = this.state.data[i]['Choice 6'];
+      let tempContainer = {
+        file: file,
+        data,
+        cols: make_cols(ws['!ref'])
+      };
 
-          choiceArray[i] = tempChoices;
+      for (var i = 0; i < tempContainer.data.length; i++) {
+        tempChoices[0] = tempContainer.data[i]['Choice 1'];
+        tempChoices[1] = tempContainer.data[i]['Choice 2'];
+        tempChoices[2] = tempContainer.data[i]['Choice 3'];
+        tempChoices[3] = tempContainer.data[i]['Choice 4'];
+        tempChoices[4] = tempContainer.data[i]['Choice 5'];
+        tempChoices[5] = tempContainer.data[i]['Choice 6'];
 
-          tempChoices = [];
+        choiceArray[i] = tempChoices;
+
+        tempChoices = [];
+      }
+
+      for (var j = 0; j < tempContainer.data.length; j++) {
+        tempSkills[0] = tempContainer.data[j]['Skill 1'];
+        tempSkills[1] = tempContainer.data[j]['Skill 2'];
+        tempSkills[2] = tempContainer.data[j]['Skill 3'];
+
+        studentSkillsArray[j] = tempSkills;
+
+        tempSkills = [];
+      }
+
+      for (var f = 0; f < tempContainer.data.length; f++) {
+        if (tempContainer.data[f]['Student Major']) {
+          var cutoffIndex =
+            tempContainer.data[f]['Student Major'].indexOf('::::') + 4;
+
+          var majorLength = tempContainer.data[f]['Student Major'].length;
+
+          var studentMajor = tempContainer.data[f]['Student Major'].substring(
+            cutoffIndex,
+            majorLength
+          );
         }
 
-        for (var j = 0; j < this.state.data.length; j++) {
-          tempSkills[0] = this.state.data[j]['Skill 1'];
-          tempSkills[1] = this.state.data[j]['Skill 2'];
-          tempSkills[2] = this.state.data[j]['Skill 3'];
+        var tempObj = {
+          name: tempContainer.data[f]['Student'],
+          'Response Date': tempContainer.data[f]['Response Date'],
+          ID: tempContainer.data[f]['SSO ID'],
+          Course: tempContainer.data[f]['Course'],
+          Choices: choiceArray[f],
+          Major: studentMajor,
+          ' Classification': tempContainer.data[f]['Student Classification'],
+          Gender: tempContainer.data[f]['Gender'],
+          Skills: studentSkillsArray[f],
+          Comments: tempContainer.data[f]['Comments'],
+          found_team: false,
+          choice_num_awarded: 0
+        };
+        studentsArray.push(tempObj);
 
-          studentSkillsArray[j] = tempSkills;
+        tempObj = {};
+      }
 
-          tempSkills = [];
-        }
+      studentsArray.shift();
 
-        for (var f = 0; f < this.state.data.length; f++) {
-          if (this.state.data[f]['Student Major']) {
-            var cutoffIndex =
-              this.state.data[f]['Student Major'].indexOf('::::') + 4;
-
-            var majorLength = this.state.data[f]['Student Major'].length;
-
-            var studentMajor = this.state.data[f]['Student Major'].substring(
-              cutoffIndex,
-              majorLength
-            );
-          }
-
-          var tempObj = {
-            name: this.state.data[f]['Student'],
-            'Response Date': this.state.data[f]['Response Date'],
-            ID: this.state.data[f]['SSO ID'],
-            Course: this.state.data[f]['Course'],
-            Choices: choiceArray[f],
-            Major: studentMajor,
-            ' Classification': this.state.data[f]['Student Classification'],
-            Gender: this.state.data[f]['Gender'],
-            Skills: studentSkillsArray[f],
-            Comments: this.state.data[f]['Comments'],
-            found_team: false,
-            choice_num_awarded: 0
-          };
-          studentsArray.push(tempObj);
-
-          tempObj = {};
-        }
-
-        studentsArray.shift();
-
-        this.props.changeStudentsArray(studentsArray);
-      });
+      this.props.changeStudentsArray(studentsArray);
     };
 
     if (rABS) {
-      reader.readAsBinaryString(this.state.file);
+      reader.readAsBinaryString(file);
     } else {
-      reader.readAsArrayBuffer(this.state.file);
+      reader.readAsArrayBuffer(file);
     }
   }
 
   render() {
+    const { projectFileName, studentFileName } = this.state;
+
     return (
-      <div>
-        <div className="upload-project">
-          <label htmlFor="file">Upload Project Files</label>
-          <br />
+      <div className='file-uploader'>
+        <div className='upload-project'>
+          <label htmlFor='projectInput' className='upload-button'>
+            Upload Project Files
+          </label>
           <input
-            type="file"
-            className="form-control-file"
-            id="file"
-            accept={SheetJSFT}
+            id='projectInput'
+            type='file'
+            accept='.xlsx'
+            style={{ display: 'none' }}
             onChange={this.handleChangeProjects}
           />
-          <input
-            className="btn btn-primary"
-            type="submit"
-            value="Upload"
-            onClick={this.handleProjectFile}
-            style={{ background: '#124734' }}
-            disabled={this.state.disabledProjects}
-          ></input>
+          <label className='file-name-display'>{projectFileName}</label>
         </div>
-        <br />
-        <br />
-        <div className="upload-students">
-          <label htmlFor="file">Upload Student Files</label>
-          <br />
+        <div className='upload-students'>
+          <label htmlFor='studentInput' className='upload-button'>
+            Upload Student Files
+          </label>
           <input
-            type="file"
-            className="form-control-file"
-            id="file"
-            accept={SheetJSFT}
+            id='studentInput'
+            type='file'
+            accept='.xlsx'
+            style={{ display: 'none' }}
             onChange={this.handleChangeStudents}
           />
-          <input
-            className="btn btn-primary"
-            type="submit"
-            value="Upload"
-            onClick={this.handleStudentFile}
-            style={{ background: '#124734' }}
-            disabled={this.state.disabledStudents}
-          ></input>
+          <label className='file-name-display'>{studentFileName}</label>
         </div>
       </div>
     );
