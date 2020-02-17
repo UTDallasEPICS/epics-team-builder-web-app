@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
-import ExcelReader from './ExcelReader';
+import ExcelReader from '../containers/ExcelReaderContainer';
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed

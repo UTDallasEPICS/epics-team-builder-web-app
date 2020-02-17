@@ -81,7 +81,7 @@ class ExcelReader extends Component {
           tempObject = {};
         }
 
-        this.props.changeProjectArray(projectsArray);
+        this.props.changeProjectsArray(projectsArray);
       }); /* End of this.setState */
     };
 
@@ -159,15 +159,11 @@ class ExcelReader extends Component {
 
         for (var f = 0; f < this.state.data.length; f++) {
           if (this.state.data[f]['Student Major']) {
-            var cutoffIndex =
-              this.state.data[f]['Student Major'].indexOf('::::') + 4;
+            var cutoffIndex = this.state.data[f]['Student Major'].indexOf('::::') + 4;
 
             var majorLength = this.state.data[f]['Student Major'].length;
 
-            var studentMajor = this.state.data[f]['Student Major'].substring(
-              cutoffIndex,
-              majorLength
-            );
+            var studentMajor = this.state.data[f]['Student Major'].substring(cutoffIndex, majorLength);
           }
 
           var tempObj = {
@@ -188,7 +184,7 @@ class ExcelReader extends Component {
 
           tempObj = {};
         }
-        this.props.changeStudentArray(studentsArray);
+        this.props.changeStudentsArray(studentsArray);
       });
     };
 
@@ -205,13 +201,7 @@ class ExcelReader extends Component {
         <div className="upload-project">
           <label htmlFor="file">Upload Project Files</label>
           <br />
-          <input
-            type="file"
-            className="form-control-file"
-            id="file"
-            accept={SheetJSFT}
-            onChange={this.handleChange}
-          />
+          <input type="file" className="form-control-file" id="file" accept={SheetJSFT} onChange={this.handleChange} />
           <input
             className="btn btn-primary"
             type="submit"
@@ -225,13 +215,7 @@ class ExcelReader extends Component {
         <div className="upload-students">
           <label htmlFor="file">Upload Student Files</label>
           <br />
-          <input
-            type="file"
-            className="form-control-file"
-            id="file"
-            accept={SheetJSFT}
-            onChange={this.handleChange}
-          />
+          <input type="file" className="form-control-file" id="file" accept={SheetJSFT} onChange={this.handleChange} />
           <input
             className="btn btn-primary"
             type="submit"
@@ -245,10 +229,8 @@ class ExcelReader extends Component {
   }
 }
 
-ExcelReader.defaultProps = {};
-
 ExcelReader.propTypes = {
-  changeProjectArray: PropTypes.func,
-  changeStudentArray: PropTypes.func
+  changeProjectsArray: PropTypes.func,
+  changeStudentsArray: PropTypes.func
 };
 export default ExcelReader;
