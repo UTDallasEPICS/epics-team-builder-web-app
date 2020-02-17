@@ -9,11 +9,11 @@ module.exports = function(grunt) {
         singleQuote: true
       },
       files: {
-        src: ['*.js', 'src/**/*.*']
+        src: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
       }
     },
     eslint: {
-      target: ['*.js', 'src/**.js']
+      target: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
     },
     run: {
       options: {
