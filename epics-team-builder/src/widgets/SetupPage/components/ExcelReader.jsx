@@ -98,7 +98,9 @@ class ExcelReader extends Component {
           tempObject = {};
         }
 
-        changeProjectsArray(projectsArray) ;
+        projectsArray.shift() ;
+
+        changeProjectsArray(projectsArray);
       }); /* End of this.setState */
     };
 
@@ -205,9 +207,10 @@ class ExcelReader extends Component {
 
           tempObj = {};
         }
-        
-        this.props.changeStudentsArray(studentsArray) ;
-      
+
+        studentsArray.shift() ;
+
+        this.props.changeStudentsArray(studentsArray);
       });
     };
 
