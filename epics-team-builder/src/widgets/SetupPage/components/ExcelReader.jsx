@@ -10,16 +10,32 @@ class ExcelReader extends Component {
     this.state = {
       file: {},
       data: [],
-      cols: []
+      cols: [],
+      disabledProjects: true,
+      disabledStudents: true
     };
     this.handleProjectFile = this.handleProjectFile.bind(this);
     this.handleStudentFile = this.handleStudentFile.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeProjects = this.handleChangeProjects.bind(this);
+    this.handleChangeStudents = this.handleChangeStudents.bind(this);
   }
 
-  handleChange(e) {
+  handleChangeProjects(e) {
     const files = e.target.files;
-    if (files && files[0]) this.setState({ file: files[0] });
+    if (files && files[0])
+      this.setState(
+        { file: files[0] },
+        this.setState({ disabledProjects: false })
+      );
+  }
+
+  handleChangeStudents(e) {
+    const files = e.target.files;
+    if (files && files[0])
+      this.setState(
+        { file: files[0] },
+        this.setState({ disabledStudents: false })
+      );
   }
 
   handleProjectFile() {
@@ -81,7 +97,7 @@ class ExcelReader extends Component {
           tempObject = {};
         }
 
-        this.props.changeProjectsArray(projectsArray);
+        this.props.changeProjectArray(projectsArray);
       }); /* End of this.setState */
     };
 
@@ -159,11 +175,15 @@ class ExcelReader extends Component {
 
         for (var f = 0; f < this.state.data.length; f++) {
           if (this.state.data[f]['Student Major']) {
-            var cutoffIndex = this.state.data[f]['Student Major'].indexOf('::::') + 4;
+            var cutoffIndex =
+              this.state.data[f]['Student Major'].indexOf('::::') + 4;
 
             var majorLength = this.state.data[f]['Student Major'].length;
 
-            var studentMajor = this.state.data[f]['Student Major'].substring(cutoffIndex, majorLength);
+            var studentMajor = this.state.data[f]['Student Major'].substring(
+              cutoffIndex,
+              majorLength
+            );
           }
 
           var tempObj = {
@@ -184,7 +204,7 @@ class ExcelReader extends Component {
 
           tempObj = {};
         }
-        this.props.changeStudentsArray(studentsArray);
+        this.props.changeStudentArray(studentsArray);
       });
     };
 
@@ -201,13 +221,20 @@ class ExcelReader extends Component {
         <div className="upload-project">
           <label htmlFor="file">Upload Project Files</label>
           <br />
-          <input type="file" className="form-control-file" id="file" accept={SheetJSFT} onChange={this.handleChange} />
+          <input
+            type="file"
+            className="form-control-file"
+            id="file"
+            accept={SheetJSFT}
+            onChange={this.handleChangeProjects}
+          />
           <input
             className="btn btn-primary"
             type="submit"
             value="Upload"
             onClick={this.handleProjectFile}
             style={{ background: '#124734' }}
+            disabled={this.state.disabledProjects}
           ></input>
         </div>
         <br />
@@ -215,13 +242,20 @@ class ExcelReader extends Component {
         <div className="upload-students">
           <label htmlFor="file">Upload Student Files</label>
           <br />
-          <input type="file" className="form-control-file" id="file" accept={SheetJSFT} onChange={this.handleChange} />
+          <input
+            type="file"
+            className="form-control-file"
+            id="file"
+            accept={SheetJSFT}
+            onChange={this.handleChangeStudents}
+          />
           <input
             className="btn btn-primary"
             type="submit"
             value="Upload"
             onClick={this.handleStudentFile}
             style={{ background: '#124734' }}
+            disabled={this.state.disabledStudents}
           ></input>
         </div>
       </div>
@@ -230,7 +264,7 @@ class ExcelReader extends Component {
 }
 
 ExcelReader.propTypes = {
-  changeProjectsArray: PropTypes.func,
-  changeStudentsArray: PropTypes.func
+  changeProjectArray: PropTypes.func,
+  changeStudentArray: PropTypes.func
 };
 export default ExcelReader;

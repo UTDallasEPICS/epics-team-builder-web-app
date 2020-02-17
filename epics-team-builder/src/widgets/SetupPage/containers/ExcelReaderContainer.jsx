@@ -1,6 +1,9 @@
 import ExcelReader from '../components/ExcelReader';
 import { connect } from 'react-redux';
-import { changeProjectsArray, changeStudentsArray } from '../../../actions/setupPageActions.js';
+import {
+  changeProjectsArray,
+  changeStudentsArray
+} from '../../../actions/setupPageActions.js';
 
 const mapDispatchToProps = dispatch => ({
   changeProjectsArray: value => dispatch(changeProjectsArray(value)),

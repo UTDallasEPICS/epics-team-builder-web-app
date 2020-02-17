@@ -9,7 +9,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeNumOfPreferredProjects: value => dispatch(changeNumOfPreferredProjects(value))
+  changeNumOfPreferredProjects: value =>
+    dispatch(changeNumOfPreferredProjects(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupPage);
