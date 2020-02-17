@@ -15,7 +15,6 @@ class ExcelReader extends Component {
     this.handleStudentFile = this.handleStudentFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
 
   handleChange(e) {
     const files = e.target.files;
@@ -59,21 +58,20 @@ class ExcelReader extends Component {
         var projectsArray = [
           {
             'Project Name': '',
-            'Returning': false,
+            Returning: false,
             Skills: ['', '', '']
           }
         ]; /* empty JSON array */
 
         for (var j = 0; j < this.state.data.length; j++) {
-          
-          var tempReturn = false ;
+          var tempReturn = false;
 
-          if(this.state.data[j]['Returning (Y/N)']=='Y'){
+          if (this.state.data[j]['Returning (Y/N)'] == 'Y') {
             tempReturn = true;
           }
           var tempObject = {
             'Project Name': this.state.data[j]['Project Name'],
-            'Returning': tempReturn ,
+            Returning: tempReturn,
             Skills: skillsArray[j]
           };
 
@@ -82,8 +80,7 @@ class ExcelReader extends Component {
           tempObject = {};
         }
 
-        console.log(projectsArray[2]);
-        return projectsArray;
+        this.props.changeProjectArray(projectsArray);
       }); /* End of this.setState */
     };
 
@@ -107,16 +104,16 @@ class ExcelReader extends Component {
       {
         name: '',
         'Response Date': '',
-        'id': 0,
+        id: 0,
         Course: '',
         Choices: ['', '', '', '', '', ''],
-        'Major': '',
-        'Classification': '',
+        Major: '',
+        Classification: '',
         Gender: '',
         Skills: ['', '', ''],
         Comments: '',
-        found_team:false,
-        choice_num_awarded:0
+        found_team: false,
+        choice_num_awarded: 0
       }
     ];
 
@@ -134,7 +131,7 @@ class ExcelReader extends Component {
       const data = XLSX.utils.sheet_to_json(ws);
       /* Update state */
       this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
-        console.log(JSON.stringify(this.state.data, null, 2));
+      /*  console.log(JSON.stringify(this.state.data, null, 2)); */
 
         for (var i = 0; i < this.state.data.length; i++) {
           tempChoices[0] = this.state.data[i]['Choice 1'];
@@ -173,24 +170,24 @@ class ExcelReader extends Component {
           }
 
           var tempObj = {
-            'name': this.state.data[f]['Student'],
+            name: this.state.data[f]['Student'],
             'Response Date': this.state.data[f]['Response Date'],
-            'ID': this.state.data[f]['SSO ID'],
+            ID: this.state.data[f]['SSO ID'],
             Course: this.state.data[f]['Course'],
             Choices: choiceArray[f],
-            'Major': studentMajor,
-            ' Classification': this.state.data[f]['Student Classification' ],
+            Major: studentMajor,
+            ' Classification': this.state.data[f]['Student Classification'],
             Gender: this.state.data[f]['Gender'],
             Skills: studentSkillsArray[f],
             Comments: this.state.data[f]['Comments'],
-            found_team:false,
-            choice_num_awarded:0,
+            found_team: false,
+            choice_num_awarded: 0
           };
           studentsArray.push(tempObj);
 
           tempObj = {};
         }
-        console.log(studentsArray[2]);
+        this.props.changeStudentArray(studentsArray) ;
       });
     };
 
@@ -215,7 +212,7 @@ class ExcelReader extends Component {
             onChange={this.handleChange}
           />
           <input
-            class="btn btn-primary"
+            className="btn btn-primary"
             type="submit"
             value="Upload"
             onClick={this.handleProjectFile}
@@ -235,7 +232,7 @@ class ExcelReader extends Component {
             onChange={this.handleChange}
           />
           <input
-            class="btn btn-primary"
+            className="btn btn-primary"
             type="submit"
             value="Upload"
             onClick={this.handleStudentFile}
