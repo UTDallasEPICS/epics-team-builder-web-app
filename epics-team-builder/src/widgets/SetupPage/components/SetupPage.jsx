@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../../common/Header';
-import FileUploaders from './FileUploaders';
 import ExcelReader from './ExcelReader';
 export default class SetupPage extends React.Component {
   render() {
@@ -11,7 +10,7 @@ export default class SetupPage extends React.Component {
           {/* Make sure to put these divs in their respective components when made */}
           <div className="file-uploader">
             {/*Component goes here*/}
-            <ExcelReader />
+            <ExcelReader/>
           </div>
           <div className="manual-project-assignment"></div>
           <div className="manually-assigned-students"></div>

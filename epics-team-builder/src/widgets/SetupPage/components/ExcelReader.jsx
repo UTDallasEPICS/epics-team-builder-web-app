@@ -15,6 +15,7 @@ class ExcelReader extends Component {
     this.handleStudentFile = this.handleStudentFile.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+  
 
   handleChange(e) {
     const files = e.target.files;
@@ -82,6 +83,7 @@ class ExcelReader extends Component {
         }
 
         console.log(projectsArray[2]);
+        return projectsArray;
       }); /* End of this.setState */
     };
 
