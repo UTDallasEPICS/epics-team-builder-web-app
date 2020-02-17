@@ -23,11 +23,11 @@ class SetupPage extends React.Component {
           <div className="manual-project-assignment"></div>
 
           <div className="manually-assigned-students">
-            <MAS/>
+            <MAS />
           </div>
         </div>
         <div className="preferred-project-slider">
-          <h3>Number of Preferred Projects:</h3>
+          <h5>Number of Preferred Projects:</h5>
           <Nouislider
             range={{ min: 3, max: 10 }}
             start={[numOfPreferredProjects]}

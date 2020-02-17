@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import store from './store';
 import SetupPage from './widgets/SetupPage/containers/SetupPageContainer';
 import TeamBuilderPage from './widgets/TeamBuilderPage/containers/TeamBuilderPageContainer';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class EpicsTeamBuilder extends React.Component {
   constructor() {
