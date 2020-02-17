@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import { make_cols } from './MakeColumns';
 import { SheetJSFT } from './types';
+import PropTypes from 'prop-types';
 
 class ExcelReader extends Component {
   constructor(props) {
@@ -131,7 +132,7 @@ class ExcelReader extends Component {
       const data = XLSX.utils.sheet_to_json(ws);
       /* Update state */
       this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
-      /*  console.log(JSON.stringify(this.state.data, null, 2)); */
+        /*  console.log(JSON.stringify(this.state.data, null, 2)); */
 
         for (var i = 0; i < this.state.data.length; i++) {
           tempChoices[0] = this.state.data[i]['Choice 1'];
@@ -187,7 +188,7 @@ class ExcelReader extends Component {
 
           tempObj = {};
         }
-        this.props.changeStudentArray(studentsArray) ;
+        this.props.changeStudentArray(studentsArray);
       });
     };
 
@@ -244,4 +245,10 @@ class ExcelReader extends Component {
   }
 }
 
+ExcelReader.defaultProps = {};
+
+ExcelReader.propTypes = {
+  changeProjectArray: PropTypes.func,
+  changeStudentArray: PropTypes.func
+};
 export default ExcelReader;

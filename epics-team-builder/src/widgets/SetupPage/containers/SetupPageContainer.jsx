@@ -13,12 +13,9 @@ const mapDispatchToProps = dispatch => ({
   changeNumOfPreferredProjects: value =>
     dispatch(changeNumOfPreferredProjects(value)),
 
-  changeProjectsArray: value =>
-    dispatch(changeProjectsArray(value)), 
+  changeProjectsArray: value => dispatch(changeProjectsArray(value)),
 
-  changeStudentsArray: value =>
-    dispatch(changeStudentsArray(value))
-
+  changeStudentsArray: value => dispatch(changeStudentsArray(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupPage);
