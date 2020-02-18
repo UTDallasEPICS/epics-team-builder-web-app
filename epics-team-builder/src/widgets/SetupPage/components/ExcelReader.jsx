@@ -81,30 +81,20 @@ class ExcelReader extends Component {
       };
 
       if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 1" does not exist in the excel file');
       }
 
       if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 2" does not exist in the excel file');
       }
       if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 3" does not exist in the excel file');
       }
       if (!tempContainer.data[1]['Returning (Y/N)']) {
-        return alert(
-          'The project columns "Returning (Y/N)" does not exist in the excel file'
-        );
+        return alert('The project columns "Returning (Y/N)" does not exist in the excel file');
       }
       if (!tempContainer.data[1]['Project Name']) {
-        return alert(
-          'The project columns "Project Name" does not exist in the excel file'
-        );
+        return alert('The project columns "Project Name" does not exist in the excel file');
       }
 
       for (var i = 0; i < tempContainer.data.length; i++) {
@@ -132,11 +122,9 @@ class ExcelReader extends Component {
           tempReturn = true;
         }
         var tempObject = {
-          name: tempContainer.data[j]['Project Name']
-            ? tempContainer.data[j]['Project Name']
-            : 'N/A',
-          Returning: tempReturn,
-          Skills: skillsArray[j] ? skillsArray[j] : []
+          name: tempContainer.data[j]['Project Name'] ? tempContainer.data[j]['Project Name'] : 'N/A',
+          returning: tempReturn,
+          skills: skillsArray[j] ? skillsArray[j] : []
         };
 
         projectsArray.push(tempObject);
@@ -244,9 +232,7 @@ class ExcelReader extends Component {
       }
 
       if (!tempContainer.data[1]['Student Classification']) {
-        return alert(
-          'Student Classification column is missing from student file'
-        );
+        return alert('Student Classification column is missing from student file');
       }
 
       if (!tempContainer.data[1]['Gender']) {
@@ -254,20 +240,14 @@ class ExcelReader extends Component {
       }
 
       if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 1" does not exist in the excel file');
       }
 
       if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 2" does not exist in the excel file');
       }
       if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
+        return alert('The project columns "Skill 3" does not exist in the excel file');
       }
 
       for (var i = 0; i < tempContainer.data.length; i++) {
@@ -295,15 +275,11 @@ class ExcelReader extends Component {
 
       for (var f = 0; f < tempContainer.data.length; f++) {
         if (tempContainer.data[f]['Student Major']) {
-          var cutoffIndex =
-            tempContainer.data[f]['Student Major'].indexOf('::::') + 4;
+          var cutoffIndex = tempContainer.data[f]['Student Major'].indexOf('::::') + 4;
 
           var majorLength = tempContainer.data[f]['Student Major'].length;
 
-          var studentMajor = tempContainer.data[f]['Student Major'].substring(
-            cutoffIndex,
-            majorLength
-          );
+          var studentMajor = tempContainer.data[f]['Student Major'].substring(cutoffIndex, majorLength);
         }
 
         var tempResponse = false;
@@ -319,23 +295,17 @@ class ExcelReader extends Component {
         }
 
         var tempObj = {
-          name: tempContainer.data[f]['Student']
-            ? tempContainer.data[f]['Student']
-            : 'N/A',
-          Response: tempResponse,
-          id: tempContainer.data[f]['SSO ID']
-            ? tempContainer.data[f]['SSO ID']
-            : 'N/A',
+          name: tempContainer.data[f]['Student'] ? tempContainer.data[f]['Student'] : 'N/A',
+          response: tempResponse,
+          id: tempContainer.data[f]['SSO ID'] ? tempContainer.data[f]['SSO ID'] : 'N/A',
           returning: tempReturn,
-          Choices: choiceArray ? choiceArray : [],
-          Major: studentMajor,
-          Classification: tempContainer.data[f]['Student Classification']
+          choices: choiceArray ? choiceArray : [],
+          major: studentMajor,
+          classification: tempContainer.data[f]['Student Classification']
             ? tempContainer.data[f]['Student Classification']
             : 'N/A',
-          Gender: tempContainer.data[f]['Gender']
-            ? tempContainer.data[f]['Gender']
-            : 'N',
-          Skills: studentSkillsArray[f],
+          gender: tempContainer.data[f]['Gender'] ? tempContainer.data[f]['Gender'] : 'N',
+          skills: studentSkillsArray[f],
           found_team: false,
           choice_num_awarded: 0
         };
@@ -370,42 +340,34 @@ class ExcelReader extends Component {
     const { projectFileName, studentFileName } = this.state;
 
     return (
-      <div className='file-uploader'>
-        <div className='upload-project'>
-          <button
-            className='upload-button'
-            onClick={this.onProjectInputClick}
-            ref={this.projectBtnRef}
-          >
+      <div className="file-uploader">
+        <div className="upload-project">
+          <button className="upload-button" onClick={this.onProjectInputClick} ref={this.projectBtnRef}>
             Upload Project Files
           </button>
           <input
-            id='projectInput'
-            type='file'
-            accept='.xlsx'
+            id="projectInput"
+            type="file"
+            accept=".xlsx"
             style={{ display: 'none' }}
             ref={this.projectInputRef}
             onChange={this.handleChangeProjects}
           />
-          <label className='file-name-display'>{projectFileName}</label>
+          <label className="file-name-display">{projectFileName}</label>
         </div>
-        <div className='upload-students'>
-          <button
-            className='upload-button'
-            onClick={this.onStudentInputClick}
-            ref={this.studentBtnRef}
-          >
+        <div className="upload-students">
+          <button className="upload-button" onClick={this.onStudentInputClick} ref={this.studentBtnRef}>
             Upload Student Files
           </button>
           <input
-            id='studentInput'
-            type='file'
-            accept='.xlsx'
+            id="studentInput"
+            type="file"
+            accept=".xlsx"
             style={{ display: 'none' }}
             ref={this.studentInputRef}
             onChange={this.handleChangeStudents}
           />
-          <label className='file-name-display'>{studentFileName}</label>
+          <label className="file-name-display">{studentFileName}</label>
         </div>
       </div>
     );
