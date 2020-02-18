@@ -46,17 +46,18 @@
       vertical-align: middle;
       cursor: pointer;
 
-      &:active {
+      &:focus {
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
         transition: box-shadow 0.3s ease-in-out;
       }
     }
 
     .file-name-display {
+      position: relative;
       box-sizing: border-box;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-top: 4px;
+      top: 6px;
       font-size: 18px;
       width: 250px;
       height: 32px;
