@@ -73,7 +73,23 @@ class ExcelReader extends Component {
         cols: make_cols(ws['!ref'])
       };
 
-      console.log(tempContainer.data[0].length) ;
+      if(!tempContainer.data[1]['Skill 1']){
+        return alert('The project columns "Skill 1" does not exist in the excel file') ;
+      }
+
+      if(!tempContainer.data[1]['Skill 2']){
+        return alert('The project columns "Skill 2" does not exist in the excel file') ;
+      }
+      if(!tempContainer.data[1]['Skill 3']){
+        return alert('The project columns "Skill 3" does not exist in the excel file') ;
+      }
+      if(!tempContainer.data[1]['Returning (Y/N)']){
+        return alert('The project columns "Returning (Y/N)" does not exist in the excel file') ;
+      }
+      if(!tempContainer.data[1]['Project Name']){
+        return alert('The project columns "Project Name" does not exist in the excel file') ;
+      }
+
 
       for (var i = 0; i < tempContainer.data.length; i++) {
         tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
@@ -166,6 +182,70 @@ class ExcelReader extends Component {
         cols: make_cols(ws['!ref'])
       };
 
+      if(!tempContainer.data[1]['Student']){
+        return alert('Student column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Response Date']){
+        return alert('Response Date column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['SSO ID']){
+        return alert('SSO ID column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Course']){
+        return alert('Course column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Choice 1']){
+        return alert('Choice 1 column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Choice 2']){
+        return alert('Choice 2 column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Choice 3']){
+        return alert('Choice 3 column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Choice 4']){
+        return alert('Choice 4 column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Choice 5']){
+        return alert('Choice 5 column is missing from student file') ;
+      }
+      if(!tempContainer.data[1]['Choice 6']){
+        return alert('Choice 6 column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Student Major']){
+        return alert('Student Major column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Student Classification']){
+        return alert('Student Classification column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Gender']){
+        return alert('Gender column is missing from student file') ;
+      }
+
+      if(!tempContainer.data[1]['Skill 1']){
+        return alert('The project columns "Skill 1" does not exist in the excel file') ;
+      }
+
+      if(!tempContainer.data[1]['Skill 2']){
+        return alert('The project columns "Skill 2" does not exist in the excel file') ;
+      }
+      if(!tempContainer.data[1]['Skill 3']){
+        return alert('The project columns "Skill 3" does not exist in the excel file') ;
+      }
+
+      
+
       for (var i = 0; i < tempContainer.data.length; i++) {
         tempChoices[0] = tempContainer.data[i]['Choice 1'];
         tempChoices[1] = tempContainer.data[i]['Choice 2'];
@@ -214,39 +294,15 @@ class ExcelReader extends Component {
           tempReturn = true ;
         }
 
-        var tempStudentName = "N/A" ;
-
-        if(tempContainer.data[f]['Student']){
-          tempStudentName = tempContainer.data[f]['Student'] ;
-        }
-
-        var tempChoiceArray = [] ;
-
-        if(choiceArray){
-          tempChoiceArray = choiceArray ;
-        }
-
-        var tempClassification = "N/A" ;
-
-        if(tempContainer.data[f]['Student Classification']){
-          tempClassification = tempContainer.data[f]['Student Classification'] ;
-        }
-
-        var tempGender = "N" ;
-
-        if(tempContainer.data[f]['Gender']){
-          tempGender = tempContainer.data[f]['Gender'] ;
-        }
-
         var tempObj = {
-          name: tempStudentName,
+          name: tempContainer.data[f]['Student']? tempContainer.data[f]['Student']:"N/A",
           Response: tempResponse,
-          id: tempContainer.data[f]['SSO ID'],
+          id: tempContainer.data[f]['SSO ID']?tempContainer.data[f]['SSO ID']: "N/A",
           returning: tempReturn,
-          Choices: tempChoiceArray[f],
+          Choices: choiceArray?choiceArray:[],
           Major: studentMajor,
-          Classification: tempClassification,
-          Gender: tempGender,
+          Classification: tempContainer.data[f]['Student Classification']? tempContainer.data[f]['Student Classification']: "N/A",
+          Gender: tempContainer.data[f]['Gender'] ? tempContainer.data[f]['Gender'] : "N",
           Skills: studentSkillsArray[f],
           found_team: false,
           choice_num_awarded: 0
