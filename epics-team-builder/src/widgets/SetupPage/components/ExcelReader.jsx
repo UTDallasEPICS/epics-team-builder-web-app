@@ -10,6 +10,9 @@ class ExcelReader extends Component {
       projectFileName: '',
       studentFileName: ''
     };
+
+    this.projectInputRef = React.createRef();
+    this.studentInputRef = React.createRef();
     this.handleChangeProjects = this.handleChangeProjects.bind(this);
     this.handleChangeStudents = this.handleChangeStudents.bind(this);
   }
@@ -73,7 +76,7 @@ class ExcelReader extends Component {
         cols: make_cols(ws['!ref'])
       };
 
-      console.log(tempContainer.data[0].length) ;
+      console.log(tempContainer.data[0].length);
 
       for (var i = 0; i < tempContainer.data.length; i++) {
         tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
@@ -202,40 +205,40 @@ class ExcelReader extends Component {
           );
         }
 
-        var tempResponse = false ; 
+        var tempResponse = false;
 
-        if(tempContainer.data[f]['Response Date']){
-          tempResponse = true ;
+        if (tempContainer.data[f]['Response Date']) {
+          tempResponse = true;
         }
 
-        var tempReturn = false ; 
+        var tempReturn = false;
 
-        if(tempContainer.data[f]['Course']=="EPCS 3200"){
-          tempReturn = true ;
+        if (tempContainer.data[f]['Course'] == 'EPCS 3200') {
+          tempReturn = true;
         }
 
-        var tempStudentName = "N/A" ;
+        var tempStudentName = 'N/A';
 
-        if(tempContainer.data[f]['Student']){
-          tempStudentName = tempContainer.data[f]['Student'] ;
+        if (tempContainer.data[f]['Student']) {
+          tempStudentName = tempContainer.data[f]['Student'];
         }
 
-        var tempChoiceArray = [] ;
+        var tempChoiceArray = [];
 
-        if(choiceArray){
-          tempChoiceArray = choiceArray ;
+        if (choiceArray) {
+          tempChoiceArray = choiceArray;
         }
 
-        var tempClassification = "N/A" ;
+        var tempClassification = 'N/A';
 
-        if(tempContainer.data[f]['Student Classification']){
-          tempClassification = tempContainer.data[f]['Student Classification'] ;
+        if (tempContainer.data[f]['Student Classification']) {
+          tempClassification = tempContainer.data[f]['Student Classification'];
         }
 
-        var tempGender = "N" ;
+        var tempGender = 'N';
 
-        if(tempContainer.data[f]['Gender']){
-          tempGender = tempContainer.data[f]['Gender'] ;
+        if (tempContainer.data[f]['Gender']) {
+          tempGender = tempContainer.data[f]['Gender'];
         }
 
         var tempObj = {
@@ -258,7 +261,7 @@ class ExcelReader extends Component {
 
       studentsArray.shift();
 
-      console.log(studentsArray) ;
+      console.log(studentsArray);
 
       this.props.changeStudentsArray(studentsArray);
     };
@@ -270,36 +273,46 @@ class ExcelReader extends Component {
     }
   }
 
+  onProjectInputClick = () => {
+    this.projectInputRef.current.click();
+  };
+
+  onStudentInputClick = () => {
+    this.studentInputRef.current.click();
+  };
+
   render() {
     const { projectFileName, studentFileName } = this.state;
 
     return (
-      <div className="file-uploader">
-        <div className="upload-project">
-          <label htmlFor="projectInput" className="upload-button">
+      <div className='file-uploader'>
+        <div className='upload-project'>
+          <button className='upload-button' onClick={this.onProjectInputClick}>
             Upload Project Files
-          </label>
+          </button>
           <input
-            id="projectInput"
-            type="file"
-            accept=".xlsx"
+            id='projectInput'
+            type='file'
+            accept='.xlsx'
             style={{ display: 'none' }}
+            ref={this.projectInputRef}
             onChange={this.handleChangeProjects}
           />
-          <label className="file-name-display">{projectFileName}</label>
+          <label className='file-name-display'>{projectFileName}</label>
         </div>
-        <div className="upload-students">
-          <label htmlFor="studentInput" className="upload-button">
+        <div className='upload-students'>
+          <button className='upload-button' onClick={this.onStudentInputClick}>
             Upload Student Files
-          </label>
+          </button>
           <input
-            id="studentInput"
-            type="file"
-            accept=".xlsx"
+            id='studentInput'
+            type='file'
+            accept='.xlsx'
             style={{ display: 'none' }}
+            ref={this.studentInputRef}
             onChange={this.handleChangeStudents}
           />
-          <label className="file-name-display">{studentFileName}</label>
+          <label className='file-name-display'>{studentFileName}</label>
         </div>
       </div>
     );
