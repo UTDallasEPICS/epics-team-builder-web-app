@@ -1,17 +1,20 @@
 .setup-page {
   height: 100vh;
 
-  .header {
-    background-color: #124734;
-    height: 7%;
-    padding: 10px 0;
-    img {
-      height: 100%;
+  .header-container {
+    height: 10%;
+    .header {
+      height: 40%;
+      background-color: #124734;
+      display: flex;
+      img {
+        align-self: center;
+        height: 80%;
+      }
     }
   }
 
   .setup-grid {
-    margin: 0 auto;
     display: grid;
     height: 70%;
     max-width: 1920px;
@@ -20,9 +23,51 @@
   }
 
   .file-uploader {
-    background-color: yellowgreen;
+    margin-top: 1rem;
+    font-family: 'Times New Roman', Times, serif;
     grid-column: 1/13;
     grid-row: 1/4;
+    display: flex;
+    justify-content: space-around;
+
+    .upload-button {
+      box-sizing: border-box;
+      width: 200px;
+      text-align: center;
+      color: white;
+      background-color: #e87500;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 16px;
+      border: solid white 3px;
+      box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
+      transition: box-shadow 0.3s ease-in-out;
+      vertical-align: middle;
+      cursor: pointer;
+
+      &:focus {
+        box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+        transition: box-shadow 0.3s ease-in-out;
+      }
+    }
+
+    .file-name-display {
+      position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      top: 6px;
+      font-size: 18px;
+      width: 250px;
+      height: 32px;
+      margin-left: 60px;
+      background-color: white;
+      border: solid black 1px;
+      border-radius: 4px;
+      padding-left: 4px;
+      vertical-align: middle;
+    }
   }
 
   .manual-project-assignment {
@@ -42,8 +87,8 @@
     flex-direction: row;
     justify-content: center;
 
-    h3 {
-      text-align: center;
+    h5 {
+      margin-top: 16px;
       font-family: 'Times New Roman', Times, serif;
     }
 

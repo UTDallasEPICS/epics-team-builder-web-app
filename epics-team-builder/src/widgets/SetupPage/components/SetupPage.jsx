@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
+import ExcelReader from '../containers/ExcelReaderContainer';
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed
@@ -17,14 +18,12 @@ class SetupPage extends React.Component {
         <Header />
         <div className="setup-grid">
           {/* Make sure to put these divs in their respective components when made */}
-          <div className="file-uploader">{/*Component goes here*/}</div>
-
+          <ExcelReader />
           <div className="manual-project-assignment"></div>
-
           <div className="manually-assigned-students"></div>
         </div>
         <div className="preferred-project-slider">
-          <h3>Number of Preferred Projects:</h3>
+          <h5>Number of Preferred Projects:</h5>
           <Nouislider
             range={{ min: 3, max: 10 }}
             start={[numOfPreferredProjects]}
