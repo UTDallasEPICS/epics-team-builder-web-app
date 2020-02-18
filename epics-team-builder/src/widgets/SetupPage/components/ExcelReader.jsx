@@ -130,16 +130,15 @@ class ExcelReader extends Component {
 
     var studentsArray = [
       {
-        name: '',
-        'Response Date': '',
         id: 0,
-        Course: '',
+        name: '',
+        Response: false,
+        returning: false,
         Choices: ['', '', '', '', '', ''],
+        Skills: ['', '', ''],
         Major: '',
         Classification: '',
         Gender: '',
-        Skills: ['', '', ''],
-        Comments: '',
         found_team: false,
         choice_num_awarded: 0
       }
@@ -201,17 +200,52 @@ class ExcelReader extends Component {
           );
         }
 
+        var tempResponse = false ; 
+
+        if(tempContainer.data[f]['Response Date']){
+          tempResponse = true ;
+        }
+
+        var tempReturn = false ; 
+
+        if(tempContainer.data[f]['Course']=="EPCS 3200"){
+          tempReturn = true ;
+        }
+
+        var tempStudentName = "N/A" ;
+
+        if(tempContainer.data[f]['Student']){
+          tempStudentName = tempContainer.data[f]['Student'] ;
+        }
+
+        var tempChoiceArray = [] ;
+
+        if(choiceArray){
+          tempChoiceArray = choiceArray ;
+        }
+
+        var tempClassification = "N/A" ;
+
+        if(tempContainer.data[f]['Student Classification']){
+          tempClassification = tempContainer.data[f]['Student Classification'] ;
+        }
+
+        var tempGender = "N" ;
+
+        if(tempContainer.data[f]['Gender']){
+          tempGender = tempContainer.data[f]['Gender'] ;
+        }
+
         var tempObj = {
-          name: tempContainer.data[f]['Student'],
-          'Response Date': tempContainer.data[f]['Response Date'],
-          ID: tempContainer.data[f]['SSO ID'],
-          Course: tempContainer.data[f]['Course'],
-          Choices: choiceArray[f],
+          name: tempStudentName,
+          Response: tempResponse,
+          id: tempContainer.data[f]['SSO ID'],
+          returning: tempReturn,
+          Choices: tempChoiceArray[f],
           Major: studentMajor,
-          ' Classification': tempContainer.data[f]['Student Classification'],
-          Gender: tempContainer.data[f]['Gender'],
+          Classification: tempClassification,
+          Gender: tempGender,
           Skills: studentSkillsArray[f],
-          Comments: tempContainer.data[f]['Comments'],
           found_team: false,
           choice_num_awarded: 0
         };
@@ -221,6 +255,8 @@ class ExcelReader extends Component {
       }
 
       studentsArray.shift();
+
+      console.log(studentsArray) ;
 
       this.props.changeStudentsArray(studentsArray);
     };
@@ -236,32 +272,32 @@ class ExcelReader extends Component {
     const { projectFileName, studentFileName } = this.state;
 
     return (
-      <div className='file-uploader'>
-        <div className='upload-project'>
-          <label htmlFor='projectInput' className='upload-button'>
+      <div className="file-uploader">
+        <div className="upload-project">
+          <label htmlFor="projectInput" className="upload-button">
             Upload Project Files
           </label>
           <input
-            id='projectInput'
-            type='file'
-            accept='.xlsx'
+            id="projectInput"
+            type="file"
+            accept=".xlsx"
             style={{ display: 'none' }}
             onChange={this.handleChangeProjects}
           />
-          <label className='file-name-display'>{projectFileName}</label>
+          <label className="file-name-display">{projectFileName}</label>
         </div>
-        <div className='upload-students'>
-          <label htmlFor='studentInput' className='upload-button'>
+        <div className="upload-students">
+          <label htmlFor="studentInput" className="upload-button">
             Upload Student Files
           </label>
           <input
-            id='studentInput'
-            type='file'
-            accept='.xlsx'
+            id="studentInput"
+            type="file"
+            accept=".xlsx"
             style={{ display: 'none' }}
             onChange={this.handleChangeStudents}
           />
-          <label className='file-name-display'>{studentFileName}</label>
+          <label className="file-name-display">{studentFileName}</label>
         </div>
       </div>
     );
