@@ -116,9 +116,9 @@ class ExcelReader extends Component {
           tempReturn = true;
         }
         var tempObject = {
-          name: tempContainer.data[j]['Project Name'],
+          name: tempContainer.data[j]['Project Name']?tempContainer.data[j]['Project Name']: "N/A",
           Returning: tempReturn,
-          Skills: skillsArray[j]
+          Skills: skillsArray[j]? skillsArray[j]: []
         };
 
         projectsArray.push(tempObject);
