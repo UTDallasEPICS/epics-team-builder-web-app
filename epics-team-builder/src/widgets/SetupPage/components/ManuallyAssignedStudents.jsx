@@ -28,7 +28,7 @@ export default class ManuallyAssignedStudents extends React.Component {
           style={{
             height: '70%',
             width: '80%',
-            margin: '5% auto',
+            margin: '20px auto',
             overflow: 'auto'
           }}
         >
@@ -58,9 +58,8 @@ export default class ManuallyAssignedStudents extends React.Component {
           </Table>
         </Card>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button variant="primary" size="md">
-            Large button
-          </Button>
+          <button  className="delete-button">
+Delete          </button>
         </div>
       </div>
     );
