@@ -73,6 +73,8 @@ class ExcelReader extends Component {
         cols: make_cols(ws['!ref'])
       };
 
+      console.log(tempContainer.data[0].length) ;
+
       for (var i = 0; i < tempContainer.data.length; i++) {
         tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
         tempskillsArray[1] = tempContainer.data[i]['Skill 2'];
@@ -85,7 +87,7 @@ class ExcelReader extends Component {
 
       var projectsArray = [
         {
-          'Project Name': '',
+          name: '',
           Returning: false,
           Skills: ['', '', '']
         }
@@ -98,7 +100,7 @@ class ExcelReader extends Component {
           tempReturn = true;
         }
         var tempObject = {
-          'Project Name': tempContainer.data[j]['Project Name'],
+          name: tempContainer.data[j]['Project Name'],
           Returning: tempReturn,
           Skills: skillsArray[j]
         };
