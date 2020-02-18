@@ -53,10 +53,11 @@
     }
 
     .file-name-display {
+      position: relative;
       box-sizing: border-box;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-top: 4px;
+      top: 6px;
       font-size: 18px;
       width: 250px;
       height: 32px;
