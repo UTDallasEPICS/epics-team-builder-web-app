@@ -1,8 +1,14 @@
 import { combineReducers } from 'redux';
-import { CHANGE_NUM_PROJECT_SLIDER } from '../actions/actionTypes/setupPageActionTypes';
+import {
+  CHANGE_NUM_PROJECT_SLIDER,
+  CHANGE_STUDENTS_ARRAY,
+  CHANGE_PROJECTS_ARRAY
+} from '../actions/actionTypes/setupPageActionTypes';
 
 const students = (state = [], { type, payload }) => {
   switch (type) {
+    case CHANGE_STUDENTS_ARRAY:
+      return payload;
     default:
       return state;
   }
@@ -10,6 +16,8 @@ const students = (state = [], { type, payload }) => {
 
 const projects = (state = [], { type, payload }) => {
   switch (type) {
+    case CHANGE_PROJECTS_ARRAY:
+      return payload;
     default:
       return state;
   }

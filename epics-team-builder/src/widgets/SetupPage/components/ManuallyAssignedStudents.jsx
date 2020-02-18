@@ -1,21 +1,21 @@
-import React from "react";
-import { Card, Table, Button } from "react-bootstrap";
+import React from 'react';
+import { Card, Table, Button } from 'react-bootstrap';
 
 export default class ManuallyAssignedStudents extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: [
-        { firstName: "luis", lastName: "flores", userName: "dfasd" },
+        { firstName: 'luis', lastName: 'flores', userName: 'dfasd' },
         {
-          firstName: "John",
-          lastName: "Reno",
-          userName: "oowsd"
+          firstName: 'John',
+          lastName: 'Reno',
+          userName: 'oowsd'
         },
         {
-          firstName: "Jhon",
-          lastName: "Phillip",
-          userName: "plsk"
+          firstName: 'Jhon',
+          lastName: 'Phillip',
+          userName: 'plsk'
         }
       ]
     };
@@ -23,13 +23,13 @@ export default class ManuallyAssignedStudents extends React.Component {
 
   render() {
     return (
-      <div style={{ height: "100%", width: "100%" }}>
+      <div style={{ height: '100%', width: '100%' }}>
         <Card
           style={{
-            height: "70%",
-            width: "80%",
-            margin: "5% auto",
-            overflow: "auto"
+            height: '70%',
+            width: '80%',
+            margin: '5% auto',
+            overflow: 'auto'
           }}
         >
           <Table striped bordered hover>
@@ -57,7 +57,7 @@ export default class ManuallyAssignedStudents extends React.Component {
             </tbody>
           </Table>
         </Card>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <Button variant="primary" size="md">
             Large button
           </Button>
