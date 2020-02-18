@@ -13,6 +13,8 @@ class ExcelReader extends Component {
 
     this.projectInputRef = React.createRef();
     this.studentInputRef = React.createRef();
+    this.projectBtnRef = React.createRef();
+    this.studentBtnRef = React.createRef();
     this.handleChangeProjects = this.handleChangeProjects.bind(this);
     this.handleChangeStudents = this.handleChangeStudents.bind(this);
   }
@@ -33,6 +35,7 @@ class ExcelReader extends Component {
       this.setState({ projectFileName: files[0].name });
       this.handleProjectFile(files[0]);
     }
+    this.projectBtnRef.current.blur();
   }
 
   handleChangeStudents(e) {
@@ -46,6 +49,7 @@ class ExcelReader extends Component {
       this.setState({ studentFileName: files[0].name });
       this.handleStudentFile(files[0]);
     }
+    this.studentBtnRef.current.blur();
   }
 
   handleProjectFile(file) {
@@ -287,7 +291,11 @@ class ExcelReader extends Component {
     return (
       <div className='file-uploader'>
         <div className='upload-project'>
-          <button className='upload-button' onClick={this.onProjectInputClick}>
+          <button
+            className='upload-button'
+            onClick={this.onProjectInputClick}
+            ref={this.projectBtnRef}
+          >
             Upload Project Files
           </button>
           <input
@@ -301,7 +309,11 @@ class ExcelReader extends Component {
           <label className='file-name-display'>{projectFileName}</label>
         </div>
         <div className='upload-students'>
-          <button className='upload-button' onClick={this.onStudentInputClick}>
+          <button
+            className='upload-button'
+            onClick={this.onStudentInputClick}
+            ref={this.studentBtnRef}
+          >
             Upload Student Files
           </button>
           <input
