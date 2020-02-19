@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import XLSX from 'xlsx';
-import { make_cols } from '../utility/MakeColumns';
 import PropTypes from 'prop-types';
 
 class ExcelReader extends Component {
@@ -74,35 +73,32 @@ class ExcelReader extends Component {
 
       let tempContainer = {
         file: file,
-        data,
-        cols: make_cols(ws['!ref'])
+        data
       };
 
-      if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
+      let expectedColNames = [
+        'Skill 1',
+        'Skill 2',
+        'Skill 3',
+        'Returning (Y/N)',
+        'Project Name'
+      ];
+      let actualColNames = [];
+      const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
+      for (let i = 0; i < columnCount; ++i) {
+        actualColNames[i] = ws[`${XLSX.utils.encode_col(i)}1`].v;
       }
 
-      if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Returning (Y/N)']) {
-        return alert(
-          'The project columns "Returning (Y/N)" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Project Name']) {
-        return alert(
-          'The project columns "Project Name" does not exist in the excel file'
-        );
+      let error = expectedColNames.reduce((accumalator, name) => {
+        if (!actualColNames.includes(name)) {
+          accumalator += ' ' + name + ',';
+        }
+        return accumalator;
+      }, 'Missing columns:');
+
+      if (error.length > 16) {
+        this.setState({ projectFileName: '' });
+        return alert(error.slice(0, -1));
       }
 
       let projectsArray = tempContainer.data.reduce((accumalator, project) => {
@@ -151,57 +147,42 @@ class ExcelReader extends Component {
 
       let tempContainer = {
         file: file,
-        data,
-        cols: make_cols(ws['!ref'])
+        data
       };
 
-      if (!tempContainer.data[1]['Student']) {
-        return alert('Student column is missing from student file');
+      //                  Check if correct columns are given in file
+      let expectedColNames = [
+        'Student',
+        'Response Date',
+        'SSO ID',
+        'Course',
+        'Student Major',
+        'Student Classification',
+        'Gender',
+        'Skill 1',
+        'Skill 2',
+        'Skill 3'
+      ];
+
+      let actualColNames = [];
+      const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
+      for (let i = 0; i < columnCount; ++i) {
+        actualColNames[i] = ws[`${XLSX.utils.encode_col(i)}1`].v;
       }
 
-      if (!tempContainer.data[1]['Response Date']) {
-        return alert('Response Date column is missing from student file');
+      let error = expectedColNames.reduce((accumalator, name) => {
+        if (!actualColNames.includes(name)) {
+          accumalator += ' ' + name + ',';
+        }
+        return accumalator;
+      }, 'Missing columns:');
+
+      if (error.length > 16) {
+        this.setState({ studentFileName: '' });
+        return alert(error.slice(0, -1));
       }
 
-      if (!tempContainer.data[1]['SSO ID']) {
-        return alert('SSO ID column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Course']) {
-        return alert('Course column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Student Major']) {
-        return alert('Student Major column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Student Classification']) {
-        return alert(
-          'Student Classification column is missing from student file'
-        );
-      }
-
-      if (!tempContainer.data[1]['Gender']) {
-        return alert('Gender column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
-      }
-
-      if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
-      }
-
+      //                  Reduce file object down to new object with formatted data
       let studentsArray = tempContainer.data.reduce((accumalator, student) => {
         if (student['Student Major']) {
           var studentMajor = student['Student Major'].substring(
@@ -227,7 +208,7 @@ class ExcelReader extends Component {
           name: student['Student'] ? student['Student'] : 'N/A',
           response: student['Response Date'] ? true : false,
           id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
-          returning: student['Course'] == 'EPCS 3200',
+          returning: student['Course'] === 'EPCS 3200',
           choices: choiceArray,
           major: studentMajor,
           classification: student['Student Classification']
