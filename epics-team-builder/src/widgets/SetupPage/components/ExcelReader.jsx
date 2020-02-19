@@ -171,29 +171,6 @@ class ExcelReader extends Component {
         return alert('Course column is missing from student file');
       }
 
-      if (!tempContainer.data[1]['Choice 1']) {
-        return alert('Choice 1 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 2']) {
-        return alert('Choice 2 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 3']) {
-        return alert('Choice 3 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 4']) {
-        return alert('Choice 4 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 5']) {
-        return alert('Choice 5 column is missing from student file');
-      }
-      if (!tempContainer.data[1]['Choice 6']) {
-        return alert('Choice 6 column is missing from student file');
-      }
-
       if (!tempContainer.data[1]['Student Major']) {
         return alert('Student Major column is missing from student file');
       }
