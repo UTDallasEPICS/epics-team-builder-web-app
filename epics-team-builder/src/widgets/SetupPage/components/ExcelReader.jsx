@@ -250,13 +250,13 @@ class ExcelReader extends Component {
           name: student['Student'] ? student['Student'] : 'N/A',
           response: student['Response Date'] ? true : false,
           id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
-          returning: student['Course'] == 'EPCS 3200' ? true : false,
+          returning: student['Course'] == 'EPCS 3200',
           choices: choiceArray,
           major: studentMajor,
           classification: student['Student Classification']
             ? student['Student Classification']
             : 'N/A',
-          gender: student['Gender'] ? student['Gender'] : 'N',
+          gender: student['Gender'] ? student['Gender'] : 'N/A',
           skills: studentSkillsArray[0] ? studentSkillsArray : [],
           found_team: false,
           choice_num_awarded: 0
