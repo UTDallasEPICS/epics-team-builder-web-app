@@ -56,8 +56,6 @@ class ExcelReader extends Component {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
-    var tempskillsArray = [3]; /* empty skills array */
-    var skillsArray = [];
 
     reader.onload = e => {
       /* Parse data */
@@ -107,44 +105,21 @@ class ExcelReader extends Component {
         );
       }
 
-      for (var i = 0; i < tempContainer.data.length; i++) {
-        tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
-        tempskillsArray[1] = tempContainer.data[i]['Skill 2'];
-        tempskillsArray[2] = tempContainer.data[i]['Skill 3'];
+      let projectsArray = tempContainer.data.reduce((accumalator, project) => {
+        let skillsArray = [
+          project['Skill 1'],
+          project['Skill 2'],
+          project['Skill 3']
+        ];
 
-        skillsArray[i] = tempskillsArray;
+        accumalator.push({
+          name: project['Project Name'] ? project['Project Name'] : 'N/A',
+          returning: project['Returning (Y/N)'] === 'Y',
+          skills: skillsArray[0] ? skillsArray : []
+        });
+        return accumalator;
+      }, []);
 
-        tempskillsArray = [];
-      } /* end of for loop */
-
-      var projectsArray = [
-        {
-          name: '',
-          Returning: false,
-          Skills: ['', '', '']
-        }
-      ]; /* empty JSON array */
-
-      for (var j = 0; j < tempContainer.data.length; j++) {
-        var tempReturn = false;
-
-        if (tempContainer.data[j]['Returning (Y/N)'] === 'Y') {
-          tempReturn = true;
-        }
-        var tempObject = {
-          name: tempContainer.data[j]['Project Name']
-            ? tempContainer.data[j]['Project Name']
-            : 'N/A',
-          returning: tempReturn,
-          skills: skillsArray[j] ? skillsArray[j] : []
-        };
-
-        projectsArray.push(tempObject);
-
-        tempObject = {};
-      }
-
-      projectsArray.shift();
       this.props.changeProjectsArray(projectsArray);
     };
 
@@ -282,15 +257,13 @@ class ExcelReader extends Component {
             ? student['Student Classification']
             : 'N/A',
           gender: student['Gender'] ? student['Gender'] : 'N',
-          skills: studentSkillsArray,
+          skills: studentSkillsArray[0] ? studentSkillsArray : [],
           found_team: false,
           choice_num_awarded: 0
         });
 
         return accumalator;
       }, []);
-
-      console.log(studentsArray);
 
       this.props.changeStudentsArray(studentsArray);
     };
