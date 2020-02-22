@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
 import ExcelReader from '../containers/ExcelReaderContainer';
+import ManuallyAssignProjects from './ManuallyAssignProjects';
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed
@@ -19,7 +20,9 @@ class SetupPage extends React.Component {
         <div className="setup-grid">
           {/* Make sure to put these divs in their respective components when made */}
           <ExcelReader />
-          <div className="manual-project-assignment"></div>
+          <div className="manual-project-assignment">
+            <ManuallyAssignProjects />
+          </div>
           <div className="manually-assigned-students"></div>
         </div>
         <div className="preferred-project-slider">
