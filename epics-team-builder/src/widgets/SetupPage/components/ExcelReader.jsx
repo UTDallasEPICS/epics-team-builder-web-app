@@ -59,7 +59,6 @@ class ExcelReader extends Component {
 
     reader.onload = e => {
       /* Parse data */
-
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, {
         type: rABS ? 'binary' : 'array',
@@ -70,20 +69,15 @@ class ExcelReader extends Component {
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
-      /* Update state */
 
       let tempContainer = {
         file: file,
         data
       };
 
-      let expectedColNames = [
-        'Skill 1',
-        'Skill 2',
-        'Skill 3',
-        'Returning (Y/N)',
-        'Project Name'
-      ];
+      //Check for correct columns in project file
+      let expectedColNames = ['Skill 1', 'Skill 2', 'Skill 3', 'Returning (Y/N)', 'Project Name'];
+
       let actualColNames = [];
       const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
       for (let i = 0; i < columnCount; ++i) {
@@ -102,12 +96,9 @@ class ExcelReader extends Component {
         return alert(error.slice(0, -1));
       }
 
+      //Reduce file object down to new object with formatted data
       let projectsArray = tempContainer.data.reduce((accumalator, project) => {
-        let skillsArray = [
-          project['Skill 1'],
-          project['Skill 2'],
-          project['Skill 3']
-        ];
+        let skillsArray = [project['Skill 1'], project['Skill 2'], project['Skill 3']];
 
         accumalator.push({
           name: project['Project Name'] ? project['Project Name'] : 'N/A',
@@ -144,14 +135,13 @@ class ExcelReader extends Component {
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
-      /* Update state */
 
       let tempContainer = {
         file: file,
         data
       };
 
-      //                  Check if correct columns are given in file
+      //                  Check for correct columns in student file
       let expectedColNames = [
         'Student',
         'Response Date',
@@ -183,7 +173,7 @@ class ExcelReader extends Component {
         return alert(error.slice(0, -1));
       }
 
-      //                  Reduce file object down to new object with formatted data
+      //Reduce file object down to new object with formatted data
       let studentsArray = tempContainer.data.reduce((accumalator, student) => {
         if (student['Student Major']) {
           var studentMajor = student['Student Major'].substring(
@@ -192,11 +182,7 @@ class ExcelReader extends Component {
           );
         }
 
-        let studentSkillsArray = [
-          student['Skill 1'],
-          student['Skill 2'],
-          student['Skill 3']
-        ];
+        let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
         let i = 1;
         let choiceArray = [];
@@ -212,9 +198,7 @@ class ExcelReader extends Component {
           returning: student['Course'] === 'EPCS 3200',
           choices: choiceArray,
           major: studentMajor,
-          classification: student['Student Classification']
-            ? student['Student Classification']
-            : 'N/A',
+          classification: student['Student Classification'] ? student['Student Classification'] : 'N/A',
           gender: student['Gender'] ? student['Gender'] : 'N/A',
           skills: studentSkillsArray[0] ? studentSkillsArray : [],
           found_team: false,
@@ -263,11 +247,7 @@ class ExcelReader extends Component {
             <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
               <input {...getInputProps()} disabled={true} />
               <div className='upload-project'>
-                <button
-                  className='upload-button'
-                  onClick={this.onProjectInputClick}
-                  ref={this.projectBtnRef}
-                >
+                <button className='upload-button' onClick={this.onProjectInputClick} ref={this.projectBtnRef}>
                   Upload Project Files
                 </button>
                 <input
@@ -288,11 +268,7 @@ class ExcelReader extends Component {
             <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
               <input {...getInputProps()} disabled={true} />
               <div className='upload-students'>
-                <button
-                  className='upload-button'
-                  onClick={this.onStudentInputClick}
-                  ref={this.studentBtnRef}
-                >
+                <button className='upload-button' onClick={this.onStudentInputClick} ref={this.studentBtnRef}>
                   Upload Student Files
                 </button>
                 <input

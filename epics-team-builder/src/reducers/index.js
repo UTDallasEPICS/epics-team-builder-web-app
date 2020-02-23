@@ -11,10 +11,8 @@ export default combineReducers({
 //Setup Page Selectors
 export const getStudents = state => state.setupPage.students;
 export const getProjects = state => state.setupPage.projects;
-export const getProjectsByStudentId = state =>
-  state.setupPage.projectsByStudentId;
-export const getNumOfPreferredProjects = state =>
-  state.setupPage.numOfPreferredProjects;
+export const getProjectsByStudentId = state => state.setupPage.projectsByStudentId;
+export const getNumOfPreferredProjects = state => state.setupPage.numOfPreferredProjects;
 
 //Team Builder Page Selectors
 export const getTeams = state => state.teams;
