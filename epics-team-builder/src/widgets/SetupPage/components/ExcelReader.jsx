@@ -346,7 +346,7 @@ class ExcelReader extends Component {
 
       studentsArray.shift();
 
-      console.log(studentsArray);
+     /* console.log(studentsArray); */
 
       this.props.changeStudentsArray(studentsArray);
     };

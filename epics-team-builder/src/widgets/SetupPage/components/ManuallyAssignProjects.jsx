@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 export default class ManuallyAssignProjects extends React.Component {
   constructor(props) {
     super(props);
+    
     this.state = {
 
       studentIdArray: [{
@@ -85,7 +86,8 @@ export default class ManuallyAssignProjects extends React.Component {
   }
 
   render() {
-    console.log(this.props.projects);
+    console.log(this.props.projects) ;
+    console.log(this.props.students) ;
     return (
       <div
         style={{
@@ -102,16 +104,16 @@ export default class ManuallyAssignProjects extends React.Component {
               overflow: 'auto'
             }}
           >
-            {this.props.map((listValue, index) => {
+            {this.state.projectData.map((listValue, index) => {
               return (
                 <li key={index}>
                   <input
                     type="checkbox"
                     onClick={this.handlChangeProject}
                     defaultChecked={false}
-                    id = {listValue.name}
+                    id = {listValue.projectName}
                   />
-                  {listValue.name}
+                  {listValue.projectName}
                 </li>
               );
             })}
