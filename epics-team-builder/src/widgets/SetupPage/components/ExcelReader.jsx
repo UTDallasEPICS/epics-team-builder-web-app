@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import PropTypes from 'prop-types';
+import Dropzone from 'react-dropzone';
 
 class ExcelReader extends Component {
   constructor(props) {
@@ -241,47 +242,72 @@ class ExcelReader extends Component {
     this.studentInputRef.current.click();
   };
 
+  //Setup file drops like a normal file input event
+  onProjectDrop = files => {
+    const event = { target: { files } };
+    this.handleChangeProjects(event);
+  };
+
+  onStudentDrop = files => {
+    const event = { target: { files } };
+    this.handleChangeStudents(event);
+  };
+
   render() {
     const { projectFileName, studentFileName } = this.state;
 
     return (
       <div className='file-uploader'>
-        <div className='upload-project'>
-          <button
-            className='upload-button'
-            onClick={this.onProjectInputClick}
-            ref={this.projectBtnRef}
-          >
-            Upload Project Files
-          </button>
-          <input
-            id='projectInput'
-            type='file'
-            accept='.xlsx'
-            style={{ display: 'none' }}
-            ref={this.projectInputRef}
-            onChange={this.handleChangeProjects}
-          />
-          <label className='file-name-display'>{projectFileName}</label>
-        </div>
-        <div className='upload-students'>
-          <button
-            className='upload-button'
-            onClick={this.onStudentInputClick}
-            ref={this.studentBtnRef}
-          >
-            Upload Student Files
-          </button>
-          <input
-            id='studentInput'
-            type='file'
-            accept='.xlsx'
-            style={{ display: 'none' }}
-            ref={this.studentInputRef}
-            onChange={this.handleChangeStudents}
-          />
-          <label className='file-name-display'>{studentFileName}</label>
-        </div>
+        <Dropzone onDrop={this.onProjectDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div className='upload-project'>
+                <button
+                  className='upload-button'
+                  onClick={this.onProjectInputClick}
+                  ref={this.projectBtnRef}
+                >
+                  Upload Project Files
+                </button>
+                <input
+                  id='projectInput'
+                  type='file'
+                  accept='.xlsx'
+                  style={{ display: 'none' }}
+                  ref={this.projectInputRef}
+                  onChange={this.handleChangeProjects}
+                />
+                <label className='file-name-display'>{projectFileName}</label>
+              </div>
+            </div>
+          )}
+        </Dropzone>
+        <Dropzone onDrop={this.onStudentDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()}>
+              <input {...getInputProps()} />
+              <div className='upload-students'>
+                <button
+                  className='upload-button'
+                  onClick={this.onStudentInputClick}
+                  ref={this.studentBtnRef}
+                >
+                  Upload Student Files
+                </button>
+                <input
+                  id='studentInput'
+                  type='file'
+                  accept='.xlsx'
+                  style={{ display: 'none' }}
+                  ref={this.studentInputRef}
+                  onChange={this.handleChangeStudents}
+                />
+                <label className='file-name-display'>{studentFileName}</label>
+              </div>
+            </div>
+          )}
+        </Dropzone>
       </div>
     );
   }
