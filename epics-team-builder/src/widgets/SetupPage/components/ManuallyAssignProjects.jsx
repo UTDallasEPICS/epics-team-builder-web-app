@@ -2,92 +2,77 @@ import React from 'react';
 import { Card, Table, Button, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-
 export default class ManuallyAssignProjects extends React.Component {
   constructor(props) {
     super(props);
-    
-    this.state = {
 
-      studentIdArray: [{
-        studentId : ' '
-      }] ,
+    this.state = {
+      studentIdArray: [
+        {
+          studentId: ' '
+        }
+      ],
 
       projectData: [
         {
-          projectName: 'UTDesign EPICS TeamBuilder',
-          check: false
-        },
-        {
-          projectName: 'Hello World',
-          check: false
         }
       ],
-      list: [
+      studentData: [
         {
-          firstName: 'Temoc',
-          lastName: 'Comet',
-          netID: 'tct000000'
-        },
-        {
-          firstName: 'Enarc',
-          lastName: 'Crane',
-          netID: 'ece000000'
-        },
-        {
-          firstName: 'Tobor',
-          lastName: 'Robot',
-          netID: 'trt000000'
         }
       ]
     };
   }
 
   handlChangeProject(e) {
-  var tempProject = "" ;
-  const id = e.target.id ;
-  
-  if(document.getElementById(id).checked){
-    tempProject = id ;
-    console.log("ID: " + id) ;
-  }
+    var tempProject = '';
+    const id = e.target.id;
 
+    if (document.getElementById(id).checked) {
+      tempProject = id;
+      console.log('ID: ' + id);
+    }
   }
-
 
   handleChange = e => {
     const id = e.target.id;
     const value = e.target.value;
-   /* console.log(e.target.id) ;
+    /* console.log(e.target.id) ;
     console.log(document.getElementById(id).checked) ; */
-
   };
 
   handleClickStudent(e) {
+    var tempstudentIdArray = [
+      {
+        studentId: ' '
+      }
+    ];
 
-    var tempstudentIdArray = [{
-      studentId : ' '
-    }] ;
+    const id = e.target.id;
+    var checkedStatus = document.getElementById(id).checked;
+    console.log(document.getElementById(id).checked);
 
-    const id = e.target.id ; 
-    var checkedStatus = document.getElementById(id).checked ;
-    console.log(document.getElementById(id).checked) ;
-
-    if(checkedStatus){
-      tempstudentIdArray.push(e.target.id) ;
+    if (checkedStatus) {
+      tempstudentIdArray.push(e.target.id);
     }
 
-   /*  console.log(tempstudentIdArray[1]) ; */
-
+    /*  console.log(tempstudentIdArray[1]) ; */
   }
 
-  addFunction(e){
-    console.log("First element in array is : " + this.state.studentIdArray[1]) ;
+  addFunction(e) {
+    console.log('First element in array is : ' + this.state.studentIdArray[1]);
   }
 
   render() {
-    console.log(this.props.projects) ;
-    console.log(this.props.students) ;
+    console.log(this.props.projects);
+    console.log(this.props.students);
+    if(this.props.students.length != 0){
+      this.state.studentData = this.props.students ;
+    }
+
+    if(this.props.projects.length != 0){
+      this.state.projectData = this.props.projects ;
+    }
     return (
       <div
         style={{
@@ -111,9 +96,9 @@ export default class ManuallyAssignProjects extends React.Component {
                     type="checkbox"
                     onClick={this.handlChangeProject}
                     defaultChecked={false}
-                    id = {listValue.projectName}
+                    id={listValue.name}
                   />
-                  {listValue.projectName}
+                  {listValue.name}
                 </li>
               );
             })}
@@ -130,28 +115,26 @@ export default class ManuallyAssignProjects extends React.Component {
               <thead>
                 <tr>
                   <th>Add</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Name</th>
                   <th>NetID</th>
                 </tr>
               </thead>
               <tbody>
-                {this.state.list.map((listValue, index) => {
+                {this.state.studentData.map((listValue, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <input
                           type="checkbox"
                           className="studentBox"
-                          defaultChecked = {false}
-                          id = {listValue.netID}
-                          onChange = {this.handleChange}
-                          onClick = {this.handleClickStudent}
+                          defaultChecked={false}
+                          id={listValue.id}
+                          onChange={this.handleChange}
+                          onClick={this.handleClickStudent}
                         ></input>
                       </td>
-                      <td>{listValue.firstName}</td>
-                      <td>{listValue.lastName}</td>
-                      <td>{listValue.netID}</td>
+                      <td>{listValue.name}</td>
+                      <td>{listValue.id}</td>
                     </tr>
                   );
                 })}
@@ -160,10 +143,7 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button
-            className="assign-students-button"
-            onClick={this.addFunction}
-          >
+          <button className="assign-students-button" onClick={this.addFunction}>
             Add
           </button>
         </div>
@@ -173,6 +153,6 @@ export default class ManuallyAssignProjects extends React.Component {
 }
 
 ManuallyAssignProjects.propTypes = {
-  students:PropTypes.array, 
-  projects:PropTypes.array, 
-}
+  students: PropTypes.array,
+  projects: PropTypes.array
+};
