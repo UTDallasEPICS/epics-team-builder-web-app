@@ -85,6 +85,7 @@ export default class ManuallyAssignProjects extends React.Component {
   }
 
   render() {
+    console.log(this.props.projects);
     return (
       <div
         style={{
@@ -101,16 +102,16 @@ export default class ManuallyAssignProjects extends React.Component {
               overflow: 'auto'
             }}
           >
-            {this.state.projectData.map((listValue, index) => {
+            {this.props.map((listValue, index) => {
               return (
                 <li key={index}>
                   <input
                     type="checkbox"
                     onClick={this.handlChangeProject}
                     defaultChecked={false}
-                    id = {listValue.projectName}
+                    id = {listValue.name}
                   />
-                  {listValue.projectName}
+                  {listValue.name}
                 </li>
               );
             })}
