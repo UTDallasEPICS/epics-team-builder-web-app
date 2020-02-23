@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Table, Button, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
+
 export default class ManuallyAssignProjects extends React.Component {
   constructor(props) {
     super(props);
@@ -166,4 +167,9 @@ export default class ManuallyAssignProjects extends React.Component {
       </div>
     );
   }
+}
+
+ManuallyAssignProjects.propTypes = {
+  students:PropTypes.array, 
+  projects:PropTypes.array, 
 }
