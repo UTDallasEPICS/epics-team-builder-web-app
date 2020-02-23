@@ -5,6 +5,11 @@ export default class ManuallyAssignProjects extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      studentIdArray: [{
+        studentId : ' '
+      }] ,
+
       projectData: [
         {
           projectName: 'UTDesign EPICS TeamBuilder',
@@ -15,7 +20,7 @@ export default class ManuallyAssignProjects extends React.Component {
           check: false
         }
       ],
-      studentData: [
+      list: [
         {
           firstName: 'Temoc',
           lastName: 'Comet',
@@ -35,25 +40,47 @@ export default class ManuallyAssignProjects extends React.Component {
     };
   }
 
-  addStudentToArray(lValue) {
-    var studentArray = [
-      {
-        studentObj: []
-      }
-    ];
-    /*
-    var studentObj = {
-      firstName: lValue.firstName,
-      lastName: lValue.lastName,
-      netID: lValue.netID
-    };
-    */
-
-    studentArray.push(lValue);
-    console.log(studentArray[0]);
+  handlChangeProject(e) {
+  var tempProject = "" ;
+  const id = e.target.id ;
+  
+  if(document.getElementById(id).checked){
+    tempProject = id ;
+    console.log("ID: " + id) ;
   }
 
-  onAddStudentClick = () => {};
+  }
+
+
+  handleChange = e => {
+    const id = e.target.id;
+    const value = e.target.value;
+   /* console.log(e.target.id) ;
+    console.log(document.getElementById(id).checked) ; */
+
+  };
+
+  handleClickStudent(e) {
+
+    var tempstudentIdArray = [{
+      studentId : ' '
+    }] ;
+
+    const id = e.target.id ; 
+    var checkedStatus = document.getElementById(id).checked ;
+    console.log(document.getElementById(id).checked) ;
+
+    if(checkedStatus){
+      tempstudentIdArray.push(e.target.id) ;
+    }
+
+   /*  console.log(tempstudentIdArray[1]) ; */
+
+  }
+
+  addFunction(e){
+    console.log("First element in array is : " + this.state.studentIdArray[1]) ;
+  }
 
   render() {
     return (
@@ -73,13 +100,18 @@ export default class ManuallyAssignProjects extends React.Component {
             }}
           >
             {this.state.projectData.map((listValue, index) => {
-                  return (
-                    <li>
-                      <input type="checkbox" defaultChecked="false"/>
-                      {listValue.projectName}
-                    </li>
-                  );
-                })}
+              return (
+                <li key={index}>
+                  <input
+                    type="checkbox"
+                    onClick={this.handlChangeProject}
+                    defaultChecked={false}
+                    id = {listValue.projectName}
+                  />
+                  {listValue.projectName}
+                </li>
+              );
+            })}
           </Card>
           <Card
             style={{
@@ -99,16 +131,17 @@ export default class ManuallyAssignProjects extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.studentData.map((listValue, index) => {
+                {this.state.list.map((listValue, index) => {
                   return (
                     <tr key={index}>
                       <td>
                         <input
                           type="checkbox"
-                          name="studentBox"
-                          value={index}
-                          checked="unchecked"
-                          onChange={this.addStudentToArray(listValue)}
+                          className="studentBox"
+                          defaultChecked = {false}
+                          id = {listValue.netID}
+                          onChange = {this.handleChange}
+                          onClick = {this.handleClickStudent}
                         ></input>
                       </td>
                       <td>{listValue.firstName}</td>
@@ -124,7 +157,7 @@ export default class ManuallyAssignProjects extends React.Component {
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button
             className="assign-students-button"
-            onClick={this.onAddStudentClick}
+            onClick={this.addFunction}
           >
             Add
           </button>
