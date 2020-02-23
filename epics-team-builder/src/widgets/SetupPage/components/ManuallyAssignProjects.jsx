@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Table, Button, CardDeck } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
   constructor(props) {
