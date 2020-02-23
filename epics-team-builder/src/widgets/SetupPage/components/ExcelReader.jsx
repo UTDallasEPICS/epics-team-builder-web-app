@@ -7,8 +7,8 @@ class ExcelReader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectFileName: '',
-      studentFileName: ''
+      projectFileName: 'Or drag file here',
+      studentFileName: 'Or drag file here'
     };
 
     this.projectInputRef = React.createRef();
@@ -98,7 +98,7 @@ class ExcelReader extends Component {
       }, 'Missing columns:');
 
       if (error.length > 16) {
-        this.setState({ projectFileName: '' });
+        this.setState({ projectFileName: 'Or drag file here' });
         return alert(error.slice(0, -1));
       }
 
@@ -179,7 +179,7 @@ class ExcelReader extends Component {
       }, 'Missing columns:');
 
       if (error.length > 16) {
-        this.setState({ studentFileName: '' });
+        this.setState({ studentFileName: 'Or drag file here' });
         return alert(error.slice(0, -1));
       }
 
@@ -259,9 +259,9 @@ class ExcelReader extends Component {
     return (
       <div className='file-uploader'>
         <Dropzone onDrop={this.onProjectDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
+              <input {...getInputProps()} disabled={true} />
               <div className='upload-project'>
                 <button
                   className='upload-button'
@@ -284,9 +284,9 @@ class ExcelReader extends Component {
           )}
         </Dropzone>
         <Dropzone onDrop={this.onStudentDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <div {...getRootProps()}>
-              <input {...getInputProps()} />
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
+              <input {...getInputProps()} disabled={true} />
               <div className='upload-students'>
                 <button
                   className='upload-button'
