@@ -13,18 +13,12 @@ export default class ManuallyAssignProjects extends React.Component {
         }
       ],
 
-      projectData: [
-        {
-        }
-      ],
-      studentData: [
-        {
-        }
-      ]
+      projectData: [{}],
+      studentData: [{}]
     };
   }
 
-  handlChangeProject(e) {
+  handleChangeProject(e) {
     var tempProject = '';
     const id = e.target.id;
 
@@ -66,13 +60,7 @@ export default class ManuallyAssignProjects extends React.Component {
   render() {
     console.log(this.props.projects);
     console.log(this.props.students);
-    if(this.props.students.length != 0){
-      this.state.studentData = this.props.students ;
-    }
 
-    if(this.props.projects.length != 0){
-      this.state.projectData = this.props.projects ;
-    }
     return (
       <div
         style={{
@@ -89,12 +77,12 @@ export default class ManuallyAssignProjects extends React.Component {
               overflow: 'auto'
             }}
           >
-            {this.state.projectData.map((listValue, index) => {
+            {this.props.projects.map((listValue, index) => {
               return (
                 <li key={index}>
                   <input
                     type="checkbox"
-                    onClick={this.handlChangeProject}
+                    onClick={this.handleChangeProject}
                     defaultChecked={false}
                     id={listValue.name}
                   />
@@ -120,7 +108,7 @@ export default class ManuallyAssignProjects extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.studentData.map((listValue, index) => {
+                {this.props.students.map((listValue, index) => {
                   return (
                     <tr key={index}>
                       <td>
