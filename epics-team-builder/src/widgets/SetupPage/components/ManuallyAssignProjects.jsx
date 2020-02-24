@@ -7,12 +7,6 @@ export default class ManuallyAssignProjects extends React.Component {
     super(props);
 
     this.state = {
-      studentIdArray: [
-        {
-          studentId: ' '
-        }
-      ],
-
       projectData: [{}],
       studentData: [{}]
     };
@@ -53,13 +47,21 @@ export default class ManuallyAssignProjects extends React.Component {
     /*  console.log(tempstudentIdArray[1]) ; */
   }
 
-  addFunction(e) {
-    console.log('First element in array is : ' + this.state.studentIdArray[1]);
+  addFunction(projects,students) {
+    /*var status = false ;
+    for(var i = 0 ; i < this.props.students.length ; i++){
+      var student = this.props.students[i] ;
+      if(document.getElementById(student["id"].checked)){
+        console.log(student["id"] + "Student is checked");
+      }
+    } */
+    console.log(projects);
+    console.log(students);
   }
 
   render() {
-    console.log(this.props.projects);
-    console.log(this.props.students);
+    console.log(this.props.students) ;
+    console.log(this.props.projects) ;
 
     return (
       <div
@@ -131,7 +133,7 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className="assign-students-button" onClick={this.addFunction}>
+          <button className="assign-students-button" onClick={() => this.addFunction(this.props.projects,this.props.students)}>
             Add
           </button>
         </div>
