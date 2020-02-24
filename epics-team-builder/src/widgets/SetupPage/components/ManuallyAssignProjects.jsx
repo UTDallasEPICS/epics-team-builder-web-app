@@ -13,11 +13,9 @@ export default class ManuallyAssignProjects extends React.Component {
   }
 
   handleChangeProject(e) {
-    var tempProject = '';
     const id = e.target.id;
 
     if (document.getElementById(id).checked) {
-      tempProject = id;
       console.log('ID: ' + id);
     }
   }
@@ -30,33 +28,39 @@ export default class ManuallyAssignProjects extends React.Component {
   };
 
   handleClickStudent(e) {
-    var tempstudentIdArray = [
-      {
-        studentId: ' '
-      }
-    ];
 
     const id = e.target.id;
     var checkedStatus = document.getElementById(id).checked;
     console.log(document.getElementById(id).checked);
-
-    if (checkedStatus) {
-      tempstudentIdArray.push(e.target.id);
-    }
-
     /*  console.log(tempstudentIdArray[1]) ; */
   }
 
   addFunction(projects,students) {
-    /*var status = false ;
-    for(var i = 0 ; i < this.props.students.length ; i++){
-      var student = this.props.students[i] ;
-      if(document.getElementById(student["id"].checked)){
-        console.log(student["id"] + "Student is checked");
+    var status = false ;
+    var currentProjectName = "" ;
+    var checkedStudents = [] ;
+    var mappedStudents = []
+    for(var j = 0 ; j < projects.length ; j++){
+      
+      var projectName = projects[j]["name"]
+
+      if(document.getElementById(projectName).checked){
+        currentProjectName = projectName ;
+        console.log("current project name is" + currentProjectName) ;
       }
-    } */
-    console.log(projects);
-    console.log(students);
+    }
+
+    for(var i = 0 ; i < students.length ; i++){
+      var studentID = students[i]["id"] ;
+    
+      if(document.getElementById(studentID).checked){
+        console.log(studentID + "Student is checked");
+        checkedStudents.push(studentID) ;
+      }
+    } 
+
+    /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */ 
+    
   }
 
   render() {
