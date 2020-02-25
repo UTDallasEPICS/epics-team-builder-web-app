@@ -28,44 +28,41 @@ export default class ManuallyAssignProjects extends React.Component {
   };
 
   handleClickStudent(e) {
-
     const id = e.target.id;
     var checkedStatus = document.getElementById(id).checked;
     console.log(document.getElementById(id).checked);
     /*  console.log(tempstudentIdArray[1]) ; */
   }
 
-  addFunction(projects,students) {
-    var status = false ;
-    var currentProjectName = "" ;
-    var checkedStudents = [] ;
-    var mappedStudents = []
-    for(var j = 0 ; j < projects.length ; j++){
-      
-      var projectName = projects[j]["name"]
+  addStudentsToProject(projects, students) {
+    var status = false;
+    var currentProjectName = '';
+    var checkedStudents = [];
+    var mappedStudents = [];
+    for (var j = 0; j < projects.length; j++) {
+      var projectName = projects[j]['name'];
 
-      if(document.getElementById(projectName).checked){
-        currentProjectName = projectName ;
-        console.log("current project name is" + currentProjectName) ;
+      if (document.getElementById(projectName).checked) {
+        currentProjectName = projectName;
+        console.log('current project name is' + currentProjectName);
       }
     }
 
-    for(var i = 0 ; i < students.length ; i++){
-      var studentID = students[i]["id"] ;
-    
-      if(document.getElementById(studentID).checked){
-        console.log(studentID + "Student is checked");
-        checkedStudents.push(studentID) ;
-      }
-    } 
+    for (var i = 0; i < students.length; i++) {
+      var studentID = students[i]['id'];
 
-    /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */ 
-    
+      if (document.getElementById(studentID).checked) {
+        console.log(studentID + 'Student is checked');
+        checkedStudents.push(studentID);
+      }
+    }
+
+    /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */
   }
 
   render() {
-    console.log(this.props.students) ;
-    console.log(this.props.projects) ;
+    console.log(this.props.students);
+    console.log(this.props.projects);
 
     return (
       <div
@@ -137,7 +134,12 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className="assign-students-button" onClick={() => this.addFunction(this.props.projects,this.props.students)}>
+          <button
+            className="assign-students-button"
+            onClick={() =>
+              this.addStudentsToProject(this.props.projects, this.props.students)
+            }
+          >
             Add
           </button>
         </div>
