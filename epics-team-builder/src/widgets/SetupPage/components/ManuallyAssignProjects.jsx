@@ -58,6 +58,7 @@ export default class ManuallyAssignProjects extends React.Component {
     }
 
     /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */
+
   }
 
   render() {
@@ -103,17 +104,17 @@ export default class ManuallyAssignProjects extends React.Component {
             }}
           >
             <Table striped bordered hover>
-              <thead>
-                <tr>
+              <thead style={{display: 'table', width: '400px', tableLayout:'fixed'}}>
+                <tr style={{display: 'table'}}>
                   <th>Add</th>
                   <th>Name</th>
                   <th>NetID</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{display: 'block', overflow: 'auto', height:'400px', width: '50%'}} >
                 {this.props.students.map((listValue, index) => {
                   return (
-                    <tr key={index}>
+                    <tr key={index} style={{display: 'table', width: '100%', tableLayout:'fixed'}}>
                       <td>
                         <input
                           type="checkbox"
@@ -137,7 +138,10 @@ export default class ManuallyAssignProjects extends React.Component {
           <button
             className="assign-students-button"
             onClick={() =>
-              this.addStudentsToProject(this.props.projects, this.props.students)
+              this.addStudentsToProject(
+                this.props.projects,
+                this.props.students
+              )
             }
           >
             Add
@@ -150,5 +154,6 @@ export default class ManuallyAssignProjects extends React.Component {
 
 ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
-  projects: PropTypes.array
+  projects: PropTypes.array,
+  mapStudentsToProjectManual: PropTypes.func
 };

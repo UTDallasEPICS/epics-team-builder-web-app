@@ -1,6 +1,7 @@
 import { CHANGE_NUM_PROJECT_SLIDER } from './actionTypes/setupPageActionTypes';
 import { CHANGE_PROJECTS_ARRAY } from './actionTypes/setupPageActionTypes';
 import { CHANGE_STUDENTS_ARRAY } from './actionTypes/setupPageActionTypes';
+import { MAP_STUDENTS_TO_PROJECT_MANUAL} from './actionTypes/setupPageActionTypes';
 
 export const changeNumOfPreferredProjects = value => {
   return {
@@ -22,3 +23,10 @@ export const changeStudentsArray = value => {
     payload: value
   };
 };
+
+export const mapStudentsToProjectManual = value => {
+  return {
+    type: MAP_STUDENTS_TO_PROJECT_MANUAL,
+    payload: value
+  };
+}

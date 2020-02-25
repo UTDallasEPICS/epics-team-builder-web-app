@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   CHANGE_NUM_PROJECT_SLIDER,
   CHANGE_STUDENTS_ARRAY,
-  CHANGE_PROJECTS_ARRAY
+  CHANGE_PROJECTS_ARRAY,
+  MAP_STUDENTS_TO_PROJECT_MANUAL
 } from '../actions/actionTypes/setupPageActionTypes';
 
 const students = (state = [], { type, payload }) => {
@@ -25,6 +26,8 @@ const projects = (state = [], { type, payload }) => {
 
 const projectByStudentId = (state = {}, { type, payload }) => {
   switch (type) {
+    case MAP_STUDENTS_TO_PROJECT_MANUAL:
+      return payload;
     default:
       return state;
   }
