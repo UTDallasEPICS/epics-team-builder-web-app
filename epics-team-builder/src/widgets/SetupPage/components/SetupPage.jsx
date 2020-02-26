@@ -10,8 +10,13 @@ class SetupPage extends React.Component {
     this.props.changeNumOfPreferredProjects(value[0]);
   };
 
+  generateTeams = () => {
+    const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
+    this.props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+  };
+
   render() {
-    const { numOfPreferredProjects } = this.props;
+    const { numOfPrefProjects } = this.props;
 
     return (
       <div className='setup-page'>
@@ -26,11 +31,12 @@ class SetupPage extends React.Component {
           <h5>Number of Preferred Projects:</h5>
           <Nouislider
             range={{ min: 3, max: 10 }}
-            start={[numOfPreferredProjects]}
+            start={[numOfPrefProjects]}
             pips={{ mode: 'steps', density: 16 }}
             step={1}
             onSlide={this.onSlide}
           />
+          <button onClick={this.generateTeams}>Generate Teams</button>
         </div>
       </div>
     );
@@ -38,12 +44,19 @@ class SetupPage extends React.Component {
 }
 
 SetupPage.defaultProps = {
-  numOfPreferredProjects: 5
+  numOfPrefProjects: 6,
+  students: [],
+  projects: [],
+  manuallyAssignedStudents: {}
 };
 
 SetupPage.propTypes = {
-  numOfPreferredProjects: PropTypes.number,
-  changeNumOfPreferredProjects: PropTypes.func
+  numOfPrefProjects: PropTypes.number,
+  changeNumOfPreferredProjects: PropTypes.func,
+  students: PropTypes.array,
+  projects: PropTypes.array,
+  manuallyAssignedStudents: PropTypes.object,
+  generateTeams: PropTypes.func
 };
 
 export default SetupPage;
