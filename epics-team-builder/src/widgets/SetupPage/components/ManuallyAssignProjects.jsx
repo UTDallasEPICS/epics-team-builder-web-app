@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Button, CardDeck } from 'react-bootstrap';
+import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
@@ -12,33 +12,9 @@ export default class ManuallyAssignProjects extends React.Component {
     };
   }
 
-  handleChangeProject(e) {
-    const id = e.target.id;
-
-    if (document.getElementById(id).checked) {
-      console.log('ID: ' + id);
-    }
-  }
-
-  handleChange = e => {
-    const id = e.target.id;
-    const value = e.target.value;
-    /* console.log(e.target.id) ;
-    console.log(document.getElementById(id).checked) ; */
-  };
-
-  handleClickStudent(e) {
-    const id = e.target.id;
-    var checkedStatus = document.getElementById(id).checked;
-    console.log(document.getElementById(id).checked);
-    /*  console.log(tempstudentIdArray[1]) ; */
-  }
-
   addProjectToStudent(projects, students) {
-    var status = false;
     var currentProjectName = '';
     var checkedStudents = [];
-    //var mappedStudents = {};
     var mappedStudents = {
       projects: [{ projectID: '', studentIDs: [] }]
     };
@@ -49,7 +25,7 @@ export default class ManuallyAssignProjects extends React.Component {
       if (document.getElementById(projectName).checked) {
         currentProjectName = projectName;
         mappedStudents.projects[j] = {};
-        mappedStudents.projects[j]["projectID"] = currentProjectName;
+        mappedStudents.projects[j]['projectID'] = currentProjectName;
         console.log('current project name is' + currentProjectName);
 
         for (var i = 0; i < students.length; i++) {
