@@ -25,6 +25,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //Change students to map from sid to their info
     for (let i = 0; i < students.length; i++) {
       if (students[i].id == sid) {
+        students[i].assigned = true;
         teams[manuallyAssignedStudents[sid]].members.push(students[i]);
         students.splice(i, 1);
         break;
@@ -103,7 +104,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
 
         for (k = lTeam.members.length - 1; k >= 0; k--) {
           let member = lTeam.members[k];
-          if (member.returning) {
+          if (member.returning || member.assigned) {
             continue;
           }
 
@@ -127,6 +128,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     }
     console.log(newTeams);
   }
+  console.log('done');
 
   return {
     type: INITIATE_TEAM_GENERATION,
@@ -140,7 +142,7 @@ function resolver(student, teams, numOfPrefProjects) {
     let team = teams[`${student.choices[i]}`];
     //Check if member on team has another choice which they can switch to
     for (let j = team.members.length - 1; j >= 0; j--) {
-      if (!team.members[j].returning) {
+      if (!team.members[j].returning && !team.members[j].assigned) {
         for (let k = 0; k < numOfPrefProjects; k++) {
           //If member can be moved to new team, move student and then add other student to team
           if (teams[`${team.members[j].choices[k]}`].members.length < 5) {
