@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Table, Button } from "react-bootstrap";
+import { Card, Table } from "react-bootstrap";
 
 export default class ManuallyAssignedStudents extends React.Component {
   constructor(props) {
@@ -16,20 +16,53 @@ export default class ManuallyAssignedStudents extends React.Component {
           firstName: "Jhon",
           lastName: "Phillip",
           userName: "plsk"
+        },
+        {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
+        }, {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
+        }, {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
+        }, {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
+        }, {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
+        }, {
+          firstName: "Jhon",
+          lastName: "Phillip",
+          userName: "plsk"
         }
       ]
     };
   }
   delete() {
-    var checkedValue = []; 
-    var inputElements = document.getElementsByClassName('messageCheckbox');
-    for(var i=0; inputElements[i]; ++i){
-          if(inputElements[i].checked){
-               checkedValue.push(inputElements[i].value);
-               
-          }
-    }    console.log(checkedValue);
+    var checkedValue = [];
+    var inputElements = document.getElementsByClassName("messageCheckbox");
+    for (var i = 0; inputElements[i]; ++i) {
+      if (inputElements[i].checked) {
+        checkedValue.push(inputElements[i].value);
+      }
+    }
+    console.log(checkedValue);
   }
+
+  onClickHandler = index => {
+    if (document.getElementById("checkbox" + index).checked == true) {
+      document.getElementById("checkbox" + index).checked = false;
+    } else {
+      document.getElementById("checkbox" + index).checked = true;
+    }
+  };
 
   render() {
     return (
@@ -37,7 +70,7 @@ export default class ManuallyAssignedStudents extends React.Component {
         <Card
           border="dark"
           style={{
-            height: "70%",
+            height: "370px",
             width: "80%",
             margin: "20px auto",
             overflow: "auto"
@@ -55,9 +88,20 @@ export default class ManuallyAssignedStudents extends React.Component {
             <tbody>
               {this.state.data.map((listValue, index) => {
                 return (
-                  <tr key={index}>
+                  <tr
+                    key={index}
+                    data-item={listValue}
+                    onClick={this.onClickHandler.bind(this, index)}
+                  >
                     <td style={{ textAlign: "center" }}>
-                      <input className="messageCheckbox" type="checkbox" name="box" value={index}></input>
+                      <input
+                        id={"checkbox" + index}
+                        className="messageCheckbox"
+                        type="checkbox"
+                        name="box"
+                        value={index}
+                        onClick={this.onClickHandler.bind(this, index)}
+                      ></input>
                     </td>
                     <td>{listValue.firstName}</td>
                     <td>{listValue.lastName}</td>
