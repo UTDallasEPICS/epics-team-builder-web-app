@@ -68,6 +68,15 @@
       padding-left: 4px;
       vertical-align: middle;
     }
+
+    .drag-box {
+      cursor: pointer;
+      background-color: #aaa;
+      outline: black 3px dashed;
+      height: 95%;
+      padding: 4px 8px 0px;
+      margin: -4px -8px 0px;
+    }
   }
 
   .manual-project-assignment {

@@ -12,29 +12,20 @@ class SetupPage extends React.Component {
   };
 
   render() {
-    const {
-      numOfPreferredProjects,
-      students,
-      projects,
-      assignProjToStud
-    } = this.props;
+    const { numOfPreferredProjects, students, projects, assignProjToStud } = this.props;
 
     return (
-      <div className="setup-page">
+      <div className='setup-page'>
         <Header />
-        <div className="setup-grid">
+        <div className='setup-grid'>
           {/* Make sure to put these divs in their respective components when made */}
           <ExcelReader />
-          <div className="manual-project-assignment">
-            <ManuallyAssignProjects
-              students={students}
-              projects={projects}
-              assignProjToStud={assignProjToStud}
-            />
+          <div className='manual-project-assignment'>
+            <ManuallyAssignProjects students={students} projects={projects} assignProjToStud={assignProjToStud} />
           </div>
-          <div className="manually-assigned-students"></div>
+          <div className='manually-assigned-students'></div>
         </div>
-        <div className="preferred-project-slider">
+        <div className='preferred-project-slider'>
           <h5>Number of Preferred Projects:</h5>
           <Nouislider
             range={{ min: 3, max: 10 }}
