@@ -6,7 +6,11 @@ module.exports = function(grunt) {
   grunt.initConfig({
     prettier: {
       options: {
-        singleQuote: true
+        jsxSingleQuote: true,
+        singleQuote: true,
+        printWidth: 120,
+        tabWidth: 2,
+        semi: true
       },
       files: {
         src: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
