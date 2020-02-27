@@ -12,7 +12,12 @@ class SetupPage extends React.Component {
   };
 
   render() {
-    const { numOfPreferredProjects, students, projects } = this.props;
+    const {
+      numOfPreferredProjects,
+      students,
+      projects,
+      assignProjToStud
+    } = this.props;
 
     return (
       <div className="setup-page">
@@ -21,7 +26,11 @@ class SetupPage extends React.Component {
           {/* Make sure to put these divs in their respective components when made */}
           <ExcelReader />
           <div className="manual-project-assignment">
-            <ManuallyAssignProjects students={students} projects={projects} />
+            <ManuallyAssignProjects
+              students={students}
+              projects={projects}
+              assignProjToStud={assignProjToStud}
+            />
           </div>
           <div className="manually-assigned-students"></div>
         </div>
@@ -48,7 +57,8 @@ SetupPage.propTypes = {
   numOfPreferredProjects: PropTypes.number,
   changeNumOfPreferredProjects: PropTypes.func,
   students: PropTypes.array,
-  projects: PropTypes.array
+  projects: PropTypes.array,
+  assignProjToStud: PropTypes.func
 };
 
 export default SetupPage;

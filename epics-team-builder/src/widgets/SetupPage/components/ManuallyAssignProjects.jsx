@@ -34,31 +34,44 @@ export default class ManuallyAssignProjects extends React.Component {
     /*  console.log(tempstudentIdArray[1]) ; */
   }
 
-  addStudentsToProject(projects, students) {
+  addProjectToStudent(projects, students) {
     var status = false;
     var currentProjectName = '';
     var checkedStudents = [];
-    var mappedStudents = [];
+    //var mappedStudents = {};
+    var mappedStudents = {
+      projects: [{ projectID: '', studentIDs: [] }]
+    };
+
     for (var j = 0; j < projects.length; j++) {
       var projectName = projects[j]['name'];
 
       if (document.getElementById(projectName).checked) {
         currentProjectName = projectName;
+        mappedStudents.projects[j] = {};
+        mappedStudents.projects[j]["projectID"] = currentProjectName;
         console.log('current project name is' + currentProjectName);
-      }
-    }
 
-    for (var i = 0; i < students.length; i++) {
-      var studentID = students[i]['id'];
+        for (var i = 0; i < students.length; i++) {
+          var currStudentID = students[i]['id'];
 
-      if (document.getElementById(studentID).checked) {
-        console.log(studentID + 'Student is checked');
-        checkedStudents.push(studentID);
+          if (document.getElementById(currStudentID).checked) {
+            console.log(currStudentID + ' Student is checked');
+            checkedStudents.push(currStudentID);
+          }
+        }
+
+        for (var k = 0; k < checkedStudents.length; k++) {
+          mappedStudents.projects[j][k] = '';
+          mappedStudents.projects[j][k] = checkedStudents[k];
+        }
+
+        console.log(mappedStudents);
+        this.props.assignProjToStud(mappedStudents);
       }
     }
 
     /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */
-
   }
 
   render() {
@@ -104,17 +117,37 @@ export default class ManuallyAssignProjects extends React.Component {
             }}
           >
             <Table striped bordered hover>
-              <thead style={{display: 'table', width: '400px', tableLayout:'fixed'}}>
-                <tr style={{display: 'table'}}>
+              <thead
+                style={{
+                  display: 'table',
+                  width: '400px',
+                  tableLayout: 'fixed'
+                }}
+              >
+                <tr style={{ display: 'table' }}>
                   <th>Add</th>
                   <th>Name</th>
                   <th>NetID</th>
                 </tr>
               </thead>
-              <tbody style={{display: 'block', overflow: 'auto', height:'400px', width: '50%'}} >
+              <tbody
+                style={{
+                  display: 'block',
+                  overflow: 'auto',
+                  height: '400px',
+                  width: '50%'
+                }}
+              >
                 {this.props.students.map((listValue, index) => {
                   return (
-                    <tr key={index} style={{display: 'table', width: '100%', tableLayout:'fixed'}}>
+                    <tr
+                      key={index}
+                      style={{
+                        display: 'table',
+                        width: '100%',
+                        tableLayout: 'fixed'
+                      }}
+                    >
                       <td>
                         <input
                           type="checkbox"
@@ -138,10 +171,7 @@ export default class ManuallyAssignProjects extends React.Component {
           <button
             className="assign-students-button"
             onClick={() =>
-              this.addStudentsToProject(
-                this.props.projects,
-                this.props.students
-              )
+              this.addProjectToStudent(this.props.projects, this.props.students)
             }
           >
             Add
@@ -155,5 +185,5 @@ export default class ManuallyAssignProjects extends React.Component {
 ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
-  mapStudentsToProjectManual: PropTypes.func
+  assignProjToStud: PropTypes.func
 };

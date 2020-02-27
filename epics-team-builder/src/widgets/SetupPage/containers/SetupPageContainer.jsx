@@ -1,6 +1,9 @@
 import SetupPage from '../components/SetupPage';
 import { connect } from 'react-redux';
-import { changeNumOfPreferredProjects } from '../../../actions/setupPageActions.js';
+import {
+  changeNumOfPreferredProjects,
+  assignProjToStud
+} from '../../../actions/setupPageActions.js';
 
 import {
   getNumOfPreferredProjects,
@@ -16,7 +19,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   changeNumOfPreferredProjects: value =>
-    dispatch(changeNumOfPreferredProjects(value))
+    dispatch(changeNumOfPreferredProjects(value)),
+  assignProjToStud: value => dispatch(assignProjToStud(value))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupPage);
