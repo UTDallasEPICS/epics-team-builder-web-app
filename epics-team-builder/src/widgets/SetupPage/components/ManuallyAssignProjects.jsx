@@ -3,14 +3,7 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      projectData: [{}],
-      studentData: [{}]
-    };
-  }
+  
 
   addProjectToStudent(projects, students) {
     var currentProjectName = '';
@@ -74,7 +67,7 @@ export default class ManuallyAssignProjects extends React.Component {
               return (
                 <li key={index}>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     onClick={this.handleChangeProject}
                     defaultChecked={false}
                     id={listValue.name}
@@ -126,8 +119,8 @@ export default class ManuallyAssignProjects extends React.Component {
                     >
                       <td>
                         <input
-                          type="checkbox"
-                          className="studentBox"
+                          type='checkbox'
+                          className='studentBox'
                           defaultChecked={false}
                           id={listValue.id}
                           onChange={this.handleChange}
@@ -145,10 +138,8 @@ export default class ManuallyAssignProjects extends React.Component {
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button
-            className="assign-students-button"
-            onClick={() =>
-              this.addProjectToStudent(this.props.projects, this.props.students)
-            }
+            className='assign-students-button'
+            onClick={() => this.addProjectToStudent(this.props.projects, this.props.students)}
           >
             Add
           </button>
