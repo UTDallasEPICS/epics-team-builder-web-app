@@ -27,9 +27,12 @@ const projects = (state = [], { type, payload }) => {
 const projectByStudentId = (state = {}, { type, payload }) => {
   switch (type) {
     case ASSIGN_PROJ_TO_STUD:
-      return payload;
-    default:
-      return state;
+      return {
+        ...state,
+        ...payload
+      }
+      default:
+        return state ;
   }
 };
 

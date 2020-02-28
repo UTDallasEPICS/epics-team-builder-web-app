@@ -8,9 +8,13 @@ export default class ManuallyAssignProjects extends React.Component {
   addProjectToStudent(projects, students) {
     var currentProjectName = '';
     var checkedStudents = [];
+    var nonCheckedStudents = [];
     var mappedStudents = {
+      
       projects: [{ projectID: '', studentIDs: [] }]
     };
+
+
 
     for (var j = 0; j < projects.length; j++) {
       var projectName = projects[j]['name'];
@@ -27,6 +31,9 @@ export default class ManuallyAssignProjects extends React.Component {
           if (document.getElementById(currStudentID).checked) {
             console.log(currStudentID + ' Student is checked');
             checkedStudents.push(currStudentID);
+          }
+          else{
+            nonCheckedStudents.push(students[i]);
           }
         }
 
@@ -56,9 +63,11 @@ export default class ManuallyAssignProjects extends React.Component {
       >
         <CardDeck>
           <Card
+            className = 'projectTable'
+            border = 'dark'
             style={{
-              height: '70%',
-              width: '30%',
+              height: '370px',
+              width: '400px',
               margin: '20px auto',
               overflow: 'auto'
             }}
@@ -78,9 +87,11 @@ export default class ManuallyAssignProjects extends React.Component {
             })}
           </Card>
           <Card
+            className= 'studentTable'
+          border="dark"
             style={{
-              height: '70%',
-              width: '50%',
+              height: '370px',
+              width: '90%',
               margin: '20px auto',
               overflow: 'auto'
             }}
@@ -89,23 +100,18 @@ export default class ManuallyAssignProjects extends React.Component {
               <thead
                 style={{
                   display: 'table',
-                  width: '400px',
+                  width: '100%',
                   tableLayout: 'fixed'
                 }}
               >
-                <tr style={{ display: 'table' }}>
-                  <th>Add</th>
+                <tr>
+                  <th style={{width:'15%'}}>Add</th>
                   <th>Name</th>
                   <th>NetID</th>
                 </tr>
               </thead>
               <tbody
-                style={{
-                  display: 'block',
-                  overflow: 'auto',
-                  height: '400px',
-                  width: '50%'
-                }}
+                
               >
                 {this.props.students.map((listValue, index) => {
                   return (
@@ -117,7 +123,7 @@ export default class ManuallyAssignProjects extends React.Component {
                         tableLayout: 'fixed'
                       }}
                     >
-                      <td>
+                      <td style = {{textAlign:'center', width:'15%'}}>
                         <input
                           type='checkbox'
                           className='studentBox'
