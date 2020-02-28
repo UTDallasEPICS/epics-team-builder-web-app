@@ -8,7 +8,6 @@ export default class ManuallyAssignProjects extends React.Component {
   addProjectToStudent(projects, students) {
     var currentProjectName = '';
     var checkedStudents = [];
-    var nonCheckedStudents = [];
     var mappedStudents = {
       
       projects: [{ projectID: '', studentIDs: [] }]
@@ -32,9 +31,7 @@ export default class ManuallyAssignProjects extends React.Component {
             console.log(currStudentID + ' Student is checked');
             checkedStudents.push(currStudentID);
           }
-          else{
-            nonCheckedStudents.push(students[i]);
-          }
+          
         }
 
         for (var k = 0; k < checkedStudents.length; k++) {
@@ -56,6 +53,7 @@ export default class ManuallyAssignProjects extends React.Component {
 
     return (
       <div
+        className = 'mx-auto'
         style={{
           height: '100%',
           width: '80%'
@@ -74,7 +72,7 @@ export default class ManuallyAssignProjects extends React.Component {
           >
             {this.props.projects.map((listValue, index) => {
               return (
-                <li key={index}>
+                <li key={index} style ={{listStyleType:'none'}}>
                   <input
                     type='checkbox'
                     onClick={this.handleChangeProject}
