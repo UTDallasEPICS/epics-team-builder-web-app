@@ -38,6 +38,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     if (students[i].returning) {
       for (let j = 0; j < students[i].choices.length; j++) {
         if (teams[`${students[i].choices[j]}`].members.length < 5) {
+          students[i].choice_num_awarded = j + 1;
           teams[`${students[i].choices[j]}`].members.push(students[i]);
           students.splice(i, 1);
           break;
@@ -65,6 +66,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       for (let k = 0; k < numOfPrefProjects; k++) {
         if (randomStudents[j].choices[k]) {
           if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 5) {
+            randomStudents[j].choice_num_awarded = k + 1;
             newTeams[`${randomStudents[j].choices[k]}`].members.push(randomStudents[j]);
             randomStudents.splice(j, 1);
             break;
@@ -75,11 +77,12 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
 
     //Try to find teams for students who still have not been placed on a team
     for (let j = randomStudents.length - 1; j >= 0; j--) {
-      if (resolver(randomStudents[j], newTeams, numOfPrefProjects)) {
+      if (findTeamForStudent(randomStudents[j], newTeams, numOfPrefProjects)) {
         randomStudents.splice(j, 1);
       }
     }
 
+    //Check if a student couldn't be assigned to any of their choices
     if (randomStudents.length > 1) {
       console.log('Students who responded could not be placed on team based on choices');
     }
@@ -87,6 +90,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     let smallTeams = [];
     let largeTeams = [];
 
+    //seperate trams into categories based on size
     for (let teamName in newTeams) {
       if (newTeams[teamName].members.length < 3) {
         smallTeams.push(newTeams[teamName]);
@@ -95,14 +99,15 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       }
     }
 
-    while (smallTeams.length > 0 || largeTeams.length === 0) {
+    //go through every small team and check if students from larger teams can be swapped over
+    while (smallTeams.length > 0) {
       let sTeam = smallTeams[0];
       let sTeamFilled = false;
 
       for (let j = largeTeams.length - 1; j >= 0; j--) {
         let lTeam = largeTeams[j];
 
-        for (k = lTeam.members.length - 1; k >= 0; k--) {
+        for (let k = lTeam.members.length - 1; k >= 0; k--) {
           let member = lTeam.members[k];
           if (member.returning || member.assigned) {
             continue;
@@ -113,21 +118,74 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
             break;
           }
 
-          if (member.choices.includes(sTeam.project.name)) {
-            newTeams[`${sTeam.project.name}`].members.push(member);
-            newTeams[`${lTeam.project.name}`].members.splice(k, 1);
-            if (newTeams[`${sTeam.project.name}`].members.length >= 3) {
-              sTeamFilled = true;
-              break;
+          member.choices.forEach((choice, ind) => {
+            if (choice === sTeam.project.name) {
+              member.choice_num_awarded = ind + 1;
+              newTeams[`${sTeam.project.name}`].members.push(member);
+              newTeams[`${lTeam.project.name}`].members.splice(k, 1);
             }
+          });
+
+          if (newTeams[`${sTeam.project.name}`].members.length >= 3) {
+            sTeamFilled = true;
+            break;
           }
         }
         if (sTeamFilled) break;
       }
       smallTeams.pop();
     }
+    let unassignedReturn = 0;
+    let unassignedNormal = 0;
+    randomStudents.forEach(student => {
+      student.returning ? unassignedReturn++ : unassignedNormal++;
+    });
+
     console.log(newTeams);
+    //Calculate weights for choices and classification
+    let teamAverageChoice = 0;
+    let teamAverageClass = 0;
+    let totalWeighedTeams = 0;
+    for (let team in newTeams) {
+      let teamTotalClass = 0;
+      let teamTotalChoice = 0;
+
+      //Filter out assigned and returning students from calculations
+      let teamMembers = newTeams[team].members.filter(student =>
+        student.returning || student.assigned ? false : true
+      );
+      if (teamMembers.length === 0) {
+        continue;
+      }
+
+      teamMembers.forEach(student => {
+        teamTotalChoice += student.choice_num_awarded;
+        switch (student.classification) {
+          case 'Freshman':
+            teamTotalClass += -2;
+            break;
+          case 'Sophomore':
+            teamTotalClass += -1;
+            break;
+          case 'Junior':
+            teamTotalClass += 1;
+            break;
+          case 'Senior':
+            teamTotalClass += 2;
+            break;
+        }
+      });
+      teamAverageChoice += teamTotalChoice / teamMembers.length;
+      teamAverageClass += teamTotalClass / teamMembers.length;
+      totalWeighedTeams++;
+    }
+
+    let avgScoreChoice = teamAverageChoice / totalWeighedTeams;
+    let avgScoreClass = teamAverageClass / totalWeighedTeams;
+    console.log(avgScoreChoice);
+    console.log(avgScoreClass);
   }
+
   console.log('done');
 
   return {
@@ -136,7 +194,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   };
 };
 
-function resolver(student, teams, numOfPrefProjects) {
+function findTeamForStudent(student, teams, numOfPrefProjects) {
   //Iterate through student's choices
   for (let i = 0; i < numOfPrefProjects && i < student.choices.length; i++) {
     let team = teams[`${student.choices[i]}`];
@@ -146,8 +204,12 @@ function resolver(student, teams, numOfPrefProjects) {
         for (let k = 0; k < numOfPrefProjects; k++) {
           //If member can be moved to new team, move student and then add other student to team
           if (teams[`${team.members[j].choices[k]}`].members.length < 5) {
-            teams[`${team.members[j].choices[k]}`].members.push(student);
+            team.members[j].choice_num_awarded = k + 1;
+            student.choice_num_awarded = i + 1;
+
+            teams[`${team.members[j].choices[k]}`].members.push(team.members[j]);
             team.members.splice(j, 1);
+            team.members.push(student);
             return true;
           }
         }
