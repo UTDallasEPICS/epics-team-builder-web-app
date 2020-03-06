@@ -47,8 +47,9 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     }
   }
 
+  let teamCombos = [];
   //Loop through creation of teams
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     //Make copies to start off on
     let randomStudents = JSON.parse(JSON.stringify(students));
     let newTeams = JSON.parse(JSON.stringify(teams));
@@ -141,7 +142,6 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       student.returning ? unassignedReturn++ : unassignedNormal++;
     });
 
-    console.log(newTeams);
     //Calculate weights for choices and classification
     let teamAverageChoice = 0;
     let teamAverageClass = 0;
@@ -158,6 +158,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
         continue;
       }
 
+      //Calculate the average choice and spread of students by classsification
       teamMembers.forEach(student => {
         teamTotalChoice += student.choice_num_awarded;
         switch (student.classification) {
@@ -180,17 +181,56 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       totalWeighedTeams++;
     }
 
+    //Value is the average choice a student is given
     let avgScoreChoice = teamAverageChoice / totalWeighedTeams;
+    //Value is weight ranging from -2 to 2. 0 means perfectly balanced. Postive values mean team has more upper classmen.
+    //Negative values mean team has more lower classmen.
     let avgScoreClass = teamAverageClass / totalWeighedTeams;
+
+    let skillsMet = 0;
+    let totalSkills = 0;
+
+    //For each team find how many skills are met by its members
+    for (let team in newTeams) {
+      newTeams[team].skillsMet = 0;
+      newTeams[team].project.skills.forEach(skill => {
+        let foundSkill = false;
+        for (let j = 0; j < newTeams[team].members.length; j++) {
+          for (let k = 0; k < newTeams[team].members[j].skills.length; k++) {
+            if (newTeams[team].members[j].skills[k] === skill) {
+              skillsMet++;
+              newTeams[team].skillsMet++;
+              foundSkill = true;
+              break;
+            }
+          }
+          if (foundSkill) break;
+        }
+        totalSkills++;
+      });
+    }
+
+    //ratio of how many skills of all the teams were met
+    let skillsMetRatio = skillsMet / totalSkills;
+
     console.log(avgScoreChoice);
     console.log(avgScoreClass);
+    console.log(skillsMetRatio);
+    console.log(newTeams);
+
+    teamCombos.push({
+      teams: newTeams,
+      avgScoreChoice,
+      avgScoreClass,
+      skillsMetRatio
+    });
   }
 
   console.log('done');
 
   return {
     type: INITIATE_TEAM_GENERATION,
-    payload: teams
+    payload: teamCombos
   };
 };
 
