@@ -36,8 +36,10 @@ class SetupPage extends React.Component {
             step={1}
             onSlide={this.onSlide}
           />
-          <button onClick={this.generateTeams}>Generate Teams</button>
         </div>
+        <button className='orange generate-teams-btn' onClick={this.generateTeams}>
+          Build Teams
+        </button>
       </div>
     );
   }
