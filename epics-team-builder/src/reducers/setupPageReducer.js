@@ -30,9 +30,9 @@ const projectByStudentId = (state = {}, { type, payload }) => {
       return {
         ...state,
         ...payload
-      }
-      default:
-        return state ;
+      };
+    default:
+      return state;
   }
 };
 

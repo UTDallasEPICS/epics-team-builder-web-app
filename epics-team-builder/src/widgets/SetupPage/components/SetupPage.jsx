@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
-import ExcelReader from '../containers/ExcelReaderContainer';
 import ManuallyAssignProjects from './ManuallyAssignProjects';
+import ExcelReader from './ExcelReader' ;
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed
@@ -12,16 +12,24 @@ class SetupPage extends React.Component {
   };
 
   render() {
-    const { numOfPreferredProjects, students, projects, assignProjToStud } = this.props;
+    const { numOfPreferredProjects, students, projects, assignProjToStud,changeStudentsArray, changeProjectsArray } = this.props;
 
     return (
       <div className='setup-page'>
         <Header />
         <div className='setup-grid'>
           {/* Make sure to put these divs in their respective components when made */}
-          <ExcelReader />
+          <ExcelReader 
+          changeStudentsArray = {changeStudentsArray}
+          changeProjectsArray = {changeProjectsArray}/>
           <div>
-            <ManuallyAssignProjects className='manual-project-assignment' students={students} projects={projects} assignProjToStud={assignProjToStud} />
+            <ManuallyAssignProjects
+              className='manual-project-assignment'
+              students={students}
+              projects={projects}
+              assignProjToStud={assignProjToStud}
+              changeStudentsArray = {changeStudentsArray}
+            />
           </div>
           <div className='manually-assigned-students'></div>
         </div>
@@ -49,7 +57,10 @@ SetupPage.propTypes = {
   changeNumOfPreferredProjects: PropTypes.func,
   students: PropTypes.array,
   projects: PropTypes.array,
-  assignProjToStud: PropTypes.func
+  assignProjToStud: PropTypes.func,
+  changeProjectsArray: PropTypes.func, 
+  changeStudentsArray: PropTypes.func
+
 };
 
 export default SetupPage;

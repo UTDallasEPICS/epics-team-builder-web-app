@@ -3,17 +3,13 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
-  
-
   addProjectToStudent(projects, students) {
     var currentProjectName = '';
     var checkedStudents = [];
+    let uncheckedStudents = [] ;
     var mappedStudents = {
-      
       projects: [{ projectID: '', studentIDs: [] }]
     };
-
-
 
     for (var j = 0; j < projects.length; j++) {
       var projectName = projects[j]['name'];
@@ -31,8 +27,12 @@ export default class ManuallyAssignProjects extends React.Component {
             console.log(currStudentID + ' Student is checked');
             checkedStudents.push(currStudentID);
           }
-          
+          else{
+            uncheckedStudents.push(students[i]);
+          }
         }
+        console.log(uncheckedStudents) ;
+        this.props.changeStudentsArray(uncheckedStudents) ;
 
         for (var k = 0; k < checkedStudents.length; k++) {
           mappedStudents.projects[j][k] = '';
@@ -53,7 +53,7 @@ export default class ManuallyAssignProjects extends React.Component {
 
     return (
       <div
-        className = 'mx-auto'
+        className='mx-auto'
         style={{
           height: '100%',
           width: '80%'
@@ -61,8 +61,8 @@ export default class ManuallyAssignProjects extends React.Component {
       >
         <CardDeck>
           <Card
-            className = 'projectTable'
-            border = 'dark'
+            className='projectTable'
+            border='dark'
             style={{
               height: '370px',
               width: '400px',
@@ -72,7 +72,7 @@ export default class ManuallyAssignProjects extends React.Component {
           >
             {this.props.projects.map((listValue, index) => {
               return (
-                <li key={index} style ={{listStyleType:'none'}}>
+                <li key={index} style={{ listStyleType: 'none' }}>
                   <input
                     type='checkbox'
                     onClick={this.handleChangeProject}
@@ -85,8 +85,8 @@ export default class ManuallyAssignProjects extends React.Component {
             })}
           </Card>
           <Card
-            className= 'studentTable'
-          border="dark"
+            className='studentTable'
+            border='dark'
             style={{
               height: '370px',
               width: '90%',
@@ -103,14 +103,12 @@ export default class ManuallyAssignProjects extends React.Component {
                 }}
               >
                 <tr>
-                  <th style={{width:'15%'}}>Add</th>
+                  <th style={{ width: '15%' }}>Add</th>
                   <th>Name</th>
                   <th>NetID</th>
                 </tr>
               </thead>
-              <tbody
-                
-              >
+              <tbody>
                 {this.props.students.map((listValue, index) => {
                   return (
                     <tr
@@ -121,7 +119,7 @@ export default class ManuallyAssignProjects extends React.Component {
                         tableLayout: 'fixed'
                       }}
                     >
-                      <td style = {{textAlign:'center', width:'15%'}}>
+                      <td style={{ textAlign: 'center', width: '15%' }}>
                         <input
                           type='checkbox'
                           className='studentBox'
@@ -156,5 +154,6 @@ export default class ManuallyAssignProjects extends React.Component {
 ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
-  assignProjToStud: PropTypes.func
+  assignProjToStud: PropTypes.func,
+  changeStudentsArray: PropTypes.func
 };
