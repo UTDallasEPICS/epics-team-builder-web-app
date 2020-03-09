@@ -213,20 +213,16 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //ratio of how many skills of all the teams were met
     let skillsMetRatio = skillsMet / totalSkills;
 
-    console.log(avgScoreChoice);
-    console.log(avgScoreClass);
-    console.log(skillsMetRatio);
-    console.log(newTeams);
-
     teamCombos.push({
       teams: newTeams,
       avgScoreChoice,
       avgScoreClass,
-      skillsMetRatio
+      skillsMetRatio,
+      unassignedReturn,
+      unassignedNormal,
+      unassignedStudents: randomStudents
     });
   }
-
-  console.log('done');
 
   return {
     type: INITIATE_TEAM_GENERATION,

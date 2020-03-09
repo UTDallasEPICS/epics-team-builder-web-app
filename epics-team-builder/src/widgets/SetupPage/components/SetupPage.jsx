@@ -12,6 +12,7 @@ class SetupPage extends React.Component {
 
   generateTeams = () => {
     const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
+    this.props.switchToTeamBuilder();
     this.props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
   };
 
@@ -55,6 +56,7 @@ SetupPage.defaultProps = {
 SetupPage.propTypes = {
   numOfPrefProjects: PropTypes.number,
   changeNumOfPreferredProjects: PropTypes.func,
+  switchToTeamBuilder: PropTypes.func,
   students: PropTypes.array,
   projects: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
