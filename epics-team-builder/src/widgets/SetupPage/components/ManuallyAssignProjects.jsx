@@ -24,6 +24,7 @@ export default class ManuallyAssignProjects extends React.Component {
           var currStudentID = students[i]['id'];
 
           if (document.getElementById(currStudentID).checked) {
+            document.getElementById(currStudentID).checked = false ;
             console.log(currStudentID + ' Student is checked');
             checkedStudents.push(currStudentID);
           }
