@@ -15,10 +15,11 @@ export default class ManuallyAssignProjects extends React.Component {
       var projectName = projects[j]['name'];
 
       if (document.getElementById(projectName).checked) {
+        document.getElementById(projectName).checked = false ;
         currentProjectName = projectName;
         mappedStudents.projects[j] = {};
         mappedStudents.projects[j]['projectID'] = currentProjectName;
-        console.log('current project name is' + currentProjectName);
+       /* console.log('current project name is' + currentProjectName); */ 
 
         for (var i = 0; i < students.length; i++) {
           var currStudentID = students[i]['id'];
@@ -40,7 +41,7 @@ export default class ManuallyAssignProjects extends React.Component {
           mappedStudents.projects[j][k] = checkedStudents[k];
         }
 
-        console.log(mappedStudents);
+       /* console.log(mappedStudents); */
         this.props.assignProjToStud(mappedStudents);
       }
     }
