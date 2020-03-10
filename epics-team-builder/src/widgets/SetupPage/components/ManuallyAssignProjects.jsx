@@ -4,33 +4,31 @@ import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
   addProjectToStudent(projects, students) {
-
     var checkedStudents = [];
     let uncheckedStudents = [];
 
     var j = 0;
     var projectName = projects[j]['name'];
-    while(!document.getElementById(projectName).checked){
+    while (!document.getElementById(projectName).checked) {
       projectName = projects[++j]['name'];
     }
 
-    for (var i=0 ; i<students.length ; i++){
+    for (var i = 0; i < students.length; i++) {
       var currStudentID = students[i]['id'];
 
-      if(document.getElementById(currStudentID).checked){
+      if (document.getElementById(currStudentID).checked) {
         document.getElementById(currStudentID).checked = false;
         checkedStudents.push(currStudentID);
-      } else{
-        uncheckedStudents.push(students[i])
+      } else {
+        uncheckedStudents.push(students[i]);
       }
     }
 
     this.props.changeStudentsArray(uncheckedStudents);
 
-    for(var i=0; i<checkedStudents.length ; i++){
-      projects[j]['students'].push(checkedStudents[i]);
+    for (var k = 0; k < checkedStudents.length; k++) {
+      projects[j]['students'].push(checkedStudents[k]);
     }
-
   }
 
   render() {
