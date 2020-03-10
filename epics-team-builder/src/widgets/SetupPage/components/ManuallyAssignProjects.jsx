@@ -3,7 +3,22 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
+  constructor(props, context){
+    super(props, context);
+    this.state ={
+      students: props.students,
+      projects: props.projects
+    };
+  }
+
+  componentWillReceiveProps(props){
+    this.setState({
+      students: props.students,
+      projects: props.projects});
+  }
+
   addProjectToStudent(projects, students) {
+
     var checkedStudents = [];
     let uncheckedStudents = [];
 
@@ -24,11 +39,13 @@ export default class ManuallyAssignProjects extends React.Component {
       }
     }
 
-    this.props.changeStudentsArray(uncheckedStudents);
+    this.setState({students: uncheckedStudents});
 
     for (var k = 0; k < checkedStudents.length; k++) {
       projects[j]['students'].push(checkedStudents[k]);
     }
+
+    this.props.assignProjToStud(projects) ;
   }
 
   render() {
@@ -36,6 +53,7 @@ export default class ManuallyAssignProjects extends React.Component {
     console.log(this.props.projects);
 
     return (
+
       <div
         className='mx-auto'
         style={{
@@ -54,7 +72,7 @@ export default class ManuallyAssignProjects extends React.Component {
               overflow: 'auto'
             }}
           >
-            {this.props.projects.map((listValue, index) => {
+            {this.state.projects.map((listValue, index) => {
               return (
                 <li key={index} style={{ listStyleType: 'none' }}>
                   <input
@@ -93,7 +111,7 @@ export default class ManuallyAssignProjects extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.students.map((listValue, index) => {
+                {this.state.students.map((listValue, index) => {
                   return (
                     <tr
                       key={index}
