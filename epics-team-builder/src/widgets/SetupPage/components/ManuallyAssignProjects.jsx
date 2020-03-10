@@ -49,9 +49,6 @@ export default class ManuallyAssignProjects extends React.Component {
   }
 
   render() {
-    console.log(this.props.students);
-    console.log(this.props.projects);
-
     return (
       <div
         className='mx-auto'
@@ -153,6 +150,4 @@ ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
   assignProjToStud: PropTypes.func,
-  changeStudentsArray: PropTypes.func,
-  changeProjectsArray: PropTypes.func
 };
