@@ -6,16 +6,16 @@ export default class ManuallyAssignProjects extends React.Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      students: props.students,
-      projects: props.projects
+      students: [],
+      projects: []
     };
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    this.setState({
-      students: props.students,
-      projects: props.projects
-    });
+  static getDerivedStateFromProps(props, state) {
+    if (props.students !== state.students && props.projects !== state.projects) {
+      return { students: props.students, projects: props.projects };
+    }
+    return null;
   }
 
   addProjectToStudent() {
@@ -47,16 +47,15 @@ export default class ManuallyAssignProjects extends React.Component {
     console.log(this.state.projects);
     this.props.assignProjToStud(this.state.projects);
 
-    this.setState({students: uncheckedStudents}, () => {
+    this.setState({ students: uncheckedStudents }, () => {
       console.log(this.state.students);
-    })
+    });
   }
-
 
   render() {
     return (
       <div
-        className='mx-auto'
+        className="mx-auto"
         style={{
           height: '100%',
           width: '80%'
@@ -64,8 +63,8 @@ export default class ManuallyAssignProjects extends React.Component {
       >
         <CardDeck>
           <Card
-            className='projectTable'
-            border='dark'
+            className="projectTable"
+            border="dark"
             style={{
               height: '370px',
               width: '400px',
@@ -77,7 +76,7 @@ export default class ManuallyAssignProjects extends React.Component {
               return (
                 <li key={index} style={{ listStyleType: 'none' }}>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     onClick={this.handleChangeProject}
                     defaultChecked={false}
                     id={listValue.name}
@@ -88,8 +87,8 @@ export default class ManuallyAssignProjects extends React.Component {
             })}
           </Card>
           <Card
-            className='studentTable'
-            border='dark'
+            className="studentTable"
+            border="dark"
             style={{
               height: '370px',
               width: '90%',
@@ -124,8 +123,8 @@ export default class ManuallyAssignProjects extends React.Component {
                     >
                       <td style={{ textAlign: 'center', width: '15%' }}>
                         <input
-                          type='checkbox'
-                          className='studentBox'
+                          type="checkbox"
+                          className="studentBox"
                           defaultChecked={false}
                           id={listValue.id}
                           onChange={this.handleChange}
@@ -142,7 +141,7 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className='assign-students-button' onClick={() => this.addProjectToStudent()}>
+          <button className="assign-students-button" onClick={() => this.addProjectToStudent()}>
             Add
           </button>
         </div>
