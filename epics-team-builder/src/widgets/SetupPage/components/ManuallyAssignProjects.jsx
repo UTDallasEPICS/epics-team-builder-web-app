@@ -3,49 +3,49 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
-  constructor(props, context){
+  constructor(props, context) {
     super(props, context);
-    this.state ={
+    this.state = {
       students: props.students,
       projects: props.projects
     };
   }
 
-  componentWillReceiveProps(props){
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       students: props.students,
-      projects: props.projects});
+      projects: props.projects
+    });
   }
 
-  addProjectToStudent(projects, students) {
-
+  addProjectToStudent() {
     var checkedStudents = [];
     let uncheckedStudents = [];
 
     var j = 0;
-    var projectName = projects[j]['name'];
+    var projectName = this.state.projects[j]['name'];
     while (!document.getElementById(projectName).checked) {
-      projectName = projects[++j]['name'];
+      projectName = this.state.projects[++j]['name'];
     }
+    document.getElementById(projectName).checked = false ;
 
-    for (var i = 0; i < students.length; i++) {
-      var currStudentID = students[i]['id'];
+    for (var i = 0; i < this.state.students.length; i++) {
+      var currStudentID = this.state.students[i]['id'];
 
       if (document.getElementById(currStudentID).checked) {
         document.getElementById(currStudentID).checked = false;
         checkedStudents.push(currStudentID);
       } else {
-        uncheckedStudents.push(students[i]);
+        uncheckedStudents.push(this.state.students[i]);
       }
     }
 
-    this.setState({students: uncheckedStudents});
+    this.setState({ students: uncheckedStudents });
 
     for (var k = 0; k < checkedStudents.length; k++) {
-      projects[j]['students'].push(checkedStudents[k]);
+      this.state.projects[j]['students'].push(checkedStudents[k]);
     }
-
-    this.props.assignProjToStud(projects) ;
+    this.props.assignProjToStud(this.state.projects);
   }
 
   render() {
@@ -53,7 +53,6 @@ export default class ManuallyAssignProjects extends React.Component {
     console.log(this.props.projects);
 
     return (
-
       <div
         className='mx-auto'
         style={{
@@ -141,10 +140,7 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button
-            className='assign-students-button'
-            onClick={() => this.addProjectToStudent(this.props.projects, this.props.students)}
-          >
+          <button className='assign-students-button' onClick={() => this.addProjectToStudent()}>
             Add
           </button>
         </div>
