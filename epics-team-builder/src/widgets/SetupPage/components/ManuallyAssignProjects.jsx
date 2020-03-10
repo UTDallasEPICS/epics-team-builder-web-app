@@ -20,14 +20,14 @@ export default class ManuallyAssignProjects extends React.Component {
 
   addProjectToStudent() {
     var checkedStudents = [];
-    let uncheckedStudents = [];
+    var uncheckedStudents = [];
 
     var j = 0;
     var projectName = this.state.projects[j]['name'];
     while (!document.getElementById(projectName).checked) {
       projectName = this.state.projects[++j]['name'];
     }
-    document.getElementById(projectName).checked = false ;
+    document.getElementById(projectName).checked = false;
 
     for (var i = 0; i < this.state.students.length; i++) {
       var currStudentID = this.state.students[i]['id'];
@@ -37,16 +37,21 @@ export default class ManuallyAssignProjects extends React.Component {
         checkedStudents.push(currStudentID);
       } else {
         uncheckedStudents.push(this.state.students[i]);
+        console.log('Unchecked Student: ' + this.state.students[i]['id']);
       }
     }
-
-    this.setState({ students: uncheckedStudents });
 
     for (var k = 0; k < checkedStudents.length; k++) {
       this.state.projects[j]['students'].push(checkedStudents[k]);
     }
+    console.log(this.state.projects);
     this.props.assignProjToStud(this.state.projects);
+
+    this.setState({students: uncheckedStudents}, () => {
+      console.log(this.state.students);
+    })
   }
+
 
   render() {
     return (
@@ -149,5 +154,5 @@ export default class ManuallyAssignProjects extends React.Component {
 ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
-  assignProjToStud: PropTypes.func,
+  assignProjToStud: PropTypes.func
 };

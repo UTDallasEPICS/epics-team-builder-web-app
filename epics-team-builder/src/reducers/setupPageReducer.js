@@ -24,7 +24,7 @@ const projects = (state = [], { type, payload }) => {
   }
 };
 
-const projectByStudentId = (state = {}, { type, payload }) => {
+const manuallyAssignedStudents = (state = {}, { type, payload }) => {
   switch (type) {
     case ASSIGN_PROJ_TO_STUD:
       return {
@@ -36,7 +36,7 @@ const projectByStudentId = (state = {}, { type, payload }) => {
   }
 };
 
-const numOfPreferredProjects = (state = 5, { type, payload }) => {
+const numOfPreferredProjects = (state = 6, { type, payload }) => {
   switch (type) {
     case CHANGE_NUM_PROJECT_SLIDER:
       return payload;
@@ -48,6 +48,6 @@ const numOfPreferredProjects = (state = 5, { type, payload }) => {
 export default combineReducers({
   students,
   projects,
-  projectByStudentId,
+  manuallyAssignedStudents,
   numOfPreferredProjects
 });

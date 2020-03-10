@@ -248,7 +248,7 @@ class ExcelReader extends Component {
             <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
               <input {...getInputProps()} disabled={true} />
               <div className='upload-project'>
-                <button className='upload-button' onClick={this.onProjectInputClick} ref={this.projectBtnRef}>
+                <button className='orange' onClick={this.onProjectInputClick} ref={this.projectBtnRef}>
                   Upload Project Files
                 </button>
                 <input
@@ -269,7 +269,7 @@ class ExcelReader extends Component {
             <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
               <input {...getInputProps()} disabled={true} />
               <div className='upload-students'>
-                <button className='upload-button' onClick={this.onStudentInputClick} ref={this.studentBtnRef}>
+                <button className='orange' onClick={this.onStudentInputClick} ref={this.studentBtnRef}>
                   Upload Student Files
                 </button>
                 <input
