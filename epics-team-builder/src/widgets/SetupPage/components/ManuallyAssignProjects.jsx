@@ -4,49 +4,33 @@ import PropTypes from 'prop-types';
 
 export default class ManuallyAssignProjects extends React.Component {
   addProjectToStudent(projects, students) {
-    var currentProjectName = '';
+
     var checkedStudents = [];
-    let uncheckedStudents = [] ;
-    var mappedStudents = {
-      projects: [{ projectID: '', studentIDs: [] }]
-    };
+    let uncheckedStudents = [];
 
-    for (var j = 0; j < projects.length; j++) {
-      var projectName = projects[j]['name'];
+    var j = 0;
+    var projectName = projects[j]['name'];
+    while(!document.getElementById(projectName).checked){
+      projectName = projects[++j]['name'];
+    }
 
-      if (document.getElementById(projectName).checked) {
-        document.getElementById(projectName).checked = false ;
-        currentProjectName = projectName;
-        mappedStudents.projects[j] = {};
-        mappedStudents.projects[j]['projectID'] = currentProjectName;
-       /* console.log('current project name is' + currentProjectName); */ 
+    for (var i=0 ; i<students.length ; i++){
+      var currStudentID = students[i]['id'];
 
-        for (var i = 0; i < students.length; i++) {
-          var currStudentID = students[i]['id'];
-
-          if (document.getElementById(currStudentID).checked) {
-            document.getElementById(currStudentID).checked = false ;
-            console.log(currStudentID + ' Student is checked');
-            checkedStudents.push(currStudentID);
-          }
-          else{
-            uncheckedStudents.push(students[i]);
-          }
-        }
-        console.log(uncheckedStudents) ;
-        this.props.changeStudentsArray(uncheckedStudents) ;
-
-        for (var k = 0; k < checkedStudents.length; k++) {
-          mappedStudents.projects[j][k] = '';
-          mappedStudents.projects[j][k] = checkedStudents[k];
-        }
-
-       /* console.log(mappedStudents); */
-        this.props.assignProjToStud(mappedStudents);
+      if(document.getElementById(currStudentID).checked){
+        document.getElementById(currStudentID).checked = false;
+        checkedStudents.push(currStudentID);
+      } else{
+        uncheckedStudents.push(students[i])
       }
     }
 
-    /* NOW MAP ALL THE CHECKED STUDENTS TO THE CURRENT PROJECT NAME HERE */
+    this.props.changeStudentsArray(uncheckedStudents);
+
+    for(var i=0; i<checkedStudents.length ; i++){
+      projects[j]['students'].push(checkedStudents[i]);
+    }
+
   }
 
   render() {
@@ -157,5 +141,6 @@ ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
   assignProjToStud: PropTypes.func,
-  changeStudentsArray: PropTypes.func
+  changeStudentsArray: PropTypes.func,
+  changeProjectsArray: PropTypes.func
 };

@@ -1,6 +1,11 @@
 import SetupPage from '../components/SetupPage';
 import { connect } from 'react-redux';
-import { changeNumOfPreferredProjects, assignProjToStud , changeProjectsArray,changeStudentsArray } from '../../../actions/setupPageActions.js';
+import {
+  changeNumOfPreferredProjects,
+  assignProjToStud,
+  changeProjectsArray,
+  changeStudentsArray
+} from '../../../actions/setupPageActions.js';
 
 import { getNumOfPreferredProjects, getStudents, getProjects } from '../../../reducers';
 
