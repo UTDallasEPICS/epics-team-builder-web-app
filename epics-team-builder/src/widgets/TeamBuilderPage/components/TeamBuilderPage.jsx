@@ -1,7 +1,78 @@
-import React from 'react';
+import React, {userState, useEffect} from 'react';
+import Header from '../../common/Header';
+import CheckBox from '../components/CheckBox';
 
-export default class TeamBuilderPage extends React.Component {
-  render() {
-    return <div className='team-builder-page'>Team Builder</div>;
-  }
+const TeamBuilderPage = (props) => {
+
+  const renderTopSection = () => (
+    <div className="row py-3">
+      <div className="col-12 col-md-2 p-md-4">
+        <button className="px-5 py-2 bg-success text-white">Go Back</button>
+      </div>
+      <div className="col-12 col-md-7 text-center">
+        <div className="font-weight-bolder text-center py-2">
+          <h3>Attribute Importance</h3>
+        </div>
+        <div className="d-md-flex md-flex-row justify-content-center">
+          <CheckBox />
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderTeamCombinations = () => (
+    <div className="col-12 col-md-4 bg-warning">
+      <div className="py-2" style={{ height: '60vh' }}>
+        <div>
+          <div className="font-weight-bolder text-center">
+            <h4>Team Combinations</h4>
+          </div>
+          <div className="w-75 mx-auto">
+               dsdsadsadsad
+          </div>
+          <div className="text-center">
+            <button className="px-3 py-2 bg-success text-white">Regenerate Teams</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderViewTeam = () => (
+    <div className="col-12 col-md-4 bg-success">
+      <div>
+        <div className="font-weight-bolder text-center">
+          <h4>View Team</h4>
+        </div>
+        <div>
+          {/* Make sure to put these divs in their respective components when made */}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderTeamInformation = () => (
+    <div className="col-12 col-md-4 bg-info">
+      <div>
+        <div className="font-weight-bolder text-center"><h4>Team Information</h4></div>
+        <div>
+          {/* Make sure to put these divs in their respective components when made */}
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className='team-builder-page'>
+      <Header />
+      {renderTopSection()}
+      <div className="row">
+        {renderTeamCombinations()}
+        {renderViewTeam()}
+        {renderTeamInformation()}
+      </div>
+    </div>
+  );
 }
+
+export default TeamBuilderPage;
