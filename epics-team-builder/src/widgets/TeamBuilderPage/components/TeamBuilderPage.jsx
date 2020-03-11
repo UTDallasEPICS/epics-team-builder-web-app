@@ -1,13 +1,17 @@
-import React, {userState, useEffect} from 'react';
-import Header from '../../common/Header';
-import CheckBox from '../components/CheckBox';
+import React, { userState, useEffect } from "react";
+import Header from "../../common/Header";
+import CheckBox from "../components/CheckBox";
 
-const TeamBuilderPage = (props) => {
-
+const TeamBuilderPage = props => {
   const renderTopSection = () => (
     <div className="row py-3">
       <div className="col-12 col-md-2 p-md-4">
-        <button className="px-5 py-2 bg-success text-white">Go Back</button>
+        <button
+          onClick={props.switchToSetup()}
+          className="px-5 py-2 bg-success text-white"
+        >
+          Go Back
+        </button>
       </div>
       <div className="col-12 col-md-7 text-center">
         <div className="font-weight-bolder text-center py-2">
@@ -22,16 +26,16 @@ const TeamBuilderPage = (props) => {
 
   const renderTeamCombinations = () => (
     <div className="col-12 col-md-4 bg-warning">
-      <div className="py-2" style={{ height: '60vh' }}>
+      <div className="py-2" style={{ height: "60vh" }}>
         <div>
           <div className="font-weight-bolder text-center">
             <h4>Team Combinations</h4>
           </div>
-          <div className="w-75 mx-auto">
-               dsdsadsadsad
-          </div>
+          <div className="w-75 mx-auto">dsdsadsadsad</div>
           <div className="text-center">
-            <button className="px-3 py-2 bg-success text-white">Regenerate Teams</button>
+            <button className="px-3 py-2 bg-success text-white">
+              Regenerate Teams
+            </button>
           </div>
         </div>
       </div>
@@ -54,7 +58,9 @@ const TeamBuilderPage = (props) => {
   const renderTeamInformation = () => (
     <div className="col-12 col-md-4 bg-info">
       <div>
-        <div className="font-weight-bolder text-center"><h4>Team Information</h4></div>
+        <div className="font-weight-bolder text-center">
+          <h4>Team Information</h4>
+        </div>
         <div>
           {/* Make sure to put these divs in their respective components when made */}
         </div>
@@ -63,7 +69,7 @@ const TeamBuilderPage = (props) => {
   );
 
   return (
-    <div className='team-builder-page'>
+    <div className="team-builder-page">
       <Header />
       {renderTopSection()}
       <div className="row">
@@ -73,6 +79,6 @@ const TeamBuilderPage = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default TeamBuilderPage;

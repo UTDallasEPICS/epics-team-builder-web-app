@@ -16,7 +16,9 @@ export default class EpicsTeamBuilder extends React.Component {
   switchToTeamBuilder = () => {
     this.setState({ showSetupPage: false });
   };
-
+  switchToSetup = () => {
+    this.setState({showSetupPage:true});
+  };
   render() {
     return (
       <Provider store={store}>
@@ -25,7 +27,7 @@ export default class EpicsTeamBuilder extends React.Component {
           {this.state.showSetupPage ? (
             <SetupPage switchToTeamBuilder={this.switchToTeamBuilder} />
           ) : (
-            <TeamBuilderPage />
+            <TeamBuilderPage switchToSetup={()=>this.switchToSetup}/>
           )}
         </div>
       </Provider>
