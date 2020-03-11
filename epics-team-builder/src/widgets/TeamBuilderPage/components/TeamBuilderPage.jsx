@@ -3,6 +3,12 @@ import Header from "../../common/Header";
 import CheckBox from "../components/CheckBox";
 
 const TeamBuilderPage = props => {
+  const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = props;
+
+  const regrenerateTeam = () => {
+    props.generateTeams({students, projects, manuallyAssignedStudents, numOfPrefProjects })
+  };
+
   const renderTopSection = () => (
     <div className="row py-3">
       <div className="col-12 col-md-2 p-md-4">
@@ -33,7 +39,9 @@ const TeamBuilderPage = props => {
           </div>
           <div className="w-75 mx-auto">dsdsadsadsad</div>
           <div className="text-center">
-            <button className="px-3 py-2 bg-success text-white">
+            <button 
+            onClick={regrenerateTeam}
+            className="px-3 py-2 bg-success text-white">
               Regenerate Teams
             </button>
           </div>
