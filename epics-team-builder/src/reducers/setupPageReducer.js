@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import {
   CHANGE_NUM_PROJECT_SLIDER,
   CHANGE_STUDENTS_ARRAY,
-  CHANGE_PROJECTS_ARRAY
+  CHANGE_PROJECTS_ARRAY,
+  ASSIGN_PROJ_TO_STUDENT
 } from '../actions/actionTypes/setupPageActionTypes';
 
 const students = (state = [], { type, payload }) => {
@@ -25,6 +26,11 @@ const projects = (state = [], { type, payload }) => {
 
 const manuallyAssignedStudents = (state = {}, { type, payload }) => {
   switch (type) {
+    case ASSIGN_PROJ_TO_STUDENT:
+      return {
+        ...state,
+        ...payload
+      };
     default:
       return state;
   }

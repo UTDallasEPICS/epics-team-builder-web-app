@@ -58,9 +58,36 @@
   }
 
   .manual-project-assignment {
-    background-color: lightblue;
     grid-column: 1/8;
     grid-row: 4/18;
+    margin-top: 16px;
+    text-align: center;
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: unset;
+    }
+
+    .tables-container {
+      margin: 24px 5%;
+      text-align: left;
+
+      .table-card {
+        height: 400px;
+        width: 0;
+        overflow-y: scroll;
+        border-collapse: separate;
+        box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.3);
+
+        thead tr th {
+          background: white;
+          position: sticky;
+          top: 0;
+          box-shadow: 0 0 0 1px #ccc;
+        }
+      }
+    }
   }
 
   .manually-assigned-students {

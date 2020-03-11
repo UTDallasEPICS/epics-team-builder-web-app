@@ -3,15 +3,6 @@ import { INITIATE_TEAM_GENERATION } from './actionTypes/teamBuilderActionTypes';
 export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects }) => {
   const teams = {};
 
-  //Pull out all students who did not respond
-  let noResponseStudents = students.filter(student => !student.response);
-  students = students.filter(student => student.response);
-
-  //Mock manuallyAssigned for now
-  manuallyAssignedStudents = {
-    3: 'SP20 - ATC: Patient Data Collection App'
-  };
-
   projects.forEach(project => {
     teams[`${project.name}`] = {
       project,
@@ -24,7 +15,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   for (let sid in manuallyAssignedStudents) {
     //Change students to map from sid to their info
     for (let i = 0; i < students.length; i++) {
-      if (students[i].id == sid) {
+      if (parseInt(students[i].id) === parseInt(sid)) {
         students[i].assigned = true;
         teams[manuallyAssignedStudents[sid]].members.push(students[i]);
         students.splice(i, 1);
@@ -32,6 +23,10 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       }
     }
   }
+
+  //Pull out all students who did not respond
+  let noResponseStudents = students.filter(student => !student.response);
+  students = students.filter(student => student.response);
 
   //Let returning students get priority in project choice first
   for (let i = 0; i < students.length; i++) {
@@ -173,6 +168,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
             break;
           case 'Senior':
             teamTotalClass += 2;
+            break;
+          default:
             break;
         }
       });
