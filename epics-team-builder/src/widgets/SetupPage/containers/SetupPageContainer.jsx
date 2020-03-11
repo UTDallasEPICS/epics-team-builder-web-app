@@ -2,7 +2,7 @@ import SetupPage from '../components/SetupPage';
 import { connect } from 'react-redux';
 import {
   changeNumOfPreferredProjects,
-  assignProjToStud,
+  assignProjToStudents,
   changeProjectsArray,
   changeStudentsArray
 } from '../../../actions/setupPageActions.js';
@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
   changeNumOfPreferredProjects: value => dispatch(changeNumOfPreferredProjects(value)),
   changeProjectsArray: value => dispatch(changeProjectsArray(value)),
   changeStudentsArray: value => dispatch(changeStudentsArray(value)),
-  assignProjToStud: value => dispatch(assignProjToStud(value)),
+  assignProjToStudents: value => dispatch(assignProjToStudents(value)),
   generateTeams: teamInformation => dispatch(generateTeams(teamInformation))
 });
 

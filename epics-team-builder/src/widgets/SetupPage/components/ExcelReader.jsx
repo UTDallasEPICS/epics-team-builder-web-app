@@ -103,8 +103,7 @@ class ExcelReader extends Component {
         accumalator.push({
           name: project['Project Name'] ? project['Project Name'] : 'N/A',
           returning: project['Returning (Y/N)'] === 'Y',
-          skills: skillsArray[0] ? skillsArray : [],
-          students: []
+          skills: skillsArray[0] ? skillsArray : []
         });
         return accumalator;
       }, []);

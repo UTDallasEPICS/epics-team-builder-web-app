@@ -19,15 +19,14 @@ class SetupPage extends React.Component {
 
   render() {
     const {
-      numOfPreferredProjects,
+      numOfPrefProjects,
       students,
       projects,
-      assignProjToStud,
+      assignProjToStudents,
       changeStudentsArray,
-      changeProjectsArray
+      changeProjectsArray,
+      manuallyAssignedStudents
     } = this.props;
-
-    const { numOfPrefProjects } = this.props;
 
     return (
       <div className='setup-page'>
@@ -35,15 +34,15 @@ class SetupPage extends React.Component {
         <div className='setup-grid'>
           {/* Make sure to put these divs in their respective components when made */}
           <ExcelReader changeStudentsArray={changeStudentsArray} changeProjectsArray={changeProjectsArray} />
-          <div>
-            <ManuallyAssignProjects
-              className='manual-project-assignment'
-              students={students}
-              projects={projects}
-              assignProjToStud={assignProjToStud}
-              changeStudentsArray={changeStudentsArray}
-            />
-          </div>
+
+          <ManuallyAssignProjects
+            students={students}
+            projects={projects}
+            assignProjToStudents={assignProjToStudents}
+            changeStudentsArray={changeStudentsArray}
+            manuallyAssignedStudents={manuallyAssignedStudents}
+          />
+
           <div className='manually-assigned-students'></div>
         </div>
         <div className='preferred-project-slider'>
@@ -76,7 +75,7 @@ SetupPage.propTypes = {
   changeNumOfPreferredProjects: PropTypes.func,
   students: PropTypes.array,
   projects: PropTypes.array,
-  assignProjToStud: PropTypes.func,
+  assignProjToStudents: PropTypes.func,
   changeProjectsArray: PropTypes.func,
   changeStudentsArray: PropTypes.func,
   switchToTeamBuilder: PropTypes.func,
