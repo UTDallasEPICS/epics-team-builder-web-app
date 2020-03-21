@@ -1,9 +1,10 @@
 import React, { userState, useEffect } from "react";
 import Header from "../../common/Header";
 import CheckBox from "../components/CheckBox";
+import DisplayTeamCombinations from "./displayTeamCombinations";
 
-const TeamBuilderPage = props => {
-  const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = props;
+function TeamBuilderPage(props){
+  const { students, projects, manuallyAssignedStudents, numOfPrefProjects,teamCombos} = props;
 
   const regrenerateTeam = () => {
     props.generateTeams({students, projects, manuallyAssignedStudents, numOfPrefProjects })
@@ -32,12 +33,14 @@ const TeamBuilderPage = props => {
 
   const renderTeamCombinations = () => (
     <div className="col-12 col-md-4 bg-warning">
-      <div className="py-2" style={{ height: "60vh" }}>
+      <div className="py-2" style={{ height: "auto" }}>
         <div>
           <div className="font-weight-bolder text-center">
             <h4>Team Combinations</h4>
           </div>
-          <div className="w-75 mx-auto">dsdsadsadsad</div>
+          <div className="teamcombination-wrapper w-75 mx-auto">
+            <DisplayTeamCombinations teamCombos = {teamCombos} />
+          </div>
           <div className="text-center">
             <button 
             onClick={regrenerateTeam}

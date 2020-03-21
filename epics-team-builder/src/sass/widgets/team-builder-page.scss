@@ -1,20 +1,22 @@
 .team-builder-page {
-    height: 100vh;
-    overflow-x: hidden;
-  
-    .header-container {
-      height: 10%;
-      .header {
-        height: 40%;
-        background-color: #124734;
-        display: flex;
-        img {
-          align-self: center;
-          height: 80%;
-        }
+  height: 100vh;
+  overflow-x: hidden;
+
+  .header-container {
+    height: 10%;
+    .header {
+      height: 40%;
+      background-color: #124734;
+      display: flex;
+      img {
+        align-self: center;
+        height: 80%;
       }
     }
   }
-  
-  
-  
+}
+
+.teamcombination-wrapper {
+  max-height: 80vh;
+  overflow-y: scroll;
+}
