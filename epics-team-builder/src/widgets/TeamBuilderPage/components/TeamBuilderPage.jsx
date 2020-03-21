@@ -1,13 +1,19 @@
-import React, { userState, useEffect } from "react";
+import React from "react";
 import Header from "../../common/Header";
 import CheckBox from "../components/CheckBox";
 import DisplayTeamCombinations from "./displayTeamCombinations";
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
 function TeamBuilderPage(props) {
+  const [loading, setLoading] = React.useState(false);
   const { students, projects, manuallyAssignedStudents, numOfPrefProjects, teamCombos } = props;
 
   const regrenerateTeam = () => {
-    props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects })
+    setLoading(true);
+    let timeout = setTimeout(() => {
+      setLoading(false);
+      return clearTimeout(timeout);
+    }, 1500);
+    props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
   };
 
   const selectCombination = (comboInformation) => {
@@ -35,46 +41,54 @@ function TeamBuilderPage(props) {
     </Row>
   );
 
+  const renderLoading = () => (
+    <div style={{ height: "50vh" }} className="d-flex justify-content-center align-items-center">
+      <div>
+        <Spinner animation="border" role="status" size='lg'></Spinner>
+      </div>
+    </div>
+  )
+
   const renderTeamCombinations = () => (
-      <div className="py-2" style={{ height: "auto" }}>
+    <div className="py-2" style={{ height: "auto" }}>
+      <div>
+        <div className="font-weight-bolder text-center py-1">
+          <h4>Team Combinations</h4>
+        </div>
         <div>
-          <div className="font-weight-bolder text-center py-3">
-            <h4>Team Combinations</h4>
-          </div>
-          <div className="teamcombination-wrapper p-3">
-            <DisplayTeamCombinations teamCombos={teamCombos} selectCombination={selectCombination} />
-          </div>
-          <div className="text-center">
-            <button
-              onClick={regrenerateTeam}
-              className="px-3 py-2 bg-success text-white">
-              Regenerate Teams
+          <DisplayTeamCombinations teamCombos={teamCombos} selectCombination={selectCombination} />
+        </div>
+        <div className="text-center">
+          <button
+            onClick={regrenerateTeam}
+            className="px-3 py-2 bg-success text-white">
+            Regenerate Teams
             </button>
-          </div>
         </div>
       </div>
+    </div>
   );
 
   const renderViewTeam = () => (
-      <div>
-        <div className="font-weight-bolder text-center">
-          <h4>View Team</h4>
-        </div>
-        <div>
-          {/* Make sure to put these divs in their respective components when made */}
-        </div>
+    <div>
+      <div className="font-weight-bolder text-center">
+        <h4>View Team</h4>
       </div>
+      <div>
+        {/* Make sure to put these divs in their respective components when made */}
+      </div>
+    </div>
   );
 
   const renderTeamInformation = () => (
-      <div>
-        <div className="font-weight-bolder text-center">
-          <h4>Team Information</h4>
-        </div>
-        <div>
-          {/* Make sure to put these divs in their respective components when made */}
-        </div>
+    <div>
+      <div className="font-weight-bolder text-center">
+        <h4>Team Information</h4>
       </div>
+      <div>
+        {/* Make sure to put these divs in their respective components when made */}
+      </div>
+    </div>
   );
 
   return (
@@ -82,8 +96,8 @@ function TeamBuilderPage(props) {
       <Header />
       {renderTopSection()}
       <Row>
-        <Col xs={12} md={4} className="bg-warning">
-          {renderTeamCombinations()}
+        <Col xs={12} md={4} className="bg-light">
+          {loading ? renderLoading() : renderTeamCombinations()}
         </Col>
         <Col xs={12} md={4} className="bg-success">
           {renderViewTeam()}
