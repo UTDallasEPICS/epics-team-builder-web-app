@@ -9,7 +9,7 @@ export default class EpicsTeamBuilder extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSetupPage: true
+      showSetupPage: false
     };
   }
 
