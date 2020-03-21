@@ -5,7 +5,7 @@ function DisplayTeamCombinations(props) {
 
     const showCombinations = (teamCombos) => (
         <div>
-            {teamCombos.map((combo, i) => (
+            {/* {teamCombos.map((combo, i) => (
                 <div className="d-flex justify-content-between">
                     <div>Team combination {i + 1}</div>
                     <div>
@@ -15,7 +15,7 @@ function DisplayTeamCombinations(props) {
                          </button>
                     </div>
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 
