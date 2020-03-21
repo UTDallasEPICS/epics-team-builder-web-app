@@ -5,7 +5,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
+  //Import common styling
+  @import './common/button.scss';
+
   .epics-team-builder {
+    //Import component specific styling
     @import './widgets/setup-page.scss';
     @import './widgets/team-builder-page.scss';
 

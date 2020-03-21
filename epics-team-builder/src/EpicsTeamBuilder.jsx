@@ -13,12 +13,20 @@ export default class EpicsTeamBuilder extends React.Component {
     };
   }
 
+  switchToTeamBuilder = () => {
+    this.setState({ showSetupPage: false });
+  };
+
   render() {
     return (
       <Provider store={store}>
         <div className='epics-team-builder'>
           <div className='gray-background' />
-          {this.state.showSetupPage ? <SetupPage /> : <TeamBuilderPage />}
+          {this.state.showSetupPage ? (
+            <SetupPage switchToTeamBuilder={this.switchToTeamBuilder} />
+          ) : (
+            <TeamBuilderPage />
+          )}
         </div>
       </Provider>
     );
