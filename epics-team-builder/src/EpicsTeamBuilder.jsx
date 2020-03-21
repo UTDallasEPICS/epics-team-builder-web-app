@@ -9,7 +9,7 @@ export default class EpicsTeamBuilder extends React.Component {
   constructor() {
     super();
     this.state = {
-      showSetupPage: false
+      showSetupPage: true
     };
   }
 
@@ -19,6 +19,7 @@ export default class EpicsTeamBuilder extends React.Component {
   switchToSetup = () => {
     this.setState({showSetupPage:true});
   };
+  
   render() {
     return (
       <Provider store={store}>
