@@ -13,6 +13,7 @@ function TeamBuilderPage(props) {
       setLoading(false);
       return clearTimeout(timeout);
     }, 1500);
+    console.log(numOfPrefProjects)
     props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
   };
 

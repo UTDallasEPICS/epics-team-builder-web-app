@@ -5,7 +5,7 @@ import { generateTeams,selectCombination } from '../../../actions/teamBuilderPag
 import { getNumOfPreferredProjects, getStudents, getProjects, getManuallyAssignedStudents,getTeamCombos } from '../../../reducers';
 
 const mapStateToProps = state => ({
-  numOfPreferredProjects: getNumOfPreferredProjects(state),
+  numOfPrefProjects: getNumOfPreferredProjects(state),
   students: getStudents(state),
   projects: getProjects(state),
   manuallyAssignedStudents: getManuallyAssignedStudents(state),
@@ -13,7 +13,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeNumOfPreferredProjects: value => dispatch(changeNumOfPreferredProjects(value)),
   generateTeams: teamInformation => dispatch(generateTeams(teamInformation)),
   selectCombination: comboInformation => dispatch(selectCombination(comboInformation)),
 });
