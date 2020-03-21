@@ -15,4 +15,5 @@ export const getManuallyAssignedStudents = state => state.setupPage.manuallyAssi
 export const getNumOfPreferredProjects = state => state.setupPage.numOfPreferredProjects;
 
 //Team Builder Page Selectors
-export const getTeamCombos = state => state.teamCombos;
+export const getTeamCombos = state => state.teamCombos.getTeamCombos;
+export const getSelectedCombo = state => state.teamCombos.getSectedCombo;

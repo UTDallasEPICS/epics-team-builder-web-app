@@ -1,4 +1,5 @@
 import { INITIATE_TEAM_GENERATION } from './actionTypes/teamBuilderActionTypes';
+import { SELECT_TEAM_COMBINATION } from './actionTypes/teamBuilderActionTypes';
 
 export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects }) => {
   const teams = {};
@@ -250,4 +251,11 @@ function findTeamForStudent(student, teams, numOfPrefProjects) {
     }
   }
   return false;
-}
+};
+
+export const selectCombination = (value) => {
+  return {
+    type: SELECT_TEAM_COMBINATION,
+    payload: value
+  };
+};
