@@ -1,0 +1,13 @@
+#Auto convert these file types to have correct line endings
+*.scss  text
+*.jsx   text
+*.js    text
+*.json  text
+*.html  text
+*.md    text
+
+#Treat these as binary since they will never be edited
+*.png   binary
+*.jpg   binary  
+*.jepg  binary
+

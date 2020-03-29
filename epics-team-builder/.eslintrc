@@ -19,7 +19,6 @@
   },
   "plugins": ["react"],
   "rules": {
-    "linebreak-style": ["error", "windows"],
     "semi": ["error", "always"],
     "no-unused-vars": ["warn", { "vars": "all" }],
     "react/prop-types": ["error"]
