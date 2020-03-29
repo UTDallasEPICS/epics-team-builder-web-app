@@ -25,7 +25,7 @@ function TeamBuilderPage(props) {
   const renderTopSection = () => (
     <Row className='py-3'>
       <Col xs={12} md={2} className='p-md-4'>
-        <button onClick={props.switchToSetup()} className='px-5 py-2 bg-success text-white'>
+        <button onClick={props.switchToSetup()} className='px-5 py-2 green'>
           Go Back
         </button>
       </Col>
