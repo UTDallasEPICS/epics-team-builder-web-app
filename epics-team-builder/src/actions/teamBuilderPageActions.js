@@ -217,6 +217,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       skillsMetRatio,
       unassignedReturn,
       unassignedNormal,
+      noResponseStudents,
       unassignedStudents: randomStudents
     });
   }
