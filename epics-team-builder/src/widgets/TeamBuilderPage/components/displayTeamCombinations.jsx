@@ -1,11 +1,11 @@
 import React from 'react';
 
 function DisplayTeamCombinations(props) {
-    const [seclectedTeam, SetSeclectedTeam] = React.useState({});
+  const [seclectedTeam, SetSeclectedTeam] = React.useState({});
 
-    const showCombinations = (teamCombos) => (
-        <div>
-            {/* {teamCombos.map((combo, i) => (
+  const showCombinations = teamCombos => (
+    <div>
+      {/* {teamCombos.map((combo, i) => (
                 <div className="d-flex justify-content-between">
                     <div>Team combination {i + 1}</div>
                     <div>
@@ -16,12 +16,10 @@ function DisplayTeamCombinations(props) {
                     </div>
                 </div>
             ))} */}
-        </div>
-    );
+    </div>
+  );
 
-    return (
-        <div>{showCombinations(props.teamCombos)}</div>
-    )
+  return <div>{showCombinations(props.teamCombos)}</div>;
 }
 
 export default DisplayTeamCombinations;
