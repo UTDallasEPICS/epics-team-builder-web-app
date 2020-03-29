@@ -7,7 +7,7 @@ import {
   changeStudentsArray
 } from '../../../actions/setupPageActions.js';
 
-import { generateTeams, selectCombination} from '../../../actions/teamBuilderPageActions';
+import { generateTeams, selectCombination } from '../../../actions/teamBuilderPageActions';
 import { getNumOfPreferredProjects, getStudents, getProjects, getManuallyAssignedStudents } from '../../../reducers';
 
 const mapStateToProps = state => ({
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   changeStudentsArray: value => dispatch(changeStudentsArray(value)),
   assignProjToStudents: value => dispatch(assignProjToStudents(value)),
   generateTeams: teamInformation => dispatch(generateTeams(teamInformation)),
-  selectCombination: comboInformation => dispatch(selectCombination(comboInformation)),
+  selectCombination: comboInformation => dispatch(selectCombination(comboInformation))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SetupPage);

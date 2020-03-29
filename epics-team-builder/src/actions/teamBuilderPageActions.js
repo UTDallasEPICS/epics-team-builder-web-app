@@ -218,6 +218,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       skillsMetRatio,
       unassignedReturn,
       unassignedNormal,
+      noResponseStudents,
       unassignedStudents: randomStudents
     });
   }
@@ -251,9 +252,9 @@ function findTeamForStudent(student, teams, numOfPrefProjects) {
     }
   }
   return false;
-};
+}
 
-export const selectCombination = (value) => {
+export const selectCombination = value => {
   return {
     type: SELECT_TEAM_COMBINATION,
     payload: value
