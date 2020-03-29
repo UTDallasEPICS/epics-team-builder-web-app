@@ -55,12 +55,7 @@ function TeamBuilderPage(props) {
           <h4>Team Combinations</h4>
         </div>
         <div>
-          <DisplayTeamCombinations teamCombos={teamCombos} selectCombination={selectCombination} />
-        </div>
-        <div className='text-center'>
-          <button onClick={regrenerateTeam} className='px-3 py-2 bg-success text-white'>
-            Regenerate Teams
-          </button>
+          <DisplayTeamCombinations teamCombos={teamCombos} selectCombination={selectCombination} regrenerateTeam={regrenerateTeam} />
         </div>
       </div>
     </div>

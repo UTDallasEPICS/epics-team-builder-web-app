@@ -46,6 +46,11 @@ function DisplayTeamCombinations(props) {
             </Table>
           </Card>
         </CardDeck>
+        <div className='text-center mt-3'>
+          <button onClick={props.regrenerateTeam} className='px-3 py-2 bg-success text-white'>
+            Regenerate Teams
+          </button>
+        </div>
       </div>
     </div>
   );
