@@ -3,23 +3,26 @@ import PropTypes from 'prop-types';
 import { Card, Table, CardDeck } from 'react-bootstrap';
 
 function DisplayTeamCombinations(props) {
+  const [seclectedCombo, SetSeclectedCombo] = React.useState({});
+  const [checked, setChecked] = React.useState([]);
+
   const onSeclectHandler = combo => {
     props.selectCombination(combo);
   };
 
   const showCombinations = teamCombos => (
-    <div className='pb-4'>
-      <div className='px-3 text-info'>Total Combination: {teamCombos.length} </div>
-      <div className='teamcombination-wrapper p-3'>
-        <CardDeck className='tables-container'>
-          <Card className='table-card' border='dark'>
+    <div className="pb-4">
+      <div className="px-3 text-info">Total Combination: {teamCombos.length} </div>
+      <div className="teamcombination-wrapper p-3">
+        <CardDeck className="tables-container">
+          <Card className="table-card" border="dark">
             <Table striped bordered hover>
               <tbody>
                 {teamCombos.map((combo, index) => {
                   return (
                     <tr key={index}>
                       <td>
-                        <div className='text-danger font-weight-bolder'>Combination {index + 1}</div>
+                        <div className="text-danger font-weight-bolder">Combination {index + 1}</div>
                         <div>Avg Score Choice: {combo.avgScoreChoice.toFixed(2)}</div>
                         <div>Avg Score Class: {combo.avgScoreClass.toFixed(2)}</div>
                         <div>Skills Met Ratio: {combo.skillsMetRatio.toFixed(2)}</div>
@@ -30,7 +33,7 @@ function DisplayTeamCombinations(props) {
                       <td>
                         <div
                           onClick={() => onSeclectHandler(combo)}
-                          className='border p-2 shawdow bg-dark text-white mt-4 text-center'
+                          className="border p-2 shawdow bg-dark text-white mt-4 text-center"
                           style={{ cursor: 'pointer' }}
                         >
                           Select
