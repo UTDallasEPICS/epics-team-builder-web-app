@@ -18,7 +18,7 @@ function DisplayTeamCombinations(props) {
                 {teamCombos.map((combo, index) => {
                   return (
                     <tr key={index}>
-                      <TeamComboRow selectCombination={props.selectCombination} combo={combo} />
+                      <TeamComboRow selectCombination={props.selectCombination} combo={combo} index={index} />
                     </tr>
                   );
                 })}

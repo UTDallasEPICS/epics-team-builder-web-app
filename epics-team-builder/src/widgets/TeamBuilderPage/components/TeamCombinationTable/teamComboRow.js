@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function teamComboRow({ combo, selectCombination }) {
+function teamComboRow({ combo, index, selectCombination }) {
   const onSelectHandler = combo => {
     selectCombination(combo);
   };
@@ -27,6 +27,7 @@ function teamComboRow({ combo, selectCombination }) {
 
 teamComboRow.propTypes = {
   combo: PropTypes.object,
+  index: PropTypes.number,
   selectCombination: PropTypes.func
 };
 
