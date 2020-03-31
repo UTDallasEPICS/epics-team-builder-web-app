@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const Checkbox = ({ handleCheckBox }) => {
+const Checkbox = () => {
   const categories = [
     { value: 'classification', display_name: 'Classification' },
     { value: 'projectPreferrence', display_name: 'Project Preferrence' },
