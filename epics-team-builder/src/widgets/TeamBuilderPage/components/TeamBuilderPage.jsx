@@ -55,7 +55,11 @@ function TeamBuilderPage(props) {
           <h4>Team Combinations</h4>
         </div>
         <div>
-          <DisplayTeamCombinations teamCombos={teamCombos} selectCombination={selectCombination} regrenerateTeam={regrenerateTeam} />
+          <DisplayTeamCombinations
+            teamCombos={teamCombos}
+            selectCombination={selectCombination}
+            regrenerateTeam={regrenerateTeam}
+          />
         </div>
       </div>
     </div>
