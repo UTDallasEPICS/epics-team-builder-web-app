@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../common/Header';
 import CheckBox from '../components/CheckBox';
-import DisplayTeamCombinations from './displayTeamCombinations';
+import DisplayTeamCombinations from './TeamCombinationTable/displayTeamCombinations';
 import { Row, Col, Spinner } from 'react-bootstrap';
 function TeamBuilderPage(props) {
   const [loading, setLoading] = React.useState(false);
@@ -23,32 +23,30 @@ function TeamBuilderPage(props) {
   };
 
   const renderTopSection = () => (
-    <Row className="py-3">
-      <Col xs={12} md={2} className="p-md-4">
-        <button onClick={props.switchToSetup()} className="px-5 py-2 green">
-          Go Back
-        </button>
-      </Col>
-      <Col xs={12} md={7} className=" text-center">
-        <div className="font-weight-bolder text-center py-2">
+    <div className='team-builder-header-options'>
+      <button onClick={props.switchToSetup()} className='px-3 py-2 back-button green'>
+        Go Back
+      </button>
+      <div className='team-builder-attributes'>
+        <div className='font-weight-bolder py-2'>
           <h3>Attribute Importance</h3>
         </div>
-        <div className="d-md-flex md-flex-row justify-content-center">
+        <div className='d-md-flex md-flex-row justify-content-center'>
           <CheckBox />
         </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 
   const renderLoading = () => (
-    <div style={{ height: '50vh' }} className="d-flex justify-content-center align-items-center">
-      <Spinner animation="border" role="status" size="lg"></Spinner>
+    <div style={{ height: '50vh' }} className='d-flex justify-content-center align-items-center'>
+      <Spinner animation='border' role='status' size='lg'></Spinner>
     </div>
   );
 
   const renderTeamCombinations = () => (
-    <div className="py-2" style={{ height: 'auto' }}>
-      <div className="font-weight-bolder text-center py-1">
+    <div className='team-combo-view'>
+      <div className='font-weight-bolder text-center'>
         <h4>Team Combinations</h4>
       </div>
       <DisplayTeamCombinations
@@ -61,7 +59,7 @@ function TeamBuilderPage(props) {
 
   const renderViewTeam = () => (
     <div>
-      <div className="font-weight-bolder text-center">
+      <div className='font-weight-bolder text-center'>
         <h4>View Team</h4>
       </div>
       <div>{/* Make sure to put these divs in their respective components when made */}</div>
@@ -70,7 +68,7 @@ function TeamBuilderPage(props) {
 
   const renderTeamInformation = () => (
     <div>
-      <div className="font-weight-bolder text-center">
+      <div className='font-weight-bolder text-center'>
         <h4>Team Information</h4>
       </div>
       <div>{/* Make sure to put these divs in their respective components when made */}</div>
@@ -78,17 +76,17 @@ function TeamBuilderPage(props) {
   );
 
   return (
-    <div className="team-builder-page">
+    <div className='team-builder-page'>
       <Header />
       {renderTopSection()}
       <Row>
-        <Col xs={12} md={4} className="bg-light">
+        <Col xs={12} md={4} className='bg-light'>
           {loading ? renderLoading() : renderTeamCombinations()}
         </Col>
-        <Col xs={12} md={4} className="bg-success">
+        <Col xs={12} md={4} className='bg-success'>
           {renderViewTeam()}
         </Col>
-        <Col xs={12} md={4} className="bg-info">
+        <Col xs={12} md={4} className='bg-info'>
           {renderTeamInformation()}
         </Col>
       </Row>

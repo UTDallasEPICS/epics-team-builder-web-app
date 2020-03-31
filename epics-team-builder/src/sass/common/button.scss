@@ -7,7 +7,7 @@ button {
   padding: 2px 8px;
   border-radius: 8px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   border: solid white 3px;
   box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
   transition: box-shadow 0.3s ease-in-out;
@@ -25,5 +25,9 @@ button {
 
   &.green {
     background-color: #124734;
+  }
+
+  &.dark-gray {
+    background-color: #343a40;
   }
 }
