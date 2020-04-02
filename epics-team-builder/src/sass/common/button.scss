@@ -1,0 +1,33 @@
+button {
+  font-family: 'Times New Roman', Times, serif;
+  box-sizing: border-box;
+  width: 200px;
+  text-align: center;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 18px;
+  border: solid white 3px;
+  box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
+  vertical-align: middle;
+  cursor: pointer;
+
+  &:focus {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  &.orange {
+    background-color: #e87500;
+  }
+
+  &.green {
+    background-color: #124734;
+  }
+
+  &.dark-gray {
+    background-color: #343a40;
+  }
+}

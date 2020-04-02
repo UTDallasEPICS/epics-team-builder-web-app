@@ -5,16 +5,15 @@ import teamBuilderPageReducer from './teamBuilderPageReducer';
 
 export default combineReducers({
   setupPage: setupPageReducer,
-  teams: teamBuilderPageReducer
+  teamCombos: teamBuilderPageReducer
 });
 
 //Setup Page Selectors
 export const getStudents = state => state.setupPage.students;
 export const getProjects = state => state.setupPage.projects;
-export const getProjectsByStudentId = state =>
-  state.setupPage.projectsByStudentId;
-export const getNumOfPreferredProjects = state =>
-  state.setupPage.numOfPreferredProjects;
+export const getManuallyAssignedStudents = state => state.setupPage.manuallyAssignedStudents;
+export const getNumOfPreferredProjects = state => state.setupPage.numOfPreferredProjects;
 
 //Team Builder Page Selectors
-export const getTeams = state => state.teams;
+export const getTeamCombos = state => state.teamCombos.getTeamCombos;
+export const getSelectedCombo = state => state.teamCombos.getSectedCombo;

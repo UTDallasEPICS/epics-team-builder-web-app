@@ -1,2 +1,46 @@
 .team-builder-page {
+  height: 100vh;
+  overflow-x: hidden;
+
+  .header-container {
+    height: 10vh;
+    .header {
+      height: 40%;
+      background-color: #124734;
+      display: flex;
+      img {
+        align-self: center;
+        height: 80%;
+      }
+    }
+  }
+
+  .team-builder-header-options {
+    height: 10vh;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .back-button {
+      position: absolute;
+      width: 150px;
+      -ms-transform: translateY(50%);
+      transform: translateY(50%);
+      margin-left: 16px;
+    }
+
+    .team-builder-attributes {
+      text-align: center;
+    }
+  }
+
+  .team-combo-view {
+    height: 80vh;
+
+    .table-card {
+      max-height: 60vh;
+      overflow-y: scroll;
+      border-collapse: separate;
+      box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.3);
+    }
+  }
 }

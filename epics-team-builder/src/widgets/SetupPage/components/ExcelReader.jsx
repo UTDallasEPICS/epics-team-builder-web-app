@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import XLSX from 'xlsx';
-import { make_cols } from '../utility/MakeColumns';
 import PropTypes from 'prop-types';
+import Dropzone from 'react-dropzone';
 
 class ExcelReader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectFileName: '',
-      studentFileName: ''
+      projectFileName: 'Or drag file here',
+      studentFileName: 'Or drag file here'
     };
 
     this.projectInputRef = React.createRef();
@@ -56,12 +56,9 @@ class ExcelReader extends Component {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
-    var tempskillsArray = [3]; /* empty skills array */
-    var skillsArray = [];
 
     reader.onload = e => {
       /* Parse data */
-
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, {
         type: rABS ? 'binary' : 'array',
@@ -72,79 +69,45 @@ class ExcelReader extends Component {
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
-      /* Update state */
 
       let tempContainer = {
         file: file,
-        data,
-        cols: make_cols(ws['!ref'])
+        data
       };
 
-      if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
+      //Check for correct columns in project file
+      let expectedColNames = ['Skill 1', 'Skill 2', 'Skill 3', 'Returning (Y/N)', 'Project Name'];
+
+      let actualColNames = [];
+      const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
+      for (let i = 0; i < columnCount; ++i) {
+        actualColNames[i] = ws[`${XLSX.utils.encode_col(i)}1`].v;
       }
 
-      if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Returning (Y/N)']) {
-        return alert(
-          'The project columns "Returning (Y/N)" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Project Name']) {
-        return alert(
-          'The project columns "Project Name" does not exist in the excel file'
-        );
-      }
-
-      for (var i = 0; i < tempContainer.data.length; i++) {
-        tempskillsArray[0] = tempContainer.data[i]['Skill 1'];
-        tempskillsArray[1] = tempContainer.data[i]['Skill 2'];
-        tempskillsArray[2] = tempContainer.data[i]['Skill 3'];
-
-        skillsArray[i] = tempskillsArray;
-
-        tempskillsArray = [];
-      } /* end of for loop */
-
-      var projectsArray = [
-        {
-          name: '',
-          Returning: false,
-          Skills: ['', '', '']
+      let error = expectedColNames.reduce((accumalator, name) => {
+        if (!actualColNames.includes(name)) {
+          accumalator += ' ' + name + ',';
         }
-      ]; /* empty JSON array */
+        return accumalator;
+      }, 'Missing columns:');
 
-      for (var j = 0; j < tempContainer.data.length; j++) {
-        var tempReturn = false;
-
-        if (tempContainer.data[j]['Returning (Y/N)'] === 'Y') {
-          tempReturn = true;
-        }
-        var tempObject = {
-          name: tempContainer.data[j]['Project Name']
-            ? tempContainer.data[j]['Project Name']
-            : 'N/A',
-          Returning: tempReturn,
-          Skills: skillsArray[j] ? skillsArray[j] : []
-        };
-
-        projectsArray.push(tempObject);
-
-        tempObject = {};
+      if (error.length > 16) {
+        this.setState({ projectFileName: 'Or drag file here' });
+        return alert(error.slice(0, -1));
       }
 
-      projectsArray.shift();
+      //Reduce file object down to new object with formatted data
+      let projectsArray = tempContainer.data.reduce((accumalator, project) => {
+        let skillsArray = [project['Skill 1'], project['Skill 2'], project['Skill 3']];
+
+        accumalator.push({
+          name: project['Project Name'] ? project['Project Name'] : 'N/A',
+          returning: project['Returning (Y/N)'] === 'Y',
+          skills: skillsArray[0] ? skillsArray : []
+        });
+        return accumalator;
+      }, []);
+
       this.props.changeProjectsArray(projectsArray);
     };
 
@@ -159,26 +122,6 @@ class ExcelReader extends Component {
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
-    var tempChoices = [6];
-    var choiceArray = [];
-    var tempSkills = [3];
-    var studentSkillsArray = [];
-
-    var studentsArray = [
-      {
-        id: 0,
-        name: '',
-        Response: false,
-        returning: false,
-        Choices: ['', '', '', '', '', ''],
-        Skills: ['', '', ''],
-        Major: '',
-        Classification: '',
-        Gender: '',
-        found_team: false,
-        choice_num_awarded: 0
-      }
-    ];
 
     reader.onload = e => {
       /* Parse data */
@@ -192,161 +135,78 @@ class ExcelReader extends Component {
       const ws = wb.Sheets[wsname];
       /* Convert array of arrays */
       const data = XLSX.utils.sheet_to_json(ws);
-      /* Update state */
 
       let tempContainer = {
         file: file,
-        data,
-        cols: make_cols(ws['!ref'])
+        data
       };
 
-      if (!tempContainer.data[1]['Student']) {
-        return alert('Student column is missing from student file');
+      //                  Check for correct columns in student file
+      let expectedColNames = [
+        'Student',
+        'Response Date',
+        'SSO ID',
+        'Course',
+        'Student Major',
+        'Student Classification',
+        'Gender',
+        'Skill 1',
+        'Skill 2',
+        'Skill 3'
+      ];
+
+      let actualColNames = [];
+      const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
+      for (let i = 0; i < columnCount; ++i) {
+        actualColNames[i] = ws[`${XLSX.utils.encode_col(i)}1`].v;
       }
 
-      if (!tempContainer.data[1]['Response Date']) {
-        return alert('Response Date column is missing from student file');
+      let error = expectedColNames.reduce((accumalator, name) => {
+        if (!actualColNames.includes(name)) {
+          accumalator += ' ' + name + ',';
+        }
+        return accumalator;
+      }, 'Missing columns:');
+
+      if (error.length > 16) {
+        this.setState({ studentFileName: 'Or drag file here' });
+        return alert(error.slice(0, -1));
       }
 
-      if (!tempContainer.data[1]['SSO ID']) {
-        return alert('SSO ID column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Course']) {
-        return alert('Course column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 1']) {
-        return alert('Choice 1 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 2']) {
-        return alert('Choice 2 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 3']) {
-        return alert('Choice 3 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 4']) {
-        return alert('Choice 4 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Choice 5']) {
-        return alert('Choice 5 column is missing from student file');
-      }
-      if (!tempContainer.data[1]['Choice 6']) {
-        return alert('Choice 6 column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Student Major']) {
-        return alert('Student Major column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Student Classification']) {
-        return alert(
-          'Student Classification column is missing from student file'
-        );
-      }
-
-      if (!tempContainer.data[1]['Gender']) {
-        return alert('Gender column is missing from student file');
-      }
-
-      if (!tempContainer.data[1]['Skill 1']) {
-        return alert(
-          'The project columns "Skill 1" does not exist in the excel file'
-        );
-      }
-
-      if (!tempContainer.data[1]['Skill 2']) {
-        return alert(
-          'The project columns "Skill 2" does not exist in the excel file'
-        );
-      }
-      if (!tempContainer.data[1]['Skill 3']) {
-        return alert(
-          'The project columns "Skill 3" does not exist in the excel file'
-        );
-      }
-
-      for (var i = 0; i < tempContainer.data.length; i++) {
-        tempChoices[0] = tempContainer.data[i]['Choice 1'];
-        tempChoices[1] = tempContainer.data[i]['Choice 2'];
-        tempChoices[2] = tempContainer.data[i]['Choice 3'];
-        tempChoices[3] = tempContainer.data[i]['Choice 4'];
-        tempChoices[4] = tempContainer.data[i]['Choice 5'];
-        tempChoices[5] = tempContainer.data[i]['Choice 6'];
-
-        choiceArray[i] = tempChoices;
-
-        tempChoices = [];
-      }
-
-      for (var j = 0; j < tempContainer.data.length; j++) {
-        tempSkills[0] = tempContainer.data[j]['Skill 1'];
-        tempSkills[1] = tempContainer.data[j]['Skill 2'];
-        tempSkills[2] = tempContainer.data[j]['Skill 3'];
-
-        studentSkillsArray[j] = tempSkills;
-
-        tempSkills = [];
-      }
-
-      for (var f = 0; f < tempContainer.data.length; f++) {
-        if (tempContainer.data[f]['Student Major']) {
-          var cutoffIndex =
-            tempContainer.data[f]['Student Major'].indexOf('::::') + 4;
-
-          var majorLength = tempContainer.data[f]['Student Major'].length;
-
-          var studentMajor = tempContainer.data[f]['Student Major'].substring(
-            cutoffIndex,
-            majorLength
+      //Reduce file object down to new object with formatted data
+      let studentsArray = tempContainer.data.reduce((accumalator, student) => {
+        if (student['Student Major']) {
+          var studentMajor = student['Student Major'].substring(
+            student['Student Major'].indexOf('::::') + 4,
+            student['Student Major'].length
           );
         }
 
-        var tempResponse = false;
+        let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
-        if (tempContainer.data[f]['Response Date']) {
-          tempResponse = true;
+        let i = 1;
+        let choiceArray = [];
+        while (student[`Choice ${i}`]) {
+          choiceArray.push(student[`Choice ${i}`]);
+          i++;
         }
 
-        var tempReturn = false;
-
-        if (tempContainer.data[f]['Course'] == 'EPCS 3200') {
-          tempReturn = true;
-        }
-
-        var tempObj = {
-          name: tempContainer.data[f]['Student']
-            ? tempContainer.data[f]['Student']
-            : 'N/A',
-          Response: tempResponse,
-          id: tempContainer.data[f]['SSO ID']
-            ? tempContainer.data[f]['SSO ID']
-            : 'N/A',
-          returning: tempReturn,
-          Choices: choiceArray ? choiceArray : [],
-          Major: studentMajor,
-          Classification: tempContainer.data[f]['Student Classification']
-            ? tempContainer.data[f]['Student Classification']
-            : 'N/A',
-          Gender: tempContainer.data[f]['Gender']
-            ? tempContainer.data[f]['Gender']
-            : 'N',
-          Skills: studentSkillsArray[f],
+        accumalator.push({
+          name: student['Student'] ? student['Student'] : 'N/A',
+          response: student['Response Date'] ? true : false,
+          id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
+          returning: student['Course'] === 'EPCS 3200',
+          choices: choiceArray,
+          major: studentMajor,
+          classification: student['Student Classification'] ? student['Student Classification'] : 'N/A',
+          gender: student['Gender'] ? student['Gender'] : 'N/A',
+          skills: studentSkillsArray[0] ? studentSkillsArray : [],
           found_team: false,
           choice_num_awarded: 0
-        };
-        studentsArray.push(tempObj);
+        });
 
-        tempObj = {};
-      }
-
-      studentsArray.shift();
-
-      console.log(studentsArray);
+        return accumalator;
+      }, []);
 
       this.props.changeStudentsArray(studentsArray);
     };
@@ -366,47 +226,64 @@ class ExcelReader extends Component {
     this.studentInputRef.current.click();
   };
 
+  //Setup file drops like a normal file input event
+  onProjectDrop = files => {
+    const event = { target: { files } };
+    this.handleChangeProjects(event);
+  };
+
+  onStudentDrop = files => {
+    const event = { target: { files } };
+    this.handleChangeStudents(event);
+  };
+
   render() {
     const { projectFileName, studentFileName } = this.state;
 
     return (
-      <div className="file-uploader">
-        <div className="upload-project">
-          <button
-            className="upload-button"
-            onClick={this.onProjectInputClick}
-            ref={this.projectBtnRef}
-          >
-            Upload Project Files
-          </button>
-          <input
-            id="projectInput"
-            type="file"
-            accept=".xlsx"
-            style={{ display: 'none' }}
-            ref={this.projectInputRef}
-            onChange={this.handleChangeProjects}
-          />
-          <label className="file-name-display">{projectFileName}</label>
-        </div>
-        <div className="upload-students">
-          <button
-            className="upload-button"
-            onClick={this.onStudentInputClick}
-            ref={this.studentBtnRef}
-          >
-            Upload Student Files
-          </button>
-          <input
-            id="studentInput"
-            type="file"
-            accept=".xlsx"
-            style={{ display: 'none' }}
-            ref={this.studentInputRef}
-            onChange={this.handleChangeStudents}
-          />
-          <label className="file-name-display">{studentFileName}</label>
-        </div>
+      <div className='file-uploader'>
+        <Dropzone onDrop={this.onProjectDrop}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
+              <input {...getInputProps()} disabled={true} />
+              <div className='upload-project'>
+                <button className='orange' onClick={this.onProjectInputClick} ref={this.projectBtnRef}>
+                  Upload Project Files
+                </button>
+                <input
+                  id='projectInput'
+                  type='file'
+                  accept='.xlsx'
+                  style={{ display: 'none' }}
+                  ref={this.projectInputRef}
+                  onChange={this.handleChangeProjects}
+                />
+                <label className='file-name-display'>{projectFileName}</label>
+              </div>
+            </div>
+          )}
+        </Dropzone>
+        <Dropzone onDrop={this.onStudentDrop}>
+          {({ getRootProps, getInputProps, isDragActive }) => (
+            <div {...getRootProps()} className={isDragActive ? 'drag-box' : ''}>
+              <input {...getInputProps()} disabled={true} />
+              <div className='upload-students'>
+                <button className='orange' onClick={this.onStudentInputClick} ref={this.studentBtnRef}>
+                  Upload Student Files
+                </button>
+                <input
+                  id='studentInput'
+                  type='file'
+                  accept='.xlsx'
+                  style={{ display: 'none' }}
+                  ref={this.studentInputRef}
+                  onChange={this.handleChangeStudents}
+                />
+                <label className='file-name-display'>{studentFileName}</label>
+              </div>
+            </div>
+          )}
+        </Dropzone>
       </div>
     );
   }
