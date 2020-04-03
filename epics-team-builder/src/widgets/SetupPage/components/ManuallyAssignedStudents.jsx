@@ -7,7 +7,7 @@ export default class ManuallyAssignedStudents extends React.Component {
     super(props);
   }
 
-  delete() {
+  delete(S, sO) {
     var checkedValue = [];
     var inputElements = document.getElementsByClassName('messageCheckbox');
     for (var i = 0; inputElements[i]; ++i) {
@@ -16,6 +16,20 @@ export default class ManuallyAssignedStudents extends React.Component {
       }
     }
     console.log(checkedValue);
+    checkedValue.sort(function(a, b) {
+      return a - b;
+    });
+
+    for (var j = checkedValue.length - 1; j >= 0; j--) {
+      let temp = sO[checkedValue[j]].keylocation;
+      S.splice(temp, 1);
+    }
+
+    console.log(S);
+
+    if (S != null) {
+      this.props.changeStudentsArray(S);
+    }
   }
 
   onClickHandler = index => {
@@ -28,9 +42,15 @@ export default class ManuallyAssignedStudents extends React.Component {
 
   render() {
     let { students } = this.props;
-    students = students.sort(function(a, b) {
+    var studentsOrder = students.slice();
+    for (var key of Object.keys(studentsOrder)) {
+      studentsOrder[key].keylocation = parseInt(key);
+    }
+
+    studentsOrder = studentsOrder.sort(function(a, b) {
       return a.name.localeCompare(b.name);
     });
+
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <label className='title'>Manually Assigned Students</label>
@@ -41,7 +61,8 @@ export default class ManuallyAssignedStudents extends React.Component {
             height: '400px',
             width: '80%',
             margin: '20px auto',
-            overflow: 'auto'
+            overflow: 'auto',
+            textAlign: 'left'
           }}
         >
           <Table striped bordered hover>
@@ -54,7 +75,7 @@ export default class ManuallyAssignedStudents extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {students.map((listValue, index) => {
+              {studentsOrder.map((listValue, index) => {
                 return (
                   <tr key={index} data-item={listValue} onClick={this.onClickHandler.bind(this, index)}>
                     <td style={{ textAlign: 'center' }}>
@@ -77,7 +98,7 @@ export default class ManuallyAssignedStudents extends React.Component {
           </Table>
         </Card>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className='delete-button' onClick={this.delete}>
+          <button className='delete-button' type='submit' onClick={() => this.delete(students, studentsOrder)}>
             Delete{' '}
           </button>
         </div>
@@ -87,5 +108,6 @@ export default class ManuallyAssignedStudents extends React.Component {
 }
 
 ManuallyAssignedStudents.propTypes = {
-  students: PropTypes.array
+  students: PropTypes.array,
+  changeStudentsArray: PropTypes.func
 };

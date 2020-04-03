@@ -44,7 +44,7 @@ class SetupPage extends React.Component {
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
           <div className='manually-assigned-students'>
-            <MAS students={students} />
+            <MAS students={students} changeStudentsArray={changeStudentsArray} />
           </div>
         </div>
         <div className='preferred-project-slider'>
