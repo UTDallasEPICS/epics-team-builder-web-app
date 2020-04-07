@@ -2,34 +2,23 @@ import React from 'react';
 import { Card, Table } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-export default class ManuallyAssignedStudents extends React.Component {
+export default class MAS extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  delete(S, sO) {
-    var checkedValue = [];
+  delete(SL, OS) {
+    var copy = Object.assign({}, OS);
     var inputElements = document.getElementsByClassName('messageCheckbox');
     for (var i = 0; inputElements[i]; ++i) {
       if (inputElements[i].checked) {
-        checkedValue.push(inputElements[i].value);
+        delete copy[SL[inputElements[i].value].id];
       }
     }
-    console.log(checkedValue);
-    checkedValue.sort(function(a, b) {
-      return a - b;
-    });
 
-    for (var j = checkedValue.length - 1; j >= 0; j--) {
-      let temp = sO[checkedValue[j]].keylocation;
-      S.splice(temp, 1);
-    }
+    
 
-    console.log(S);
-
-    if (S != null) {
-      this.props.changeStudentsArray(S);
-    }
+    console.log(copy);
   }
 
   onClickHandler = index => {
@@ -40,17 +29,18 @@ export default class ManuallyAssignedStudents extends React.Component {
     }
   };
 
-  render() {
-    let { students } = this.props;
-    var studentsOrder = students.slice();
-    for (var key of Object.keys(studentsOrder)) {
-      studentsOrder[key].keylocation = parseInt(key);
+  mapStudents(students, studentsAssigned) {
+    var temp = [];
+    for (var key of Object.keys(students)) {
+      if (students[key].id in studentsAssigned) {
+        temp.push(students[key]);
+      }
     }
-
-    studentsOrder = studentsOrder.sort(function(a, b) {
-      return a.name.localeCompare(b.name);
-    });
-
+    return temp;
+  }
+  render() {
+    let { manuallyAssignedStudents, students } = this.props;
+    let studentLink = this.mapStudents(students, manuallyAssignedStudents);
     return (
       <div style={{ height: '100%', width: '100%' }}>
         <label className='title'>Manually Assigned Students</label>
@@ -75,7 +65,7 @@ export default class ManuallyAssignedStudents extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {studentsOrder.map((listValue, index) => {
+              {studentLink.map((listValue, index) => {
                 return (
                   <tr key={index} data-item={listValue} onClick={this.onClickHandler.bind(this, index)}>
                     <td style={{ textAlign: 'center' }}>
@@ -90,7 +80,7 @@ export default class ManuallyAssignedStudents extends React.Component {
                     </td>
                     <td>{listValue.name}</td>
                     <td>{listValue.id}</td>
-                    <td>{listValue.gender}</td>
+                    <td>{manuallyAssignedStudents[listValue.id]}</td>
                   </tr>
                 );
               })}
@@ -98,7 +88,11 @@ export default class ManuallyAssignedStudents extends React.Component {
           </Table>
         </Card>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className='delete-button' type='submit' onClick={() => this.delete(students, studentsOrder)}>
+          <button
+            className='delete-button'
+            type='submit'
+            onClick={() => this.delete(studentLink, manuallyAssignedStudents)}
+          >
             Delete{' '}
           </button>
         </div>
@@ -107,7 +101,8 @@ export default class ManuallyAssignedStudents extends React.Component {
   }
 }
 
-ManuallyAssignedStudents.propTypes = {
+MAS.propTypes = {
   students: PropTypes.array,
+  manuallyAssignedStudents: PropTypes.object,
   changeStudentsArray: PropTypes.func
 };

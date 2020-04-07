@@ -25,7 +25,6 @@ export default class ManuallyAssignProjects extends React.Component {
         projectByStudentId[currStudentID] = projectName;
       }
     }
-
     this.props.assignProjToStudents(projectByStudentId);
   };
 

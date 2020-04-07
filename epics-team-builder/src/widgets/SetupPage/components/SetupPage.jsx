@@ -15,7 +15,12 @@ class SetupPage extends React.Component {
   generateTeams = () => {
     const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
     this.props.switchToTeamBuilder();
-    this.props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+    this.props.generateTeams({
+      students,
+      projects,
+      manuallyAssignedStudents,
+      numOfPrefProjects
+    });
   };
 
   render() {
@@ -44,7 +49,7 @@ class SetupPage extends React.Component {
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
           <div className='manually-assigned-students'>
-            <MAS students={students} changeStudentsArray={changeStudentsArray} />
+            <MAS students={students} manuallyAssignedStudents={manuallyAssignedStudents} />
           </div>
         </div>
         <div className='preferred-project-slider'>
