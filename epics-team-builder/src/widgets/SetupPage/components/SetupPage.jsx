@@ -31,7 +31,8 @@ class SetupPage extends React.Component {
       assignProjToStudents,
       changeStudentsArray,
       changeProjectsArray,
-      manuallyAssignedStudents
+      manuallyAssignedStudents,
+      removeStudent
     } = this.props;
 
     return (
@@ -49,7 +50,8 @@ class SetupPage extends React.Component {
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
           <div className='manually-assigned-students'>
-            <MAS students={students} manuallyAssignedStudents={manuallyAssignedStudents} />
+            <MAS students={students} manuallyAssignedStudents={manuallyAssignedStudents}    removeStudent={removeStudent}
+ />
           </div>
         </div>
         <div className='preferred-project-slider'>
@@ -88,7 +90,9 @@ SetupPage.propTypes = {
   switchToTeamBuilder: PropTypes.func,
   manuallyAssignedStudents: PropTypes.object,
   generateTeams: PropTypes.func,
-  numOfPrefProjects: PropTypes.number
+  numOfPrefProjects: PropTypes.number,
+  removeStudent: PropTypes.func,
+
 };
 
 export default SetupPage;

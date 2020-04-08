@@ -28,9 +28,7 @@ const projects = (state = [], { type, payload }) => {
 const manuallyAssignedStudents = (state = {}, { type, payload }) => {
   switch (type) {
     case REMOVE_STUDENT:
-      return{
-        
-      };
+      return payload;
     case ASSIGN_PROJ_TO_STUDENT:
       return {
         ...state,

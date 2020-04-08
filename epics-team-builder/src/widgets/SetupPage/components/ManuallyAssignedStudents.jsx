@@ -1,6 +1,6 @@
-import React from 'react';
-import { Card, Table } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+import React from "react";
+import { Card, Table, CardDeck } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default class MAS extends React.Component {
   constructor(props) {
@@ -9,23 +9,22 @@ export default class MAS extends React.Component {
 
   delete(SL, OS) {
     var copy = Object.assign({}, OS);
-    var inputElements = document.getElementsByClassName('messageCheckbox');
+    var inputElements = document.getElementsByClassName("messageCheckbox");
     for (var i = 0; inputElements[i]; ++i) {
       if (inputElements[i].checked) {
         delete copy[SL[inputElements[i].value].id];
+        inputElements[i].checked = false;
       }
     }
+    this.props.removeStudent(copy);
 
-    
-
-    console.log(copy);
   }
 
-  onClickHandler = index => {
-    if (document.getElementById('checkbox' + index).checked == true) {
-      document.getElementById('checkbox' + index).checked = false;
+  onClickHandler = (index) => {
+    if (document.getElementById("checkbox" + index).checked == true) {
+      document.getElementById("checkbox" + index).checked = false;
     } else {
-      document.getElementById('checkbox' + index).checked = true;
+      document.getElementById("checkbox" + index).checked = true;
     }
   };
 
@@ -42,58 +41,54 @@ export default class MAS extends React.Component {
     let { manuallyAssignedStudents, students } = this.props;
     let studentLink = this.mapStudents(students, manuallyAssignedStudents);
     return (
-      <div style={{ height: '100%', width: '100%' }}>
-        <label className='title'>Manually Assigned Students</label>
-
-        <Card
-          border='dark'
-          style={{
-            height: '400px',
-            width: '80%',
-            margin: '20px auto',
-            overflow: 'auto',
-            textAlign: 'left'
-          }}
-        >
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Name</th>
-                <th>NetID</th>
-                <th>Gender</th>
-              </tr>
-            </thead>
-            <tbody>
-              {studentLink.map((listValue, index) => {
-                return (
-                  <tr key={index} data-item={listValue} onClick={this.onClickHandler.bind(this, index)}>
-                    <td style={{ textAlign: 'center' }}>
-                      <input
-                        id={'checkbox' + index}
-                        className='messageCheckbox'
-                        type='checkbox'
-                        name='box'
-                        value={index}
-                        onClick={this.onClickHandler.bind(this, index)}
-                      ></input>
-                    </td>
-                    <td>{listValue.name}</td>
-                    <td>{listValue.id}</td>
-                    <td>{manuallyAssignedStudents[listValue.id]}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Card>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="manual-project-assignment">
+        <label className="title">Manually Assigned Students</label>
+        <CardDeck className="tables-container">
+          <Card className="table-card" border="dark">
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th style={{ width: "8%" }}></th>
+                  <th style={{ width: "20%" }}>Name</th>
+                  <th style={{ width: "20%" }}>NetID</th>
+                  <th style={{ width: "42%" }}>Project Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {studentLink.map((listValue, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      data-item={listValue}
+                      onClick={this.onClickHandler.bind(this, index)}
+                    >
+                      <td style={{ textAlign: "center" }}>
+                        <input
+                          id={"checkbox" + index}
+                          className="messageCheckbox"
+                          type="checkbox"
+                          name="box"
+                          value={index}
+                          onClick={this.onClickHandler.bind(this, index)}
+                        ></input>
+                      </td>
+                      <td>{listValue.name}</td>
+                      <td>{listValue.id}</td>
+                      <td>{manuallyAssignedStudents[listValue.id]}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </Card>
+        </CardDeck>
+        <div style={{ display: "flex", justifyContent: "center" }}>
           <button
-            className='delete-button'
-            type='submit'
+            className="delete-button"
+            type="submit"
             onClick={() => this.delete(studentLink, manuallyAssignedStudents)}
           >
-            Delete{' '}
+            Delete{" "}
           </button>
         </div>
       </div>
@@ -104,5 +99,6 @@ export default class MAS extends React.Component {
 MAS.propTypes = {
   students: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
-  changeStudentsArray: PropTypes.func
+  changeStudentsArray: PropTypes.func,
+  removeStudent: PropTypes.func,
 };
