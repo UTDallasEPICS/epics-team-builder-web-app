@@ -1,6 +1,6 @@
-import React from "react";
-import { Card, Table, CardDeck } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Card, Table, CardDeck } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 export default class MAS extends React.Component {
   constructor(props) {
@@ -9,7 +9,7 @@ export default class MAS extends React.Component {
 
   delete(SL, OS) {
     var copy = Object.assign({}, OS);
-    var inputElements = document.getElementsByClassName("messageCheckbox");
+    var inputElements = document.getElementsByClassName('messageCheckbox');
     for (var i = 0; inputElements[i]; ++i) {
       if (inputElements[i].checked) {
         delete copy[SL[inputElements[i].value].id];
@@ -17,14 +17,13 @@ export default class MAS extends React.Component {
       }
     }
     this.props.removeStudent(copy);
-
   }
 
-  onClickHandler = (index) => {
-    if (document.getElementById("checkbox" + index).checked == true) {
-      document.getElementById("checkbox" + index).checked = false;
+  onClickHandler = index => {
+    if (document.getElementById('checkbox' + index).checked == true) {
+      document.getElementById('checkbox' + index).checked = false;
     } else {
-      document.getElementById("checkbox" + index).checked = true;
+      document.getElementById('checkbox' + index).checked = true;
     }
   };
 
@@ -48,23 +47,19 @@ export default class MAS extends React.Component {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th style={{ width: "8%" }}></th>
-                  <th style={{ width: "20%" }}>Name</th>
-                  <th style={{ width: "20%" }}>NetID</th>
-                  <th style={{ width: "42%" }}>Project Name</th>
+                  <th style={{ width: '8%' }}></th>
+                  <th style={{ width: '20%' }}>Name</th>
+                  <th style={{ width: '20%' }}>NetID</th>
+                  <th style={{ width: '42%' }}>Project Name</th>
                 </tr>
               </thead>
               <tbody>
                 {studentLink.map((listValue, index) => {
                   return (
-                    <tr
-                      key={index}
-                      data-item={listValue}
-                      onClick={this.onClickHandler.bind(this, index)}
-                    >
-                      <td style={{ textAlign: "center" }}>
+                    <tr key={index} data-item={listValue} onClick={this.onClickHandler.bind(this, index)}>
+                      <td style={{ textAlign: 'center' }}>
                         <input
-                          id={"checkbox" + index}
+                          id={'checkbox' + index}
                           className="messageCheckbox"
                           type="checkbox"
                           name="box"
@@ -82,13 +77,13 @@ export default class MAS extends React.Component {
             </Table>
           </Card>
         </CardDeck>
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button
             className="delete-button"
             type="submit"
             onClick={() => this.delete(studentLink, manuallyAssignedStudents)}
           >
-            Delete{" "}
+            Delete
           </button>
         </div>
       </div>
@@ -100,5 +95,5 @@ MAS.propTypes = {
   students: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
   changeStudentsArray: PropTypes.func,
-  removeStudent: PropTypes.func,
+  removeStudent: PropTypes.func
 };
