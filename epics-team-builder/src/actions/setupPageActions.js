@@ -2,6 +2,14 @@ import { CHANGE_NUM_PROJECT_SLIDER } from './actionTypes/setupPageActionTypes';
 import { CHANGE_PROJECTS_ARRAY } from './actionTypes/setupPageActionTypes';
 import { CHANGE_STUDENTS_ARRAY } from './actionTypes/setupPageActionTypes';
 import { ASSIGN_PROJ_TO_STUDENT } from './actionTypes/setupPageActionTypes';
+import { REMOVE_STUDENT } from './actionTypes/setupPageActionTypes';
+
+export const removeStudent = value => {
+  return {
+    type: REMOVE_STUDENT,
+    payload: value
+  };
+};
 
 export const changeNumOfPreferredProjects = value => {
   return {

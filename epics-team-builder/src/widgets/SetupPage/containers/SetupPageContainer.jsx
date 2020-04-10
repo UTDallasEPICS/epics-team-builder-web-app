@@ -4,7 +4,8 @@ import {
   changeNumOfPreferredProjects,
   assignProjToStudents,
   changeProjectsArray,
-  changeStudentsArray
+  changeStudentsArray,
+  removeStudent
 } from '../../../actions/setupPageActions.js';
 
 import { generateTeams, selectCombination } from '../../../actions/teamBuilderPageActions';
@@ -22,6 +23,7 @@ const mapDispatchToProps = dispatch => ({
   changeProjectsArray: value => dispatch(changeProjectsArray(value)),
   changeStudentsArray: value => dispatch(changeStudentsArray(value)),
   assignProjToStudents: value => dispatch(assignProjToStudents(value)),
+  removeStudent: value => dispatch(removeStudent(value)),
   generateTeams: teamInformation => dispatch(generateTeams(teamInformation)),
   selectCombination: comboInformation => dispatch(selectCombination(comboInformation))
 });
