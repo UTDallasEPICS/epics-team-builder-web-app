@@ -12,7 +12,7 @@ const DisplayProjects = (props) => {
   const onSeclectHandlerMembers = (members) => {
     props.selectMember(members);
   };
-
+  
   const onSeclectHandler = (teamCombos) => (
     <div className="pb-4">
       <div className="px-3 text-info">
