@@ -5,8 +5,6 @@ import { Card, Table, CardDeck } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const DisplayProjects = (props) => {
-  console.log("combo", props.combo);
-  console.log("teamCombo", props.teamCombos);
   const { combo = {} } = props;
 
   const onSeclectHandlerMembers = (members) => {
