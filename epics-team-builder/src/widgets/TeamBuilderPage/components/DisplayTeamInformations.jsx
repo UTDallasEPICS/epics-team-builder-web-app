@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { Card, Table, CardDeck } from "react-bootstrap";
+import { Col } from 'react-bootstrap';
 import PropTypes from "prop-types";
 import DisplayProjects from "./DisplayProjects";
 
@@ -24,26 +25,33 @@ const DisplayTeamInformations = (props) => {
                 <tbody>
                   <div>
                     <div>
+                      <Col>
+                      <div className="text-danger font-weight-bolder">Project Info: </div>
                       <div>{team.project.name}</div>
                       <div>Returning: {team.project.returning + ""}</div>
-                      <hr />
-                    </div>
-
-                    <div>
-                      <div>Skills</div>
+                      <div>Skills: </div>
+                      <Col>
                       {team.project.skills.map((skill, key) => (
+                        // eslint-disable-next-line react/jsx-key
                         <div>
-                          {key + ": "}
+                          {key + 1 + ": "}
                           {skill}
                         </div>
                       ))}
+                      </Col>
+                      <hr />
+                      </Col>
                     </div>
 
-                    <hr />
+                    
+
+                   
                     <div>
+                      <Col>
+                      <div className="text-danger font-weight-bolder">Student Info: </div>
                       {team.members.map((member, index) => (
-                       <div>
-                        
+                       // eslint-disable-next-line react/jsx-key
+                       <div>                        
                        <div key={index}>
                             <div>Name: {member.name}</div>
                             <div>Id: {member.id}</div>
@@ -57,6 +65,7 @@ const DisplayTeamInformations = (props) => {
                         <hr/>
                         </div>
                       ))}
+                      </Col>
                     </div>
                   </div>
                 </tbody>

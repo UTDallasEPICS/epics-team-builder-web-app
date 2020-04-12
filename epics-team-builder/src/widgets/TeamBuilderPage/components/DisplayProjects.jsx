@@ -5,14 +5,14 @@ import { Card, Table, CardDeck } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const DisplayProjects = (props) => {
-  console.log("mmm", props.combo);
-  console.log("kkk", props.teamCombos);
+  console.log("combo", props.combo);
+  console.log("teamCombo", props.teamCombos);
   const { combo = {} } = props;
 
   const onSeclectHandlerMembers = (members) => {
     props.selectMember(members);
   };
-  
+
   const onSeclectHandler = (teamCombos) => (
     <div className="pb-4">
       <div className="px-3 text-info">
