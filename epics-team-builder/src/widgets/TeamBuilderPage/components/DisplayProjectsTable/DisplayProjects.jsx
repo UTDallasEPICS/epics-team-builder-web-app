@@ -3,6 +3,7 @@
 import React from 'react';
 import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import DisplayProjectRow from './DisplayProjectRow';
 
 const DisplayProjects = props => {
   const { combo = {} } = props;
@@ -23,19 +24,8 @@ const DisplayProjects = props => {
               <tbody>
                 {combo.teams
                   ? Object.keys(combo.teams).map((teamName, index) => (
-                      <tr>
-                        <td>
-                          <div>{teamName}</div>
-                        </td>
-                        <td>
-                          <div
-                            onClick={() => onSelectHandlerMembers(combo.teams[teamName])}
-                            className="border p-2 shawdow bg-dark text-white mt-4 text-center"
-                            style={{ cursor: 'pointer' }}
-                          >
-                            Select
-                          </div>
-                        </td>
+                      <tr key={index}>
+                        <DisplayProjectRow combo={combo} selectMember={props.selectMember} teamName={teamName} />
                       </tr>
                     ))
                   : null}
@@ -58,7 +48,7 @@ const DisplayProjects = props => {
 
 DisplayProjects.propTypes = {
   selectProjects: PropTypes.func,
-  teamCombos: PropTypes.object,
+  teamCombos: PropTypes.array,
   onSeclectHandlerMembers: PropTypes.func
 };
 

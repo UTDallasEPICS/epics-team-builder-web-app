@@ -40,10 +40,10 @@ export default class MAS extends React.Component {
     let { manuallyAssignedStudents, students } = this.props;
     let studentLink = this.mapStudents(students, manuallyAssignedStudents);
     return (
-      <div className="manual-project-assignment">
-        <label className="title">Manually Assigned Students</label>
-        <CardDeck className="tables-container">
-          <Card className="table-card" border="dark">
+      <div className='manual-project-assignment'>
+        <label className='title'>Manually Assigned Students</label>
+        <CardDeck className='tables-container'>
+          <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -60,9 +60,9 @@ export default class MAS extends React.Component {
                       <td style={{ textAlign: 'center' }}>
                         <input
                           id={'checkbox' + index}
-                          className="messageCheckbox"
-                          type="checkbox"
-                          name="box"
+                          className='messageCheckbox'
+                          type='checkbox'
+                          name='box'
                           value={index}
                           onClick={this.onClickHandler.bind(this, index)}
                         ></input>
@@ -79,8 +79,8 @@ export default class MAS extends React.Component {
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button
-            className="delete-button"
-            type="submit"
+            className='delete-button'
+            type='submit'
             onClick={() => this.delete(studentLink, manuallyAssignedStudents)}
           >
             Delete
