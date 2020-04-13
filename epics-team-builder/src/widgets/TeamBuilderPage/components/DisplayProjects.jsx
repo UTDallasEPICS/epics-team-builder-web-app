@@ -1,23 +1,20 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React from "react";
-import { Card, Table, CardDeck } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Card, Table, CardDeck } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-const DisplayProjects = (props) => {
+const DisplayProjects = props => {
   const { combo = {} } = props;
 
-  const onSeclectHandlerMembers = (members) => {
+  const onSelectHandlerMembers = members => {
     props.selectMember(members);
   };
 
-  const onSeclectHandler = (teamCombos) => (
+  const onSeclectHandler = teamCombos => (
     <div className="pb-4">
       <div className="px-3 text-info">
-        Total Projects:{" "}
-        {teamCombos.teams ? (
-          <span>{Object.keys(teamCombos.teams).length}</span>
-        ) : null}
+        Total Projects: {teamCombos.teams ? <span>{Object.keys(teamCombos.teams).length}</span> : null}
       </div>
       <div className="teamcombination-wrapper p-3">
         <CardDeck className="tables-container">
@@ -32,11 +29,9 @@ const DisplayProjects = (props) => {
                         </td>
                         <td>
                           <div
-                            onClick={() =>
-                              onSeclectHandlerMembers(combo.teams[teamName])
-                            }
+                            onClick={() => onSelectHandlerMembers(combo.teams[teamName])}
                             className="border p-2 shawdow bg-dark text-white mt-4 text-center"
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: 'pointer' }}
                           >
                             Select
                           </div>
@@ -51,11 +46,7 @@ const DisplayProjects = (props) => {
       </div>
       <div>
         <div className="text-center mt-3">
-          <button
-            onClick={props.exportBtn}
-            className="px-3 py-2 orange"
-            style={{ borderRadius: "16px" }}
-          >
+          <button onClick={props.exportBtn} className="px-3 py-2 orange" style={{ borderRadius: '16px' }}>
             Export
           </button>
         </div>
@@ -68,7 +59,7 @@ const DisplayProjects = (props) => {
 DisplayProjects.propTypes = {
   selectProjects: PropTypes.func,
   teamCombos: PropTypes.object,
-  onSeclectHandlerMembers: PropTypes.func,
+  onSeclectHandlerMembers: PropTypes.func
 };
 
 export default DisplayProjects;

@@ -10,8 +10,8 @@ import DisplayTeamInformations from './DisplayTeamInformations';
 function TeamBuilderPage(props) {
   const [loading, setLoading] = React.useState(false);
   const { students, projects, manuallyAssignedStudents, numOfPrefProjects, teamCombos } = props;
-  const [combo,setCombo]= React.useState({});
-  const [mems,setMember]=React.useState({});
+  const [combo, setCombo] = React.useState({});
+  const [mems, setMember] = React.useState({});
 
   const regrenerateTeam = () => {
     setLoading(true);
@@ -25,18 +25,18 @@ function TeamBuilderPage(props) {
 
   const selectCombination = comboInformation => {
     props.selectCombination(comboInformation);
-  }; 
+  };
 
-  const selectProjects= comboInformation => {    
+  const selectProjects = comboInformation => {
     props.selectProjects(comboInformation);
   };
 
-  const selectMembers= comboInformation => {    
+  const selectMembers = comboInformation => {
     props.selectMembers(comboInformation);
   };
 
   const exportBtn = () => {
-    alert ('Does not work!!');
+    alert('Does not work!!');
   };
 
   const renderTopSection = () => (
@@ -69,7 +69,7 @@ function TeamBuilderPage(props) {
       <DisplayTeamCombinations
         teamCombos={teamCombos}
         selectCombination={selectCombination}
-        selectCombo={setCombo} 
+        selectCombo={setCombo}
         regrenerateTeam={regrenerateTeam}
       />
     </div>
@@ -78,27 +78,33 @@ function TeamBuilderPage(props) {
   const renderViewProjects = () => (
     // <div className='py-2' style={{ height: 'auto' }}>
     <div className='team-combo-view'>
-        <div className='font-weight-bolder text-center '>
-          <h4>View Projects</h4>
-        </div>
-          <DisplayProjects teamCombos = {teamCombos} combo={combo} 
-          selectProjects = {selectProjects} selectMember={setMember} 
-          selectMembers={selectMembers} exportBtn = {exportBtn}
-          />
+      <div className='font-weight-bolder text-center '>
+        <h4>View Projects</h4>
+      </div>
+      <DisplayProjects
+        teamCombos={teamCombos}
+        combo={combo}
+        selectProjects={selectProjects}
+        selectMember={setMember}
+        selectMembers={selectMembers}
+        exportBtn={exportBtn}
+      />
     </div>
   );
-
 
   const renderTeamInformations = () => (
     // <div className='py-2' style={{ height: 'auto' }}>
     <div className='team-combo-view'>
-        <div className='font-weight-bolder text-center'>
-          <h4>Team Informations</h4>
-        </div>
-          <DisplayTeamInformations teamCombos = {teamCombos} combo={combo} 
-          mems={mems} selectMembers = {selectMembers} 
-          selectMember={setMember} 
-          />
+      <div className='font-weight-bolder text-center'>
+        <h4>Team Informations</h4>
+      </div>
+      <DisplayTeamInformations
+        teamCombos={teamCombos}
+        combo={combo}
+        mems={mems}
+        selectMembers={selectMembers}
+        selectMember={setMember}
+      />
     </div>
   );
 
@@ -111,10 +117,10 @@ function TeamBuilderPage(props) {
           {loading ? renderLoading() : renderTeamCombinations()}
         </Col>
         <Col xs={12} md={4} className='bg-light'>
-        {loading ? renderViewProjects() : renderViewProjects()}
+          {loading ? renderViewProjects() : renderViewProjects()}
         </Col>
         <Col xs={12} md={4} className='bg-light'>
-        {loading ? renderTeamInformations() : renderTeamInformations()}
+          {loading ? renderTeamInformations() : renderTeamInformations()}
         </Col>
       </Row>
     </div>
