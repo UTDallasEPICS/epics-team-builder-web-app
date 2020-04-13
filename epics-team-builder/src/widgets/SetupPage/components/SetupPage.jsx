@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
+import MAS from './ManuallyAssignedStudents';
 import ManuallyAssignProjects from './ManuallyAssignProjects';
 import ExcelReader from './ExcelReader';
 
@@ -14,7 +15,12 @@ class SetupPage extends React.Component {
   generateTeams = () => {
     const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
     this.props.switchToTeamBuilder();
-    this.props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+    this.props.generateTeams({
+      students,
+      projects,
+      manuallyAssignedStudents,
+      numOfPrefProjects
+    });
   };
 
   render() {
@@ -25,7 +31,8 @@ class SetupPage extends React.Component {
       assignProjToStudents,
       changeStudentsArray,
       changeProjectsArray,
-      manuallyAssignedStudents
+      manuallyAssignedStudents,
+      removeStudent
     } = this.props;
 
     return (
@@ -42,8 +49,10 @@ class SetupPage extends React.Component {
             changeStudentsArray={changeStudentsArray}
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
-
-          <div className='manually-assigned-students'></div>
+          <div className='manually-assigned-students'>
+            <MAS students={students} manuallyAssignedStudents={manuallyAssignedStudents}    removeStudent={removeStudent}
+ />
+          </div>
         </div>
         <div className='preferred-project-slider'>
           <h5>Number of Preferred Projects:</h5>
@@ -81,7 +90,9 @@ SetupPage.propTypes = {
   switchToTeamBuilder: PropTypes.func,
   manuallyAssignedStudents: PropTypes.object,
   generateTeams: PropTypes.func,
-  numOfPrefProjects: PropTypes.number
+  numOfPrefProjects: PropTypes.number,
+  removeStudent: PropTypes.func,
+
 };
 
 export default SetupPage;
