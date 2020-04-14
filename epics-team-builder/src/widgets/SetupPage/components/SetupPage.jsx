@@ -7,11 +7,6 @@ import ExcelReader from './ExcelReader';
 import PreferredProjectsSlider from './PreferredProjectsSlider';
 
 class SetupPage extends React.Component {
-  //Store current value of slider when changed
-  onSlide = (render, handle, value) => {
-    this.props.changeNumOfPreferredProjects(value[0]);
-  };
-
   generateTeams = () => {
     const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
     this.props.switchToTeamBuilder();
@@ -32,14 +27,22 @@ class SetupPage extends React.Component {
       changeStudentsArray,
       changeProjectsArray,
       manuallyAssignedStudents,
-      removeStudent
+      removeStudent,
+      setMaxPossibleChoices,
+      maxPossibleChoices,
+      changeNumOfPreferredProjects
     } = this.props;
 
     return (
       <div className='setup-page'>
         <Header />
         <div className='setup-grid'>
-          <ExcelReader changeStudentsArray={changeStudentsArray} changeProjectsArray={changeProjectsArray} />
+          <ExcelReader
+            changeStudentsArray={changeStudentsArray}
+            changeProjectsArray={changeProjectsArray}
+            setMaxPossibleChoices={setMaxPossibleChoices}
+            maxPossibleChoices={maxPossibleChoices}
+          />
 
           <ManuallyAssignProjects
             students={students}
@@ -56,7 +59,12 @@ class SetupPage extends React.Component {
             />
           </div>
         </div>
-        <PreferredProjectsSlider numOfPrefProjects={numOfPrefProjects} onSlide={this.onSlide} />
+        <PreferredProjectsSlider
+          numOfPrefProjects={numOfPrefProjects}
+          onSlide={this.onSlide}
+          maxPossibleChoices={maxPossibleChoices}
+          changeNumOfPreferredProjects={changeNumOfPreferredProjects}
+        />
         <button className='orange generate-teams-btn' onClick={this.generateTeams}>
           Build Teams
         </button>
@@ -73,7 +81,6 @@ SetupPage.defaultProps = {
 };
 
 SetupPage.propTypes = {
-  numOfPreferredProjects: PropTypes.number,
   changeNumOfPreferredProjects: PropTypes.func,
   students: PropTypes.array,
   projects: PropTypes.array,
@@ -81,10 +88,12 @@ SetupPage.propTypes = {
   changeProjectsArray: PropTypes.func,
   changeStudentsArray: PropTypes.func,
   switchToTeamBuilder: PropTypes.func,
+  setMaxPossibleChoices: PropTypes.func,
   manuallyAssignedStudents: PropTypes.object,
   generateTeams: PropTypes.func,
+  removeStudent: PropTypes.func,
   numOfPrefProjects: PropTypes.number,
-  removeStudent: PropTypes.func
+  maxPossibleChoices: PropTypes.number
 };
 
 export default SetupPage;

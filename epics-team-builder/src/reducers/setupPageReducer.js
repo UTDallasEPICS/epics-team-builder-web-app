@@ -4,7 +4,8 @@ import {
   CHANGE_STUDENTS_ARRAY,
   CHANGE_PROJECTS_ARRAY,
   ASSIGN_PROJ_TO_STUDENT,
-  REMOVE_STUDENT
+  REMOVE_STUDENT,
+  SET_MAX_POSSIBLE_CHOICES
 } from '../actions/actionTypes/setupPageActionTypes';
 
 const students = (state = [], { type, payload }) => {
@@ -48,9 +49,19 @@ const numOfPreferredProjects = (state = 6, { type, payload }) => {
   }
 };
 
+const maxChoicesConsidered = (state = 0, { type, payload }) => {
+  switch (type) {
+    case SET_MAX_POSSIBLE_CHOICES:
+      return payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   students,
   projects,
   manuallyAssignedStudents,
-  numOfPreferredProjects
+  numOfPreferredProjects,
+  maxChoicesConsidered
 });
