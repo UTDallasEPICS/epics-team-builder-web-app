@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 const Checkbox = () => {
   const categories = [
     { value: 'classification', display_name: 'Classification' },
-    { value: 'projectPreferrence', display_name: 'Project Preferrence' },
+    { value: 'projectPreferrence', display_name: 'Project Preference' },
     { value: 'skillmatch', display_name: 'Skill Match' }
   ];
   const [checked, setChecked] = useState([]);
