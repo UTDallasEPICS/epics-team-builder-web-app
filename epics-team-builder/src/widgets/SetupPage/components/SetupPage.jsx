@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Nouislider from 'react-nouislider';
 import Header from '../../common/Header';
 import MAS from './ManuallyAssignedStudents';
 import ManuallyAssignProjects from './ManuallyAssignProjects';
 import ExcelReader from './ExcelReader';
+import PreferredProjectsSlider from './PreferredProjectsSlider';
 
 class SetupPage extends React.Component {
   //Store current value of slider when changed
@@ -39,7 +39,6 @@ class SetupPage extends React.Component {
       <div className='setup-page'>
         <Header />
         <div className='setup-grid'>
-          {/* Make sure to put these divs in their respective components when made */}
           <ExcelReader changeStudentsArray={changeStudentsArray} changeProjectsArray={changeProjectsArray} />
 
           <ManuallyAssignProjects
@@ -57,16 +56,7 @@ class SetupPage extends React.Component {
             />
           </div>
         </div>
-        <div className='preferred-project-slider'>
-          <h5>Number of Preferred Projects:</h5>
-          <Nouislider
-            range={{ min: 3, max: 10 }}
-            start={[numOfPrefProjects]}
-            pips={{ mode: 'steps', density: 16 }}
-            step={1}
-            onSlide={this.onSlide}
-          />
-        </div>
+        <PreferredProjectsSlider numOfPrefProjects={numOfPrefProjects} onSlide={this.onSlide} />
         <button className='orange generate-teams-btn' onClick={this.generateTeams}>
           Build Teams
         </button>
