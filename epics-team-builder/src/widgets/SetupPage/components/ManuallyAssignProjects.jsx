@@ -51,10 +51,10 @@ export default class ManuallyAssignProjects extends React.Component {
   render() {
     const { students, projects, manuallyAssignedStudents } = this.props;
     return (
-      <div className="manual-project-assignment">
-        <label className="title">Manual Project Assignment</label>
-        <CardDeck className="tables-container">
-          <Card className="table-card" border="dark">
+      <div className='manual-project-assignment'>
+        <label className='title'>Manual Project Assignment</label>
+        <CardDeck className='tables-container'>
+          <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -68,7 +68,7 @@ export default class ManuallyAssignProjects extends React.Component {
                     <tr key={index} onClick={this.onProjectClickHandler.bind(this, project.name)}>
                       <td>
                         <input
-                          type="checkbox"
+                          type='checkbox'
                           onClick={this.onProjectClickHandler.bind(this, project.name)}
                           defaultChecked={false}
                           id={project.name}
@@ -81,7 +81,7 @@ export default class ManuallyAssignProjects extends React.Component {
               </tbody>
             </Table>
           </Card>
-          <Card className="table-card" border="dark">
+          <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -102,8 +102,8 @@ export default class ManuallyAssignProjects extends React.Component {
                     <tr key={index} onClick={this.onStudentClickHandler.bind(this, student.id)}>
                       <td>
                         <input
-                          type="checkbox"
-                          className="studentBox"
+                          type='checkbox'
+                          className='studentBox'
                           defaultChecked={false}
                           id={student.id}
                           onClick={this.onStudentClickHandler.bind(this, student.id)}
@@ -119,7 +119,7 @@ export default class ManuallyAssignProjects extends React.Component {
           </Card>
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <button className="green" style={{ width: '140px' }} onClick={this.addProjectToStudent}>
+          <button className='green' style={{ width: '140px' }} onClick={this.addProjectToStudent}>
             Add
           </button>
         </div>
