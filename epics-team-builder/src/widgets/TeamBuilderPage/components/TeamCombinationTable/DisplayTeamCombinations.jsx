@@ -9,11 +9,11 @@ function DisplayTeamCombinations(props) {
   const [checked, setChecked] = React.useState([]);
 
   const showCombinations = teamCombos => (
-    <div className="pb-4">
-      <div className="px-3 text-info">Total Combination: {teamCombos.length} </div>
-      <div className="teamcombination-wrapper p-3">
-        <CardDeck className="tables-container">
-          <Card className="table-card" border="dark">
+    <div className='pb-4'>
+      <div className='px-3 text-info'>Total Combination: {teamCombos.length} </div>
+      <div className='teamcombination-wrapper p-3'>
+        <CardDeck className='tables-container'>
+          <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <tbody>
                 {teamCombos.map((combo, index) => {
@@ -27,8 +27,8 @@ function DisplayTeamCombinations(props) {
             </Table>
           </Card>
         </CardDeck>
-        <div className="text-center mt-3">
-          <button onClick={props.regrenerateTeam} className="px-3 py-2 orange" style={{ borderRadius: '16px' }}>
+        <div className='text-center mt-3'>
+          <button onClick={props.regrenerateTeam} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
             Regenerate Teams
           </button>
         </div>

@@ -13,13 +13,13 @@ const DisplayProjects = props => {
   };
 
   const onSeclectHandler = teamCombos => (
-    <div className="pb-4">
-      <div className="px-3 text-info">
+    <div className='pb-4'>
+      <div className='px-3 text-info'>
         Total Projects: {teamCombos.teams ? <span>{Object.keys(teamCombos.teams).length}</span> : null}
       </div>
-      <div className="teamcombination-wrapper p-3">
-        <CardDeck className="tables-container">
-          <Card className="table-card" border="dark">
+      <div className='teamcombination-wrapper p-3'>
+        <CardDeck className='tables-container'>
+          <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <tbody>
                 {combo.teams
@@ -35,8 +35,8 @@ const DisplayProjects = props => {
         </CardDeck>
       </div>
       <div>
-        <div className="text-center mt-3">
-          <button onClick={props.exportBtn} className="px-3 py-2 orange" style={{ borderRadius: '16px' }}>
+        <div className='text-center mt-3'>
+          <button onClick={props.exportBtn} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
             Export
           </button>
         </div>
