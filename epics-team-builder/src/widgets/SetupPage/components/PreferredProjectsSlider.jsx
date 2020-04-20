@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 
 function PreferredProjectsSlider({ numOfPrefProjects, maxPossibleChoices, changeNumOfPreferredProjects }) {
@@ -43,4 +44,9 @@ function PreferredProjectsSlider({ numOfPrefProjects, maxPossibleChoices, change
   );
 }
 
+PreferredProjectsSlider.propTypes = {
+  numOfPrefProjects: PropTypes.number,
+  maxPossibleChoices: PropTypes.number,
+  changeNumOfPreferredProjects: PropTypes.func
+};
 export default PreferredProjectsSlider;
