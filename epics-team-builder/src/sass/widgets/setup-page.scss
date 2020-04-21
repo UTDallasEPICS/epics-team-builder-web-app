@@ -199,6 +199,11 @@
     font-size: 24px;
     border-radius: 16px;
     top: 20px;
+
+    &:disabled {
+      background-color: darken(#e87500, 20%);
+      cursor: not-allowed;
+    }
   }
 
   th {
