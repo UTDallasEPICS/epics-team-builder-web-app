@@ -5,7 +5,6 @@ import { Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const DisplayTeamInformations = ({ team }) => {
-  console.log(team);
   return (
     <div className='pb-4'>
       <div className='px-3 text-info'>

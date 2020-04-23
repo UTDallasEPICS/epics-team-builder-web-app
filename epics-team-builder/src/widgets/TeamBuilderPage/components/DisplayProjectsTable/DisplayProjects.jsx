@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import DisplayProjectRow from './DisplayProjectRow';
 
 const DisplayProjects = ({ combo = {}, selectTeam, exportBtn }) => {
-  console.log(combo);
   return (
     <div className='pb-4'>
       <div className='px-3 text-info'>
