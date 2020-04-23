@@ -1,0 +1,12 @@
+.header-container {
+  height: 100px;
+  .header {
+    height: 40px;
+    background-color: #124734;
+    display: flex;
+    img {
+      align-self: center;
+      height: 40px;
+    }
+  }
+}
