@@ -8,7 +8,7 @@ function DisplayTeamCombinations(props) {
   const [selectedCombo, SetSelectedCombo] = React.useState({});
   const [checked, setChecked] = React.useState([]);
 
-  const showCombinations = teamCombos => (
+  const showCombinations = (teamCombos) => (
     <div className='pb-4'>
       <div className='px-3 text-info'>Total Combination: {teamCombos.length} </div>
       <div className='teamcombination-wrapper p-3'>
@@ -41,10 +41,9 @@ function DisplayTeamCombinations(props) {
 /* eslint-enable react/prop-types */
 
 DisplayTeamCombinations.propTypes = {
-  selectCombination: PropTypes.func,
+  selectCombo: PropTypes.func,
   teamCombos: PropTypes.array,
-  onSeclectHandler: PropTypes.func,
-  regrenerateTeam: PropTypes.func
+  regrenerateTeam: PropTypes.func,
 };
 
 export default DisplayTeamCombinations;

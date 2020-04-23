@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../common/Header';
-import CheckBox from '../components/CheckBox';
+import AttributeCheckboxes from './AttributeCheckboxes';
 import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinations';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
@@ -11,7 +11,7 @@ function TeamBuilderPage(props) {
   const [loading, setLoading] = React.useState(false);
   const { students, projects, manuallyAssignedStudents, numOfPrefProjects, teamCombos } = props;
   const [combo, setCombo] = React.useState({});
-  const [mems, setMember] = React.useState({});
+  const [team, setTeam] = React.useState({});
 
   const regrenerateTeam = () => {
     setLoading(true);
@@ -23,15 +23,15 @@ function TeamBuilderPage(props) {
     props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
   };
 
-  const selectCombination = comboInformation => {
+  const selectCombination = (comboInformation) => {
     props.selectCombination(comboInformation);
   };
 
-  const selectProjects = comboInformation => {
+  const selectProjects = (comboInformation) => {
     props.selectProjects(comboInformation);
   };
 
-  const selectMembers = comboInformation => {
+  const selectMembers = (comboInformation) => {
     props.selectMembers(comboInformation);
   };
 
@@ -49,7 +49,7 @@ function TeamBuilderPage(props) {
           <h3>Attribute Importance</h3>
         </div>
         <div className='d-md-flex md-flex-row justify-content-center'>
-          <CheckBox />
+          <AttributeCheckboxes />
         </div>
       </div>
     </div>
@@ -81,14 +81,7 @@ function TeamBuilderPage(props) {
       <div className='font-weight-bolder text-center '>
         <h4>View Projects</h4>
       </div>
-      <DisplayProjects
-        teamCombos={teamCombos}
-        combo={combo}
-        selectProjects={selectProjects}
-        selectMember={setMember}
-        selectMembers={selectMembers}
-        exportBtn={exportBtn}
-      />
+      <DisplayProjects combo={combo} selectTeam={setTeam} exportBtn={exportBtn} />
     </div>
   );
 
@@ -98,13 +91,7 @@ function TeamBuilderPage(props) {
       <div className='font-weight-bolder text-center'>
         <h4>Team Informations</h4>
       </div>
-      <DisplayTeamInformations
-        teamCombos={teamCombos}
-        combo={combo}
-        mems={mems}
-        selectMembers={selectMembers}
-        selectMember={setMember}
-      />
+      <DisplayTeamInformations team={team} />
     </div>
   );
 
@@ -137,7 +124,7 @@ TeamBuilderPage.propTypes = {
   generateTeams: PropTypes.func,
   selectCombination: PropTypes.func,
   selectProjects: PropTypes.func,
-  selectMembers: PropTypes.func
+  selectMembers: PropTypes.func,
 };
 
 export default TeamBuilderPage;

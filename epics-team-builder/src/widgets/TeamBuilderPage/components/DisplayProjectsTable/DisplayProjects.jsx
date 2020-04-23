@@ -5,17 +5,12 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DisplayProjectRow from './DisplayProjectRow';
 
-const DisplayProjects = props => {
-  const { combo = {} } = props;
-
-  const onSelectHandlerMembers = members => {
-    props.selectMember(members);
-  };
-
-  const onSeclectHandler = teamCombos => (
+const DisplayProjects = ({ combo = {}, selectTeam, exportBtn }) => {
+  console.log(combo);
+  return (
     <div className='pb-4'>
       <div className='px-3 text-info'>
-        Total Projects: {teamCombos.teams ? <span>{Object.keys(teamCombos.teams).length}</span> : null}
+        Total Projects: {combo.teams ? <span>{Object.keys(combo.teams).length}</span> : null}
       </div>
       <div className='teamcombination-wrapper p-3'>
         <CardDeck className='tables-container'>
@@ -25,7 +20,7 @@ const DisplayProjects = props => {
                 {combo.teams
                   ? Object.keys(combo.teams).map((teamName, index) => (
                       <tr key={index}>
-                        <DisplayProjectRow combo={combo} selectMember={props.selectMember} teamName={teamName} />
+                        <DisplayProjectRow combo={combo} selectTeam={selectTeam} teamName={teamName} />
                       </tr>
                     ))
                   : null}
@@ -36,20 +31,19 @@ const DisplayProjects = props => {
       </div>
       <div>
         <div className='text-center mt-3'>
-          <button onClick={props.exportBtn} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
+          <button onClick={exportBtn} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
             Export
           </button>
         </div>
       </div>
     </div>
   );
-  return <div>{onSeclectHandler(props.combo)}</div>;
 };
 
 DisplayProjects.propTypes = {
-  selectProjects: PropTypes.func,
-  teamCombos: PropTypes.array,
-  onSeclectHandlerMembers: PropTypes.func
+  selectTeam: PropTypes.func,
+  exportBtn: PropTypes.func,
+  combo: PropTypes.object,
 };
 
 export default DisplayProjects;

@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-function DisplayProjectRow({ combo, selectMember, teamName }) {
+function DisplayProjectRow({ combo, selectTeam, teamName }) {
   const onSelectHandlerMembers = () => {
-    selectMember(combo.teams[teamName]);
+    selectTeam(combo.teams[teamName]);
   };
 
   return (
@@ -27,7 +27,7 @@ function DisplayProjectRow({ combo, selectMember, teamName }) {
 DisplayProjectRow.propTypes = {
   combo: PropTypes.object,
   selectMember: PropTypes.func,
-  teamName: PropTypes.string
+  teamName: PropTypes.string,
 };
 
 export default DisplayProjectRow;

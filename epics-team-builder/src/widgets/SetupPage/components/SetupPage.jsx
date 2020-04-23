@@ -14,7 +14,7 @@ class SetupPage extends React.Component {
       students,
       projects,
       manuallyAssignedStudents,
-      numOfPrefProjects,
+      numOfPrefProjects
     });
   };
 
@@ -30,13 +30,13 @@ class SetupPage extends React.Component {
       removeStudent,
       setMaxPossibleChoices,
       maxPossibleChoices,
-      changeNumOfPreferredProjects,
+      changeNumOfPreferredProjects
     } = this.props;
 
     return (
-      <div className="setup-page">
+      <div className='setup-page'>
         <Header />
-        <div className="setup-grid">
+        <div className='setup-grid'>
           <ExcelReader
             changeStudentsArray={changeStudentsArray}
             changeProjectsArray={changeProjectsArray}
@@ -51,7 +51,7 @@ class SetupPage extends React.Component {
             changeStudentsArray={changeStudentsArray}
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
-          <div className="manually-assigned-students">
+          <div className='manually-assigned-students'>
             <MAS
               students={students}
               manuallyAssignedStudents={manuallyAssignedStudents}
@@ -66,7 +66,7 @@ class SetupPage extends React.Component {
           changeNumOfPreferredProjects={changeNumOfPreferredProjects}
         />
         <button
-          className="orange generate-teams-btn"
+          className='orange generate-teams-btn'
           onClick={this.generateTeams}
           disabled={students.length === 0 || projects.length === 0}
         >
@@ -81,7 +81,7 @@ SetupPage.defaultProps = {
   numOfPrefProjects: 6,
   students: [],
   projects: [],
-  manuallyAssignedStudents: {},
+  manuallyAssignedStudents: {}
 };
 
 SetupPage.propTypes = {
@@ -97,7 +97,7 @@ SetupPage.propTypes = {
   generateTeams: PropTypes.func,
   removeStudent: PropTypes.func,
   numOfPrefProjects: PropTypes.number,
-  maxPossibleChoices: PropTypes.number,
+  maxPossibleChoices: PropTypes.number
 };
 
 export default SetupPage;

@@ -9,9 +9,9 @@ function TeamComboRow({ combo, index, selectCombination }) {
     <React.Fragment>
       <td>
         <div className='text-danger font-weight-bolder'>Combination {index + 1}</div>
-        <div>Avg Score Choice: {combo.avgScoreChoice.toFixed(2)}</div>
-        <div>Avg Score Class: {combo.avgScoreClass.toFixed(2)}</div>
-        <div>Skills Met Ratio: {combo.skillsMetRatio.toFixed(2)}</div>
+        <div>Avg Project Preference Choice: {combo.avgScoreChoice.toFixed(2)}</div>
+        <div>Avg Classification Score: {combo.avgScoreClass.toFixed(2)}</div>
+        <div>Percent of Skills Matched: {combo.skillsMetRatio.toFixed(2)}</div>
         {/* <div>Unassigned Return:  {combo.unassignedReturn}</div>
                                             <div>Unassigned Return:  {combo.unassignedReturn}</div> */}
         <div>Unassigned Student(s): {combo.unassignedStudents.length}</div>
@@ -28,7 +28,7 @@ function TeamComboRow({ combo, index, selectCombination }) {
 TeamComboRow.propTypes = {
   combo: PropTypes.object,
   index: PropTypes.number,
-  selectCombination: PropTypes.func
+  selectCombination: PropTypes.func,
 };
 
 export default TeamComboRow;
