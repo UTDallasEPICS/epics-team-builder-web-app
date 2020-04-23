@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function TeamComboRow({ combo, index, selectCombination }) {
+function TeamComboRow({ combo, index, selectCombination, selectTeam }) {
   const onSelectHandler = () => {
     selectCombination(combo);
+    selectTeam({});
   };
   return (
     <React.Fragment>
@@ -29,6 +30,7 @@ TeamComboRow.propTypes = {
   combo: PropTypes.object,
   index: PropTypes.number,
   selectCombination: PropTypes.func,
+  selectTeam: PropTypes.func,
 };
 
 export default TeamComboRow;

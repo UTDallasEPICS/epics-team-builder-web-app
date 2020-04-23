@@ -4,11 +4,8 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import TeamComboRow from './TeamComboRow';
 
 /* eslint-disable react/prop-types */
-function DisplayTeamCombinations(props) {
-  const [selectedCombo, SetSelectedCombo] = React.useState({});
-  const [checked, setChecked] = React.useState([]);
-
-  const showCombinations = (teamCombos) => (
+function DisplayTeamCombinations({ teamCombos, selectCombo, regrenerateTeam, selectTeam }) {
+  return (
     <div className='pb-4'>
       <div className='px-3 text-info'>Total Combination: {teamCombos.length} </div>
       <div className='teamcombination-wrapper p-3'>
@@ -19,7 +16,12 @@ function DisplayTeamCombinations(props) {
                 {teamCombos.map((combo, index) => {
                   return (
                     <tr key={index}>
-                      <TeamComboRow selectCombination={props.selectCombo} combo={combo} index={index} />
+                      <TeamComboRow
+                        selectCombination={selectCombo}
+                        selectTeam={selectTeam}
+                        combo={combo}
+                        index={index}
+                      />
                     </tr>
                   );
                 })}
@@ -28,20 +30,19 @@ function DisplayTeamCombinations(props) {
           </Card>
         </CardDeck>
         <div className='text-center mt-3'>
-          <button onClick={props.regrenerateTeam} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
+          <button onClick={regrenerateTeam} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
             Regenerate Teams
           </button>
         </div>
       </div>
     </div>
   );
-
-  return showCombinations(props.teamCombos);
 }
 /* eslint-enable react/prop-types */
 
 DisplayTeamCombinations.propTypes = {
   selectCombo: PropTypes.func,
+  selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
   regrenerateTeam: PropTypes.func,
 };

@@ -5,6 +5,7 @@ import { Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const DisplayTeamInformations = ({ team }) => {
+  console.log(team);
   return (
     <div className='pb-4'>
       <div className='px-3 text-info'>
@@ -18,30 +19,34 @@ const DisplayTeamInformations = ({ team }) => {
               {team.project ? (
                 <tbody>
                   <tr className='team-classmate-row'>
-                    <div className='text-danger font-weight-bolder'>Project Info: </div>
-                    <div>{team.project.name}</div>
-                    <div>Returning: {team.project.returning + ''}</div>
-                    <div>Skills: </div>
-                    <Col>
-                      {team.project.skills.map((skill, key) => (
-                        <div key={key}>
-                          {key + 1 + ': '}
-                          {skill}
-                        </div>
-                      ))}
-                    </Col>
+                    <td>
+                      <div className='text-danger font-weight-bolder'>Project Info: </div>
+                      <div>{team.project.name}</div>
+                      <div>Returning: {team.project.returning + ''}</div>
+                      <div>Skills: </div>
+                      <Col>
+                        {team.project.skills.map((skill, key) => (
+                          <div key={key}>
+                            {key + 1 + ': '}
+                            {skill}
+                          </div>
+                        ))}
+                      </Col>
+                    </td>
                   </tr>
 
                   {team.members.map((member, index) => (
                     <tr className='team-classmate-row' key={index}>
-                      {!index ? <div className='text-danger font-weight-bolder'>Student Info: </div> : null}
-                      <div>Name: {member.name}</div>
-                      <div>Id: {member.id}</div>
-                      <div>Major: {member.major}</div>
-                      <div>Year: {member.classification}</div>
-                      <div>Gender: {member.gender}</div>
-                      <div>Response: {'' + member.response}</div>
-                      <div>Choice: {member.choice_num_awarded}</div>
+                      <td>
+                        {!index ? <div className='text-danger font-weight-bolder'>Student Info: </div> : null}
+                        <div>Name: {member.name}</div>
+                        <div>Id: {member.id}</div>
+                        <div>Major: {member.major}</div>
+                        <div>Year: {member.classification}</div>
+                        <div>Gender: {member.gender}</div>
+                        <div>Response: {'' + member.response}</div>
+                        <div>Choice: {member.choice_num_awarded}</div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>

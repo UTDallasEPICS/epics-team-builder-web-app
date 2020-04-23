@@ -7,41 +7,58 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
 import DisplayTeamInformations from './DisplayTeamInformations';
 
-function TeamBuilderPage(props) {
-  const [loading, setLoading] = React.useState(false);
-  const { students, projects, manuallyAssignedStudents, numOfPrefProjects, teamCombos } = props;
-  const [combo, setCombo] = React.useState({});
-  const [team, setTeam] = React.useState({});
+class TeamBuilderPage extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+      combo: {},
+      team: {},
+    };
+  }
 
-  const regrenerateTeam = () => {
-    setLoading(true);
-    let timeout = setTimeout(() => {
-      setLoading(false);
-      return clearTimeout(timeout);
-    }, 1500);
-    console.log(numOfPrefProjects);
-    props.generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+  componentDidMount() {
+    this.waitToGenerateTeams();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.teamCombos !== prevProps.teamCombos) {
+      this.setState({ loading: false });
+    }
+  }
+
+  setCombo = (combo) => {
+    this.setState({ combo });
   };
 
-  const selectCombination = (comboInformation) => {
-    props.selectCombination(comboInformation);
+  setTeam = (team) => {
+    this.setState({ team });
   };
 
-  const selectProjects = (comboInformation) => {
-    props.selectProjects(comboInformation);
+  waitToGenerateTeams() {
+    //Let component fully render before dispatching
+    setTimeout(() => {
+      const { students, projects, manuallyAssignedStudents, numOfPrefProjects, generateTeams } = this.props;
+      generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+    }, 100);
+  }
+
+  regrenerateTeam = () => {
+    this.setState({ loading: true, combo: {}, team: {} });
+    this.waitToGenerateTeams();
   };
 
-  const selectMembers = (comboInformation) => {
-    props.selectMembers(comboInformation);
+  selectCombo = (comboInformation) => {
+    this.props.selectCombination(comboInformation);
   };
 
-  const exportBtn = () => {
+  exportBtn = () => {
     alert('Does not work!!');
   };
 
-  const renderTopSection = () => (
+  renderTopSection = () => (
     <div className='team-builder-header-options'>
-      <button onClick={props.switchToSetup()} className='px-3 py-2 back-button green'>
+      <button onClick={this.props.switchToSetup} className='px-3 py-2 back-button green'>
         Go Back
       </button>
       <div className='team-builder-attributes'>
@@ -55,63 +72,69 @@ function TeamBuilderPage(props) {
     </div>
   );
 
-  const renderLoading = () => (
+  renderLoading = () => (
     <div style={{ height: '50vh' }} className='d-flex justify-content-center align-items-center'>
       <Spinner animation='border' role='status' size='lg'></Spinner>
     </div>
   );
 
-  const renderTeamCombinations = () => (
-    <div className='team-combo-view'>
-      <div className='font-weight-bolder text-center'>
-        <h4>Team Combinations</h4>
+  renderTeamCombinations = () => {
+    const { teamCombos } = this.props;
+    return (
+      <div className='team-combo-view'>
+        <div className='font-weight-bolder text-center'>
+          <h4>Team Combinations</h4>
+        </div>
+        <DisplayTeamCombinations
+          teamCombos={teamCombos}
+          selectCombination={this.selectCombo}
+          selectCombo={this.setCombo}
+          selectTeam={this.setTeam}
+          regrenerateTeam={this.regrenerateTeam}
+        />
       </div>
-      <DisplayTeamCombinations
-        teamCombos={teamCombos}
-        selectCombination={selectCombination}
-        selectCombo={setCombo}
-        regrenerateTeam={regrenerateTeam}
-      />
-    </div>
-  );
+    );
+  };
 
-  const renderViewProjects = () => (
+  renderViewProjects = () => (
     // <div className='py-2' style={{ height: 'auto' }}>
     <div className='team-combo-view'>
       <div className='font-weight-bolder text-center '>
         <h4>View Projects</h4>
       </div>
-      <DisplayProjects combo={combo} selectTeam={setTeam} exportBtn={exportBtn} />
+      <DisplayProjects combo={this.state.combo} selectTeam={this.setTeam} exportBtn={this.exportBtn} />
     </div>
   );
 
-  const renderTeamInformations = () => (
+  renderTeamInformations = () => (
     // <div className='py-2' style={{ height: 'auto' }}>
     <div className='team-combo-view'>
       <div className='font-weight-bolder text-center'>
         <h4>Team Informations</h4>
       </div>
-      <DisplayTeamInformations team={team} />
+      <DisplayTeamInformations team={this.state.team} />
     </div>
   );
 
-  return (
-    <div className='team-builder-page'>
-      <Header />
-      {renderTopSection()}
-      <Row>
-        <Col xs={12} md={4} className='bg-light'>
-          {loading ? renderLoading() : renderTeamCombinations()}
-        </Col>
-        <Col xs={12} md={4} className='bg-light'>
-          {loading ? renderViewProjects() : renderViewProjects()}
-        </Col>
-        <Col xs={12} md={4} className='bg-light'>
-          {loading ? renderTeamInformations() : renderTeamInformations()}
-        </Col>
-      </Row>
-    </div>
-  );
+  render() {
+    return (
+      <div className='team-builder-page'>
+        <Header />
+        {this.renderTopSection()}
+        <Row>
+          <Col xs={12} md={4} className='bg-light'>
+            {this.state.loading ? this.renderLoading() : this.renderTeamCombinations()}
+          </Col>
+          <Col xs={12} md={4} className='bg-light'>
+            {false ? this.renderViewProjects() : this.renderViewProjects()}
+          </Col>
+          <Col xs={12} md={4} className='bg-light'>
+            {false ? this.renderTeamInformations() : this.renderTeamInformations()}
+          </Col>
+        </Row>
+      </div>
+    );
+  }
 }
 
 TeamBuilderPage.propTypes = {

@@ -7,17 +7,6 @@ import ExcelReader from './ExcelReader';
 import PreferredProjectsSlider from './PreferredProjectsSlider';
 
 class SetupPage extends React.Component {
-  generateTeams = () => {
-    const { students, projects, manuallyAssignedStudents, numOfPrefProjects } = this.props;
-    this.props.switchToTeamBuilder();
-    this.props.generateTeams({
-      students,
-      projects,
-      manuallyAssignedStudents,
-      numOfPrefProjects
-    });
-  };
-
   render() {
     const {
       numOfPrefProjects,
@@ -30,7 +19,8 @@ class SetupPage extends React.Component {
       removeStudent,
       setMaxPossibleChoices,
       maxPossibleChoices,
-      changeNumOfPreferredProjects
+      changeNumOfPreferredProjects,
+      switchToTeamBuilder,
     } = this.props;
 
     return (
@@ -67,7 +57,7 @@ class SetupPage extends React.Component {
         />
         <button
           className='orange generate-teams-btn'
-          onClick={this.generateTeams}
+          onClick={switchToTeamBuilder}
           disabled={students.length === 0 || projects.length === 0}
         >
           Build Teams
@@ -81,7 +71,7 @@ SetupPage.defaultProps = {
   numOfPrefProjects: 6,
   students: [],
   projects: [],
-  manuallyAssignedStudents: {}
+  manuallyAssignedStudents: {},
 };
 
 SetupPage.propTypes = {
@@ -97,7 +87,7 @@ SetupPage.propTypes = {
   generateTeams: PropTypes.func,
   removeStudent: PropTypes.func,
   numOfPrefProjects: PropTypes.number,
-  maxPossibleChoices: PropTypes.number
+  maxPossibleChoices: PropTypes.number,
 };
 
 export default SetupPage;
