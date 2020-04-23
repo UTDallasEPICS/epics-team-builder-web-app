@@ -39,7 +39,9 @@ export default class ManuallyAssignProjects extends React.Component {
   //Handle clicks on table row to effect associated checkbox
   onProjectClickHandler = (name) => {
     this.props.projects.forEach((project) => {
-      document.getElementById(project.name).checked = false;
+      if (project.name !== name) {
+        document.getElementById(project.name).checked = false;
+      }
     });
     document.getElementById(name).checked = !document.getElementById(name).checked;
   };
