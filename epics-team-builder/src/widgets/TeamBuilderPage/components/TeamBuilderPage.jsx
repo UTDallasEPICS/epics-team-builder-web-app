@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../../common/Header';
 import CheckBox from '../components/CheckBox';
-import DisplayTeamCombinations from './TeamCombinationTable/displayTeamCombinations';
+import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinations';
 import { Row, Col, Spinner } from 'react-bootstrap';
+import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
+import DisplayTeamInformations from './DisplayTeamInformations';
+
 function TeamBuilderPage(props) {
   const [loading, setLoading] = React.useState(false);
   const { students, projects, manuallyAssignedStudents, numOfPrefProjects, teamCombos } = props;
+  const [combo, setCombo] = React.useState({});
+  const [mems, setMember] = React.useState({});
 
   const regrenerateTeam = () => {
     setLoading(true);
@@ -20,6 +25,18 @@ function TeamBuilderPage(props) {
 
   const selectCombination = comboInformation => {
     props.selectCombination(comboInformation);
+  };
+
+  const selectProjects = comboInformation => {
+    props.selectProjects(comboInformation);
+  };
+
+  const selectMembers = comboInformation => {
+    props.selectMembers(comboInformation);
+  };
+
+  const exportBtn = () => {
+    alert('Does not work!!');
   };
 
   const renderTopSection = () => (
@@ -52,26 +69,42 @@ function TeamBuilderPage(props) {
       <DisplayTeamCombinations
         teamCombos={teamCombos}
         selectCombination={selectCombination}
+        selectCombo={setCombo}
         regrenerateTeam={regrenerateTeam}
       />
     </div>
   );
 
-  const renderViewTeam = () => (
-    <div>
-      <div className='font-weight-bolder text-center'>
-        <h4>View Team</h4>
+  const renderViewProjects = () => (
+    // <div className='py-2' style={{ height: 'auto' }}>
+    <div className='team-combo-view'>
+      <div className='font-weight-bolder text-center '>
+        <h4>View Projects</h4>
       </div>
-      <div>{/* Make sure to put these divs in their respective components when made */}</div>
+      <DisplayProjects
+        teamCombos={teamCombos}
+        combo={combo}
+        selectProjects={selectProjects}
+        selectMember={setMember}
+        selectMembers={selectMembers}
+        exportBtn={exportBtn}
+      />
     </div>
   );
 
-  const renderTeamInformation = () => (
-    <div>
+  const renderTeamInformations = () => (
+    // <div className='py-2' style={{ height: 'auto' }}>
+    <div className='team-combo-view'>
       <div className='font-weight-bolder text-center'>
-        <h4>Team Information</h4>
+        <h4>Team Informations</h4>
       </div>
-      <div>{/* Make sure to put these divs in their respective components when made */}</div>
+      <DisplayTeamInformations
+        teamCombos={teamCombos}
+        combo={combo}
+        mems={mems}
+        selectMembers={selectMembers}
+        selectMember={setMember}
+      />
     </div>
   );
 
@@ -83,11 +116,11 @@ function TeamBuilderPage(props) {
         <Col xs={12} md={4} className='bg-light'>
           {loading ? renderLoading() : renderTeamCombinations()}
         </Col>
-        <Col xs={12} md={4} className='bg-success'>
-          {renderViewTeam()}
+        <Col xs={12} md={4} className='bg-light'>
+          {loading ? renderViewProjects() : renderViewProjects()}
         </Col>
-        <Col xs={12} md={4} className='bg-info'>
-          {renderTeamInformation()}
+        <Col xs={12} md={4} className='bg-light'>
+          {loading ? renderTeamInformations() : renderTeamInformations()}
         </Col>
       </Row>
     </div>
@@ -100,9 +133,11 @@ TeamBuilderPage.propTypes = {
   projects: PropTypes.array,
   switchToSetup: PropTypes.func,
   manuallyAssignedStudents: PropTypes.object,
-  teamCombos: PropTypes.object,
+  teamCombos: PropTypes.array,
   generateTeams: PropTypes.func,
-  selectCombination: PropTypes.func
+  selectCombination: PropTypes.func,
+  selectProjects: PropTypes.func,
+  selectMembers: PropTypes.func
 };
 
 export default TeamBuilderPage;
