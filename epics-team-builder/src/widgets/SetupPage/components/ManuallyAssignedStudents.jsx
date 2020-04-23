@@ -19,7 +19,7 @@ export default class MAS extends React.Component {
     this.props.removeStudent(copy);
   }
 
-  onClickHandler = index => {
+  onClickHandler = (index) => {
     if (document.getElementById('checkbox' + index).checked == true) {
       document.getElementById('checkbox' + index).checked = false;
     } else {
@@ -79,8 +79,9 @@ export default class MAS extends React.Component {
         </CardDeck>
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button
-            className='delete-button'
+            className='red'
             type='submit'
+            style={{ width: '140px' }}
             onClick={() => this.delete(studentLink, manuallyAssignedStudents)}
           >
             Delete
@@ -95,5 +96,5 @@ MAS.propTypes = {
   students: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
   changeStudentsArray: PropTypes.func,
-  removeStudent: PropTypes.func
+  removeStudent: PropTypes.func,
 };

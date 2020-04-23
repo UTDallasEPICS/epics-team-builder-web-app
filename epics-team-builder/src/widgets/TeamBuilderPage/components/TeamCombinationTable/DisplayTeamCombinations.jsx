@@ -8,9 +8,6 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
   return (
     <div className='pb-4'>
       <div className='px-3 text-info'>Total Combinations: {teamCombos.length} </div>
-      <div className='px-3 text-info'>
-        Number of No Response Students: {teamCombos[0] ? teamCombos[0].noResponseStudents.length : null}
-      </div>
       <div className='teamcombination-wrapper p-3'>
         <CardDeck className='tables-container'>
           <Card className='table-card' border='dark'>
@@ -32,7 +29,10 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
             </Table>
           </Card>
         </CardDeck>
-        <div className='text-center mt-3'>
+        <div className='text-info'>
+          Number of No Response Students: {teamCombos[0] ? teamCombos[0].noResponseStudents.length : null}
+        </div>
+        <div className='text-center' style={{ marginTop: '.5rem' }}>
           <button onClick={regrenerateTeam} className='px-3 py-2 orange' style={{ borderRadius: '16px' }}>
             Regenerate Teams
           </button>
