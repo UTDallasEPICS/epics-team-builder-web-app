@@ -13,7 +13,7 @@ class TeamBuilderPage extends React.Component {
     this.state = {
       loading: true,
       combo: {},
-      team: {},
+      team: {}
     };
   }
 
@@ -27,11 +27,11 @@ class TeamBuilderPage extends React.Component {
     }
   }
 
-  setCombo = (combo) => {
+  setCombo = combo => {
     this.setState({ combo });
   };
 
-  setTeam = (team) => {
+  setTeam = team => {
     this.setState({ team });
   };
 
@@ -48,7 +48,7 @@ class TeamBuilderPage extends React.Component {
     this.waitToGenerateTeams();
   };
 
-  selectCombo = (comboInformation) => {
+  selectCombo = comboInformation => {
     this.props.selectCombination(comboInformation);
   };
 
@@ -126,10 +126,10 @@ class TeamBuilderPage extends React.Component {
             {this.state.loading ? this.renderLoading() : this.renderTeamCombinations()}
           </Col>
           <Col xs={12} md={4} className='bg-light'>
-            {false ? this.renderViewProjects() : this.renderViewProjects()}
+            {this.renderViewProjects()}
           </Col>
           <Col xs={12} md={4} className='bg-light'>
-            {false ? this.renderTeamInformations() : this.renderTeamInformations()}
+            {this.renderTeamInformations()}
           </Col>
         </Row>
       </div>
@@ -147,7 +147,7 @@ TeamBuilderPage.propTypes = {
   generateTeams: PropTypes.func,
   selectCombination: PropTypes.func,
   selectProjects: PropTypes.func,
-  selectMembers: PropTypes.func,
+  selectMembers: PropTypes.func
 };
 
 export default TeamBuilderPage;

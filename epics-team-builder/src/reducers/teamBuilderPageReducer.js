@@ -21,5 +21,5 @@ const getSelectedCombo = (state = {}, { type, payload }) => {
 
 export default combineReducers({
   getSelectedCombo,
-  getTeamCombos,
+  getTeamCombos
 });

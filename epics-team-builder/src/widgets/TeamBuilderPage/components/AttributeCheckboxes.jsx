@@ -4,11 +4,11 @@ const AttributeCheckboxes = () => {
   const categories = [
     { value: 'projectPreferrence', display_name: 'Project Preference' },
     { value: 'classification', display_name: 'Classification' },
-    { value: 'skillmatch', display_name: 'Skill Match' },
+    { value: 'skillmatch', display_name: 'Skill Match' }
   ];
   const [checked, setChecked] = useState([]);
 
-  const handleToggle = (c) => () => {
+  const handleToggle = c => () => {
     const currentCategoryName = checked.indexOf(c);
     const newCheckedCategory = [...checked];
     if (currentCategoryName === -1) {

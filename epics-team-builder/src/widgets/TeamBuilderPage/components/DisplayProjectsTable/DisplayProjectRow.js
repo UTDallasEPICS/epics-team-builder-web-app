@@ -22,8 +22,8 @@ function DisplayProjectRow({ combo, selectTeam, teamName }) {
 
 DisplayProjectRow.propTypes = {
   combo: PropTypes.object,
-  selectMember: PropTypes.func,
-  teamName: PropTypes.string,
+  selectTeam: PropTypes.func,
+  teamName: PropTypes.string
 };
 
 export default DisplayProjectRow;

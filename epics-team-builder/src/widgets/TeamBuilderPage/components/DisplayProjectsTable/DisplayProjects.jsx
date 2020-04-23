@@ -42,7 +42,7 @@ const DisplayProjects = ({ combo = {}, selectTeam, exportBtn }) => {
 DisplayProjects.propTypes = {
   selectTeam: PropTypes.func,
   exportBtn: PropTypes.func,
-  combo: PropTypes.object,
+  combo: PropTypes.object
 };
 
 export default DisplayProjects;

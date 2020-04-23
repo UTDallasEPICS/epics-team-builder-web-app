@@ -30,7 +30,7 @@ TeamComboRow.propTypes = {
   combo: PropTypes.object,
   index: PropTypes.number,
   selectCombination: PropTypes.func,
-  selectTeam: PropTypes.func,
+  selectTeam: PropTypes.func
 };
 
 export default TeamComboRow;
