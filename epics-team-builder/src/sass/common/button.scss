@@ -10,13 +10,13 @@ button {
   font-size: 18px;
   border: solid white 3px;
   box-shadow: 2px 4px 4px 0 rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.5s ease;
   vertical-align: middle;
   cursor: pointer;
 
-  &:focus {
+  &:active {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
-    transition: box-shadow 0.3s ease-in-out;
+    transition: box-shadow ease-in-out;
   }
 
   &.orange {

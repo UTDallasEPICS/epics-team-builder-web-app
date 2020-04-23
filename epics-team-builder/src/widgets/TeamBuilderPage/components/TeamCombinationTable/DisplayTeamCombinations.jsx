@@ -4,10 +4,13 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import TeamComboRow from './TeamComboRow';
 
 /* eslint-disable react/prop-types */
-function DisplayTeamCombinations({ teamCombos, selectCombo, regrenerateTeam, selectTeam }) {
+function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam, selectTeam }) {
   return (
     <div className='pb-4'>
-      <div className='px-3 text-info'>Total Combination: {teamCombos.length} </div>
+      <div className='px-3 text-info'>Total Combinations: {teamCombos.length} </div>
+      <div className='px-3 text-info'>
+        Number of No Response Students: {teamCombos[0] ? teamCombos[0].noResponseStudents.length : null}
+      </div>
       <div className='teamcombination-wrapper p-3'>
         <CardDeck className='tables-container'>
           <Card className='table-card' border='dark'>

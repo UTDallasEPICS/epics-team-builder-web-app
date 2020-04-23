@@ -12,13 +12,9 @@ function DisplayProjectRow({ combo, selectTeam, teamName }) {
         <div>{teamName}</div>
       </td>
       <td>
-        <div
-          onClick={onSelectHandlerMembers}
-          className='border p-2 shawdow bg-dark text-white mt-4 text-center'
-          style={{ cursor: 'pointer' }}
-        >
+        <button onClick={onSelectHandlerMembers} className='dark-gray text-center' style={{ width: '8rem' }}>
           Select
-        </div>
+        </button>
       </td>
     </Fragment>
   );
