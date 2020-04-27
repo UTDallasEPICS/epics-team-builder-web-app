@@ -14,7 +14,7 @@ function DisplayProjectRow({ combo, selectMember, teamName }) {
       <td>
         <div
           onClick={onSelectHandlerMembers}
-          className="border p-2 shawdow bg-dark text-white mt-4 text-center"
+          className='border p-2 shawdow bg-dark text-white mt-4 text-center'
           style={{ cursor: 'pointer' }}
         >
           Select

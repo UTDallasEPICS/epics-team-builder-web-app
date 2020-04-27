@@ -119,6 +119,7 @@ class ExcelReader extends Component {
   }
 
   handleStudentFile(file) {
+    const { changeStudentsArray, setMaxPossibleChoices, maxPossibleChoices } = this.props;
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
@@ -173,6 +174,8 @@ class ExcelReader extends Component {
         return alert(error.slice(0, -1));
       }
 
+      let minimumChoices = Number.POSITIVE_INFINITY;
+
       //Reduce file object down to new object with formatted data
       let studentsArray = tempContainer.data.reduce((accumalator, student) => {
         if (student['Student Major']) {
@@ -189,6 +192,11 @@ class ExcelReader extends Component {
         while (student[`Choice ${i}`]) {
           choiceArray.push(student[`Choice ${i}`]);
           i++;
+        }
+
+        i--;
+        if (i && i < minimumChoices) {
+          minimumChoices = i;
         }
 
         accumalator.push({
@@ -208,7 +216,8 @@ class ExcelReader extends Component {
         return accumalator;
       }, []);
 
-      this.props.changeStudentsArray(studentsArray);
+      changeStudentsArray(studentsArray);
+      setMaxPossibleChoices(minimumChoices);
     };
 
     if (rABS) {
@@ -291,6 +300,8 @@ class ExcelReader extends Component {
 
 ExcelReader.propTypes = {
   changeProjectsArray: PropTypes.func,
-  changeStudentsArray: PropTypes.func
+  changeStudentsArray: PropTypes.func,
+  setMaxPossibleChoices: PropTypes.func,
+  maxPossibleChoices: PropTypes.number
 };
 export default ExcelReader;

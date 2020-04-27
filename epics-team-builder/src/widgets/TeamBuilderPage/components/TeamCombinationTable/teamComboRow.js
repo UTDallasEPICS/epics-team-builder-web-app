@@ -8,7 +8,7 @@ function TeamComboRow({ combo, index, selectCombination }) {
   return (
     <React.Fragment>
       <td>
-        <div className="text-danger font-weight-bolder">Combination {index + 1}</div>
+        <div className='text-danger font-weight-bolder'>Combination {index + 1}</div>
         <div>Avg Score Choice: {combo.avgScoreChoice.toFixed(2)}</div>
         <div>Avg Score Class: {combo.avgScoreClass.toFixed(2)}</div>
         <div>Skills Met Ratio: {combo.skillsMetRatio.toFixed(2)}</div>
@@ -17,7 +17,7 @@ function TeamComboRow({ combo, index, selectCombination }) {
         <div>Unassigned Student(s): {combo.unassignedStudents.length}</div>
       </td>
       <td>
-        <button onClick={onSelectHandler} className="dark-gray text-center" style={{ width: '8rem' }}>
+        <button onClick={onSelectHandler} className='dark-gray text-center' style={{ width: '8rem' }}>
           Select
         </button>
       </td>

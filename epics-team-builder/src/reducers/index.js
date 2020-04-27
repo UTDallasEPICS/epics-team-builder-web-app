@@ -13,6 +13,7 @@ export const getStudents = state => state.setupPage.students;
 export const getProjects = state => state.setupPage.projects;
 export const getManuallyAssignedStudents = state => state.setupPage.manuallyAssignedStudents;
 export const getNumOfPreferredProjects = state => state.setupPage.numOfPreferredProjects;
+export const getMaxPossibleChoices = state => state.setupPage.maxChoicesConsidered;
 
 //Team Builder Page Selectors
 export const getTeamCombos = state => state.teamCombos.getTeamCombos;
