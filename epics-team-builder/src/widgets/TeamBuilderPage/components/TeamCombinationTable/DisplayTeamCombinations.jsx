@@ -5,8 +5,8 @@ import TeamComboRow from './TeamComboRow';
 
 /* eslint-disable react/prop-types */
 function DisplayTeamCombinations(props) {
-  const [selectedCombo, SetSelectedCombo] = React.useState({});
-  const [checked, setChecked] = React.useState([]);
+  // const [selectedCombo, SetSelectedCombo] = React.useState({});
+  // const [checked, setChecked] = React.useState([]);
 
   const showCombinations = teamCombos => (
     <div className='pb-4'>

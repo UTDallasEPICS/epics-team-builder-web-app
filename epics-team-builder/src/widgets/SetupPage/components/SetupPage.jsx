@@ -34,9 +34,9 @@ class SetupPage extends React.Component {
     } = this.props;
 
     return (
-      <div className="setup-page">
+      <div className='setup-page'>
         <Header />
-        <div className="setup-grid">
+        <div className='setup-grid'>
           <ExcelReader
             changeStudentsArray={changeStudentsArray}
             changeProjectsArray={changeProjectsArray}
@@ -51,7 +51,7 @@ class SetupPage extends React.Component {
             changeStudentsArray={changeStudentsArray}
             manuallyAssignedStudents={manuallyAssignedStudents}
           />
-          <div className="manually-assigned-students">
+          <div className='manually-assigned-students'>
             <MAS
               students={students}
               manuallyAssignedStudents={manuallyAssignedStudents}
@@ -65,11 +65,7 @@ class SetupPage extends React.Component {
           maxPossibleChoices={maxPossibleChoices}
           changeNumOfPreferredProjects={changeNumOfPreferredProjects}
         />
-        <button
-          className="orange generate-teams-btn"
-          onClick={this.generateTeams}
-          disabled={students.length === 0 || projects.length === 0}
-        >
+        <button className='orange generate-teams-btn' onClick={this.generateTeams}>
           Build Teams
         </button>
       </div>
