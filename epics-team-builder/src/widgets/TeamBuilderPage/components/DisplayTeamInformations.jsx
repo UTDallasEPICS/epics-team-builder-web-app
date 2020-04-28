@@ -4,8 +4,8 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-const DisplayTeamInformations = (props) => {
-  const onSelectHandler = (team) => (
+const DisplayTeamInformations = props => {
+  const onSelectHandler = team => (
     <div className='pb-4'>
       <div className='px-3 text-info'>
         {/* <div> {team.project?  (<span>{team.project.name}</span>) :null}</div> */}
@@ -57,7 +57,7 @@ const DisplayTeamInformations = (props) => {
 
 DisplayTeamInformations.propTypes = {
   selectMembers: PropTypes.func,
-  teamCombos: PropTypes.array,
+  teamCombos: PropTypes.array
 };
 
 export default DisplayTeamInformations;

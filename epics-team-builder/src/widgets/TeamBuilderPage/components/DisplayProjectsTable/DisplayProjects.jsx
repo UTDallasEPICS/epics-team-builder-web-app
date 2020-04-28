@@ -4,15 +4,10 @@ import React from 'react';
 import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import DisplayProjectRow from './DisplayProjectRow';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink } from 'react-csv';
 
 const DisplayProjects = (props) => {
   const { combo = {} } = props;
-  var team = props.combo;
-
-  const onSelectHandlerMembers = (members) => {
-    props.selectMember(members);
-  };
 
   var headers = [
     { label: 'Team', key: 'Team' },
@@ -33,14 +28,16 @@ const DisplayProjects = (props) => {
 
   function getCSV() {
     var newData = [];
-    if (team['teams']) {
-      function buildString(val) {
-        let membersArr = team['teams'][val]['members'];
+    if (combo.teams) {
+      let teams = combo.teams;
+
+      Object.keys(teams).forEach((teamName) => {
+        let membersArr = teams[teamName].members;
         if (membersArr && membersArr.length > 0) {
           for (let i = 0; i < membersArr.length; i++) {
             let rowData = {};
             let member = membersArr[i];
-            rowData['Team'] = val;
+            rowData['Team'] = teamName;
             if (member['id']) {
               rowData['Student'] = member['name'].trim();
               let choiceRows = member['choices'].map((s) => {
@@ -62,9 +59,7 @@ const DisplayProjects = (props) => {
             newData.push(rowData);
           }
         }
-      }
-
-      Object.keys(team.teams).map((teamName, index) => buildString(teamName));
+      });
     }
     return newData;
   }

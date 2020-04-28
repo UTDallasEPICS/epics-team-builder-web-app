@@ -14,7 +14,7 @@ class SetupPage extends React.Component {
       students,
       projects,
       manuallyAssignedStudents,
-      numOfPrefProjects,
+      numOfPrefProjects
     });
   };
 
@@ -30,7 +30,7 @@ class SetupPage extends React.Component {
       removeStudent,
       setMaxPossibleChoices,
       maxPossibleChoices,
-      changeNumOfPreferredProjects,
+      changeNumOfPreferredProjects
     } = this.props;
 
     return (
@@ -77,7 +77,7 @@ SetupPage.defaultProps = {
   numOfPrefProjects: 6,
   students: [],
   projects: [],
-  manuallyAssignedStudents: {},
+  manuallyAssignedStudents: {}
 };
 
 SetupPage.propTypes = {
@@ -93,7 +93,7 @@ SetupPage.propTypes = {
   generateTeams: PropTypes.func,
   removeStudent: PropTypes.func,
   numOfPrefProjects: PropTypes.number,
-  maxPossibleChoices: PropTypes.number,
+  maxPossibleChoices: PropTypes.number
 };
 
 export default SetupPage;
