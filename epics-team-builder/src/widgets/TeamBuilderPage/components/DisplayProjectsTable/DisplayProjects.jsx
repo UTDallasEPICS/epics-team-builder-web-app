@@ -6,10 +6,8 @@ import PropTypes from 'prop-types';
 import DisplayProjectRow from './DisplayProjectRow';
 import { CSVLink } from 'react-csv';
 
-const DisplayProjects = (props) => {
-  const { combo = {} } = props;
-
-  var headers = [
+const DisplayProjects = ({ combo = {}, selectTeam }) => {
+  let headers = [
     { label: 'Team', key: 'Team' },
     { label: 'Student', key: 'Student' },
     { label: 'Choice 1', key: 'Choice 1' },
@@ -23,7 +21,7 @@ const DisplayProjects = (props) => {
     { label: 'Gender', key: 'Gender' },
     { label: 'Skill 1', key: 'Skill 1' },
     { label: 'Skill 2', key: 'Skill 2' },
-    { label: 'Skill 3', key: 'Skill 3' },
+    { label: 'Skill 3', key: 'Skill 3' }
   ];
 
   function getCSV() {
@@ -31,7 +29,7 @@ const DisplayProjects = (props) => {
     if (combo.teams) {
       let teams = combo.teams;
 
-      Object.keys(teams).forEach((teamName) => {
+      Object.keys(teams).forEach(teamName => {
         let membersArr = teams[teamName].members;
         if (membersArr && membersArr.length > 0) {
           for (let i = 0; i < membersArr.length; i++) {
@@ -40,7 +38,7 @@ const DisplayProjects = (props) => {
             rowData['Team'] = teamName;
             if (member['id']) {
               rowData['Student'] = member['name'].trim();
-              let choiceRows = member['choices'].map((s) => {
+              let choiceRows = member['choices'].map(s => {
                 return s.trim();
               });
               for (let j = 1; j <= choiceRows.length; j++) {
@@ -50,7 +48,7 @@ const DisplayProjects = (props) => {
               rowData['Student Major'] = member['major'].trim();
               rowData['Student Classification'] = member['classification'].trim();
               rowData['Gender'] = member['gender'].trim();
-              let skillSet = member['skills'].map((s) => s.trim());
+              let skillSet = member['skills'].map(s => s.trim());
               for (let j = 1; j <= skillSet.length; j++) {
                 let skillRow = 'Skill ' + j;
                 rowData[skillRow] = skillSet[j - 1];
@@ -64,10 +62,10 @@ const DisplayProjects = (props) => {
     return newData;
   }
 
-  const onSeclectHandler = (teamCombos) => (
+  return (
     <div className='pb-4'>
       <div className='px-3 text-info'>
-        Total Projects: {teamCombos.teams ? <span>{Object.keys(teamCombos.teams).length}</span> : null}
+        Total Projects: {combo.teams ? <span>{Object.keys(combo.teams).length}</span> : null}
       </div>
       <div className='teamcombination-wrapper p-3'>
         <CardDeck className='tables-container'>
@@ -77,7 +75,7 @@ const DisplayProjects = (props) => {
                 {combo.teams
                   ? Object.keys(combo.teams).map((teamName, index) => (
                       <tr key={index}>
-                        <DisplayProjectRow combo={combo} selectMember={props.selectMember} teamName={teamName} />
+                        <DisplayProjectRow combo={combo} selectTeam={selectTeam} teamName={teamName} />
                       </tr>
                     ))
                   : null}
@@ -95,13 +93,11 @@ const DisplayProjects = (props) => {
       </div>
     </div>
   );
-  return onSeclectHandler(props.combo);
 };
 
 DisplayProjects.propTypes = {
-  selectProjects: PropTypes.func,
-  teamCombos: PropTypes.array,
-  onSeclectHandlerMembers: PropTypes.func,
+  selectTeam: PropTypes.func,
+  combo: PropTypes.object
 };
 // /*//npm install react-csv --save*/
 export default DisplayProjects;

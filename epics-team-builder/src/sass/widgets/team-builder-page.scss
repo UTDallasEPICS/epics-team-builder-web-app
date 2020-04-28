@@ -1,22 +1,8 @@
 .team-builder-page {
   height: 100vh;
-  overflow-x: hidden;
-
-  .header-container {
-    height: 10vh;
-    .header {
-      height: 40%;
-      background-color: #124734;
-      display: flex;
-      img {
-        align-self: center;
-        height: 80%;
-      }
-    }
-  }
 
   .team-builder-header-options {
-    height: 10vh;
+    height: 6rem;
     padding-top: 0;
     padding-bottom: 0;
 
@@ -41,12 +27,6 @@
       overflow-y: scroll;
       border-collapse: separate;
       box-shadow: 2px 3px 4px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .team-classmate-row {
-      div {
-        margin-left: 8px;
-      }
     }
   }
 }

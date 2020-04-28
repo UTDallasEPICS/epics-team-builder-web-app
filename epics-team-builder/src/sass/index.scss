@@ -4,9 +4,11 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 
   //Import common styling
   @import './common/button.scss';
+  @import './common/header.scss';
 
   .epics-team-builder {
     //Import component specific styling

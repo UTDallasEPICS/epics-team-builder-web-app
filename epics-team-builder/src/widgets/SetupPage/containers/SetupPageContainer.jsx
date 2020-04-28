@@ -9,7 +9,7 @@ import {
   setMaxPossibleChoices
 } from '../../../actions/setupPageActions.js';
 
-import { generateTeams, selectCombination } from '../../../actions/teamBuilderPageActions';
+import { selectCombination } from '../../../actions/teamBuilderPageActions';
 import {
   getNumOfPreferredProjects,
   getStudents,
@@ -32,7 +32,6 @@ const mapDispatchToProps = dispatch => ({
   changeStudentsArray: value => dispatch(changeStudentsArray(value)),
   assignProjToStudents: value => dispatch(assignProjToStudents(value)),
   removeStudent: value => dispatch(removeStudent(value)),
-  generateTeams: teamInformation => dispatch(generateTeams(teamInformation)),
   selectCombination: comboInformation => dispatch(selectCombination(comboInformation)),
   setMaxPossibleChoices: value => dispatch(setMaxPossibleChoices(value))
 });

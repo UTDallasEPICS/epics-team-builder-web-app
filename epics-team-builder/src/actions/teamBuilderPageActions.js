@@ -45,7 +45,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
 
   let teamCombos = [];
   //Loop through creation of teams
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 1000; i++) {
     //Make copies to start off on
     let randomStudents = JSON.parse(JSON.stringify(students));
     let newTeams = JSON.parse(JSON.stringify(teams));
@@ -53,7 +53,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //Shuffle students to hopefully get different results
     for (var k = randomStudents.length - 1; k > 0; k--) {
       var j = Math.floor(Math.random() * (k + 1));
-      var temp = randomStudents[k];
+      let temp = randomStudents[k];
       randomStudents[k] = randomStudents[j];
       randomStudents[j] = temp;
     }
@@ -62,7 +62,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     for (let j = randomStudents.length - 1; j >= 0; j--) {
       for (let k = 0; k < numOfPrefProjects; k++) {
         if (randomStudents[j].choices[k]) {
-          if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 5) {
+          if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 3) {
             randomStudents[j].choice_num_awarded = k + 1;
             newTeams[`${randomStudents[j].choices[k]}`].members.push(randomStudents[j]);
             randomStudents.splice(j, 1);
@@ -87,7 +87,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     let smallTeams = [];
     let largeTeams = [];
 
-    //seperate trams into categories based on size
+    //seperate teams into categories based on size
     for (let teamName in newTeams) {
       if (newTeams[teamName].members.length < 3) {
         smallTeams.push(newTeams[teamName]);
@@ -150,6 +150,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       let teamMembers = newTeams[team].members.filter(student =>
         student.returning || student.assigned ? false : true
       );
+
       if (teamMembers.length === 0) {
         continue;
       }
@@ -179,14 +180,13 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       totalWeighedTeams++;
     }
 
-    //Value is the average choice a student is given
+    //Value is the average choice a student is given. The lower the better
+
     let avgScoreChoice = teamAverageChoice / totalWeighedTeams;
-    //Value is weight ranging from -2 to 2. 0 means perfectly balanced. Postive values mean team has more upper classmen.
-    //Negative values mean team has more lower classmen.
-    let avgScoreClass = teamAverageClass / totalWeighedTeams;
+    //Value is weight ranging from 0 to 1. The closer to 0, the better spread of students by grade
+    let avgScoreClass = Math.abs(teamAverageClass / totalWeighedTeams) / 2;
 
     let skillsMet = 0;
-    let totalSkills = 0;
 
     //For each team find how many skills are met by its members
     for (let team in newTeams) {
@@ -204,18 +204,42 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
           }
           if (foundSkill) break;
         }
-        totalSkills++;
       });
     }
 
-    //ratio of how many skills of all the teams were met
-    let skillsMetRatio = skillsMet / totalSkills;
+    //average skills met per team
+    let avgSkillsMet = skillsMet / Object.keys(newTeams).length;
+
+    let temp = 0;
+    for (let team in newTeams) {
+      temp += Math.exp(newTeams[team].skillsMet - avgSkillsMet, 2);
+    }
+
+    let staDevSkillsMet = Math.sqrt(temp / skillsMet);
+
+    //use normalized average and coefficient of variation as weights
+    let skillsMetWeight =
+      avgSkillsMet / newTeams[Object.keys(newTeams)[0]].project.skills.length + (staDevSkillsMet / avgSkillsMet) * -0.2;
+
+    let totalMembers = 0;
+    for (let team in newTeams) {
+      totalMembers += newTeams[team].members.length;
+    }
+
+    let avgMembersPerTeam = totalMembers / Object.keys(newTeams).length;
+    temp = 0;
+    for (let team in newTeams) {
+      temp += Math.exp(newTeams[team].members.length - avgMembersPerTeam, 2);
+    }
+
+    let coVarMembers = 1 - Math.sqrt(temp / totalMembers) / avgMembersPerTeam;
 
     teamCombos.push({
       teams: newTeams,
       avgScoreChoice,
       avgScoreClass,
-      skillsMetRatio,
+      skillsMetRatio: skillsMetWeight,
+      coVarMembers,
       unassignedReturn,
       unassignedNormal,
       noResponseStudents,

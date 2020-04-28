@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-const Checkbox = () => {
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const AttributeCheckboxes = ({ setChecked, checked }) => {
   const categories = [
-    { value: 'classification', display_name: 'Classification' },
-    { value: 'projectPreferrence', display_name: 'Project Preference' },
-    { value: 'skillmatch', display_name: 'Skill Match' }
+    { value: 'avgScoreChoice', display_name: 'Project Preference' },
+    { value: 'avgScoreClass', display_name: 'Classification' },
+    { value: 'skillsMetRatio', display_name: 'Skill Match' }
   ];
-  const [checked, setChecked] = useState([]);
 
   const handleToggle = c => () => {
     const currentCategoryName = checked.indexOf(c);
@@ -15,7 +16,6 @@ const Checkbox = () => {
     } else {
       newCheckedCategory.splice(currentCategoryName, 1);
     }
-    console.log(newCheckedCategory);
     setChecked(newCheckedCategory);
   };
 
@@ -32,4 +32,9 @@ const Checkbox = () => {
   ));
 };
 
-export default Checkbox;
+AttributeCheckboxes.propTypes = {
+  setChecked: PropTypes.func,
+  checked: PropTypes.array
+};
+
+export default AttributeCheckboxes;

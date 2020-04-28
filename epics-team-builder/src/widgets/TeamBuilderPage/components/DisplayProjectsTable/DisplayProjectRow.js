@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-function DisplayProjectRow({ combo, selectMember, teamName }) {
+function DisplayProjectRow({ combo, selectTeam, teamName }) {
   const onSelectHandlerMembers = () => {
-    selectMember(combo.teams[teamName]);
+    selectTeam(combo.teams[teamName]);
   };
 
   return (
@@ -12,13 +12,9 @@ function DisplayProjectRow({ combo, selectMember, teamName }) {
         <div>{teamName}</div>
       </td>
       <td>
-        <div
-          onClick={onSelectHandlerMembers}
-          className='border p-2 shawdow bg-dark text-white mt-4 text-center'
-          style={{ cursor: 'pointer' }}
-        >
+        <button onClick={onSelectHandlerMembers} className='dark-gray text-center' style={{ width: '8rem' }}>
           Select
-        </div>
+        </button>
       </td>
     </Fragment>
   );
@@ -26,7 +22,7 @@ function DisplayProjectRow({ combo, selectMember, teamName }) {
 
 DisplayProjectRow.propTypes = {
   combo: PropTypes.object,
-  selectMember: PropTypes.func,
+  selectTeam: PropTypes.func,
   teamName: PropTypes.string
 };
 

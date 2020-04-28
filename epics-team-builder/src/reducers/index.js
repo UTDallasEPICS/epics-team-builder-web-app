@@ -17,4 +17,4 @@ export const getMaxPossibleChoices = state => state.setupPage.maxChoicesConsider
 
 //Team Builder Page Selectors
 export const getTeamCombos = state => state.teamCombos.getTeamCombos;
-export const getSelectedCombo = state => state.teamCombos.getSectedCombo;
+export const getSelectedCombo = state => state.teamCombos.getSelectedCombo;
