@@ -97,7 +97,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
 
 DisplayProjects.propTypes = {
   selectTeam: PropTypes.func,
-  combo: PropTypes.obj,
+  combo: PropTypes.object,
 };
 // /*//npm install react-csv --save*/
 export default DisplayProjects;
