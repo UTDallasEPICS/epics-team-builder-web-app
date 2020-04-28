@@ -4,11 +4,11 @@ import { SELECT_TEAM_COMBINATION } from './actionTypes/teamBuilderActionTypes';
 export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects }) => {
   const teams = {};
 
-  projects.forEach((project) => {
+  projects.forEach(project => {
     teams[`${project.name}`] = {
       project,
       members: [],
-      value: 0,
+      value: 0
     };
   });
 
@@ -26,8 +26,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   }
 
   //Pull out all students who did not respond
-  let noResponseStudents = students.filter((student) => !student.response);
-  students = students.filter((student) => student.response);
+  let noResponseStudents = students.filter(student => !student.response);
+  students = students.filter(student => student.response);
 
   //Let returning students get priority in project choice first
   for (let i = 0; i < students.length; i++) {
@@ -134,7 +134,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     }
     let unassignedReturn = 0;
     let unassignedNormal = 0;
-    randomStudents.forEach((student) => {
+    randomStudents.forEach(student => {
       student.returning ? unassignedReturn++ : unassignedNormal++;
     });
 
@@ -147,7 +147,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       let teamTotalChoice = 0;
 
       //Filter out assigned and returning students from calculations
-      let teamMembers = newTeams[team].members.filter((student) =>
+      let teamMembers = newTeams[team].members.filter(student =>
         student.returning || student.assigned ? false : true
       );
 
@@ -156,7 +156,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       }
 
       //Calculate the average choice and spread of students by classsification
-      teamMembers.forEach((student) => {
+      teamMembers.forEach(student => {
         teamTotalChoice += student.choice_num_awarded;
         switch (student.classification) {
           case 'Freshman':
@@ -191,7 +191,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //For each team find how many skills are met by its members
     for (let team in newTeams) {
       newTeams[team].skillsMet = 0;
-      newTeams[team].project.skills.forEach((skill) => {
+      newTeams[team].project.skills.forEach(skill => {
         let foundSkill = false;
         for (let j = 0; j < newTeams[team].members.length; j++) {
           for (let k = 0; k < newTeams[team].members[j].skills.length; k++) {
@@ -243,13 +243,13 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       unassignedReturn,
       unassignedNormal,
       noResponseStudents,
-      unassignedStudents: randomStudents,
+      unassignedStudents: randomStudents
     });
   }
 
   return {
     type: INITIATE_TEAM_GENERATION,
-    payload: teamCombos,
+    payload: teamCombos
   };
 };
 
@@ -278,9 +278,9 @@ function findTeamForStudent(student, teams, numOfPrefProjects) {
   return false;
 }
 
-export const selectCombination = (value) => {
+export const selectCombination = value => {
   return {
     type: SELECT_TEAM_COMBINATION,
-    payload: value,
+    payload: value
   };
 };

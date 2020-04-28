@@ -61,7 +61,7 @@ DisplayTeamCombinations.propTypes = {
   selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
   regrenerateTeam: PropTypes.func,
-  checked: PropTypes.array,
+  checked: PropTypes.array
 };
 
 export default DisplayTeamCombinations;

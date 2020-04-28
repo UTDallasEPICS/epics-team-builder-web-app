@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../../common/Header';
 import AttributeCheckboxes from './AttributeCheckboxes';
 import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinations';
-import { Row, Col, Spinner } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
 import DisplayTeamInformations from './DisplayTeamInformations';
 //npm startimport * as FileSaver from 'file-saver';
