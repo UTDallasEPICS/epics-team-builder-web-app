@@ -83,12 +83,6 @@ class TeamBuilderPage extends React.Component {
     </div>
   );
 
-  renderLoading = () => (
-    <div style={{ height: '50vh' }} className='d-flex justify-content-center align-items-center'>
-      <Spinner animation='border' role='status' size='lg'></Spinner>
-    </div>
-  );
-
   renderTeamCombinations = () => {
     const { teamCombos } = this.props;
     return (
@@ -103,6 +97,7 @@ class TeamBuilderPage extends React.Component {
           selectTeam={this.setTeam}
           regrenerateTeam={this.regrenerateTeam}
           checked={this.state.checked}
+          loading={this.state.loading}
         />
       </div>
     );
@@ -135,7 +130,7 @@ class TeamBuilderPage extends React.Component {
         {this.renderTopSection()}
         <Row>
           <Col xs={12} md={4} className='bg-light'>
-            {this.state.loading ? this.renderLoading() : this.renderTeamCombinations()}
+            {this.renderTeamCombinations()}
           </Col>
           <Col xs={12} md={4} className='bg-light'>
             {this.renderViewProjects()}
