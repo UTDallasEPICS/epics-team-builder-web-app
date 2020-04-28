@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Table, CardDeck } from 'react-bootstrap';
 import TeamComboRow from './TeamComboRow';
+import { orderBy } from 'lodash';
 
 /* eslint-disable react/prop-types */
-function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam, selectTeam }) {
+function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam, selectTeam, checked, loading }) {
   return (
     <div className='pb-4'>
       <div className='px-3 text-info'>Total Combinations: {teamCombos.length} </div>
@@ -13,7 +14,7 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
           <Card className='table-card' border='dark'>
             <Table striped bordered hover>
               <tbody>
-                {teamCombos.map((combo, index) => {
+                {orderBy(teamCombos, [...checked, 'coVarMembers'], 'asc').map((combo, index) => {
                   return (
                     <tr key={index}>
                       <TeamComboRow
@@ -48,6 +49,7 @@ DisplayTeamCombinations.propTypes = {
   selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
   regrenerateTeam: PropTypes.func,
+  checked: PropTypes.array,
 };
 
 export default DisplayTeamCombinations;

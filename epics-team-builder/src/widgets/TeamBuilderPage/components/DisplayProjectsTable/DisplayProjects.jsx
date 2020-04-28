@@ -21,7 +21,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
     { label: 'Gender', key: 'Gender' },
     { label: 'Skill 1', key: 'Skill 1' },
     { label: 'Skill 2', key: 'Skill 2' },
-    { label: 'Skill 3', key: 'Skill 3' },
+    { label: 'Skill 3', key: 'Skill 3' }
   ];
 
   function getCSV() {
@@ -29,7 +29,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
     if (combo.teams) {
       let teams = combo.teams;
 
-      Object.keys(teams).forEach((teamName) => {
+      Object.keys(teams).forEach(teamName => {
         let membersArr = teams[teamName].members;
         if (membersArr && membersArr.length > 0) {
           for (let i = 0; i < membersArr.length; i++) {
@@ -38,7 +38,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
             rowData['Team'] = teamName;
             if (member['id']) {
               rowData['Student'] = member['name'].trim();
-              let choiceRows = member['choices'].map((s) => {
+              let choiceRows = member['choices'].map(s => {
                 return s.trim();
               });
               for (let j = 1; j <= choiceRows.length; j++) {
@@ -48,7 +48,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
               rowData['Student Major'] = member['major'].trim();
               rowData['Student Classification'] = member['classification'].trim();
               rowData['Gender'] = member['gender'].trim();
-              let skillSet = member['skills'].map((s) => s.trim());
+              let skillSet = member['skills'].map(s => s.trim());
               for (let j = 1; j <= skillSet.length; j++) {
                 let skillRow = 'Skill ' + j;
                 rowData[skillRow] = skillSet[j - 1];
@@ -97,7 +97,7 @@ const DisplayProjects = ({ combo = {}, selectTeam }) => {
 
 DisplayProjects.propTypes = {
   selectTeam: PropTypes.func,
-  combo: PropTypes.object,
+  combo: PropTypes.object
 };
 // /*//npm install react-csv --save*/
 export default DisplayProjects;

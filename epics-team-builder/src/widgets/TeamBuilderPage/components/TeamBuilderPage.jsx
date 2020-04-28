@@ -15,7 +15,8 @@ class TeamBuilderPage extends React.Component {
     this.state = {
       loading: true,
       combo: {},
-      team: {}
+      team: {},
+      checked: [],
     };
   }
 
@@ -23,18 +24,26 @@ class TeamBuilderPage extends React.Component {
     this.waitToGenerateTeams();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.teamCombos !== prevProps.teamCombos) {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.teamCombos !== prevProps.teamCombos || prevState.checked !== this.state.checked) {
       this.setState({ loading: false });
     }
   }
 
-  setCombo = combo => {
+  setCombo = (combo) => {
     this.setState({ combo });
   };
 
-  setTeam = team => {
+  setTeam = (team) => {
     this.setState({ team });
+  };
+
+  setChecked = (checked) => {
+    this.setState({ loading: true }, () => {
+      setTimeout(() => {
+        this.setState({ checked });
+      }, 100);
+    });
   };
 
   waitToGenerateTeams() {
@@ -50,7 +59,7 @@ class TeamBuilderPage extends React.Component {
     this.waitToGenerateTeams();
   };
 
-  selectCombo = comboInformation => {
+  selectCombo = (comboInformation) => {
     this.props.selectCombination(comboInformation);
   };
 
@@ -68,7 +77,7 @@ class TeamBuilderPage extends React.Component {
           <h3>Attribute Importance</h3>
         </div>
         <div className='d-md-flex md-flex-row justify-content-center'>
-          <AttributeCheckboxes />
+          <AttributeCheckboxes setChecked={this.setChecked} checked={this.state.checked} />
         </div>
       </div>
     </div>
@@ -93,6 +102,7 @@ class TeamBuilderPage extends React.Component {
           selectCombo={this.setCombo}
           selectTeam={this.setTeam}
           regrenerateTeam={this.regrenerateTeam}
+          checked={this.state.checked}
         />
       </div>
     );
@@ -149,7 +159,7 @@ TeamBuilderPage.propTypes = {
   generateTeams: PropTypes.func,
   selectCombination: PropTypes.func,
   selectProjects: PropTypes.func,
-  selectMembers: PropTypes.func
+  selectMembers: PropTypes.func,
 };
 
 export default TeamBuilderPage;

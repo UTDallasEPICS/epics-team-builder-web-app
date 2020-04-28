@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const AttributeCheckboxes = () => {
+const AttributeCheckboxes = ({ setChecked, checked }) => {
   const categories = [
-    { value: 'projectPreferrence', display_name: 'Project Preference' },
-    { value: 'classification', display_name: 'Classification' },
-    { value: 'skillmatch', display_name: 'Skill Match' }
+    { value: 'avgScoreChoice', display_name: 'Project Preference' },
+    { value: 'avgScoreClass', display_name: 'Classification' },
+    { value: 'skillsMetRatio', display_name: 'Skill Match' },
   ];
-  const [checked, setChecked] = useState([]);
 
-  const handleToggle = c => () => {
+  const handleToggle = (c) => () => {
     const currentCategoryName = checked.indexOf(c);
     const newCheckedCategory = [...checked];
     if (currentCategoryName === -1) {
@@ -30,6 +30,11 @@ const AttributeCheckboxes = () => {
       <label className='form-check-label ml-3'>{c.display_name}</label>
     </div>
   ));
+};
+
+AttributeCheckboxes.propTypes = {
+  setChecked: PropTypes.func,
+  checked: PropTypes.array,
 };
 
 export default AttributeCheckboxes;
