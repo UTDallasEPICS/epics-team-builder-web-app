@@ -6,6 +6,8 @@ import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinati
 import { Row, Col, Spinner } from 'react-bootstrap';
 import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
 import DisplayTeamInformations from './DisplayTeamInformations';
+//npm startimport * as FileSaver from 'file-saver';
+//import * as XLSX from 'xlsx';
 
 class TeamBuilderPage extends React.Component {
   constructor() {

@@ -8,7 +8,7 @@ class ExcelReader extends Component {
     super(props);
     this.state = {
       projectFileName: 'Or drag file here',
-      studentFileName: 'Or drag file here'
+      studentFileName: 'Or drag file here',
     };
 
     this.projectInputRef = React.createRef();
@@ -19,7 +19,7 @@ class ExcelReader extends Component {
     this.handleChangeStudents = this.handleChangeStudents.bind(this);
   }
 
-  getExtension = fileName => {
+  getExtension = (fileName) => {
     let temp = fileName.split('.');
     return temp[temp.length - 1];
   };
@@ -57,12 +57,12 @@ class ExcelReader extends Component {
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
 
-    reader.onload = e => {
+    reader.onload = (e) => {
       /* Parse data */
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, {
         type: rABS ? 'binary' : 'array',
-        bookVBA: true
+        bookVBA: true,
       });
       /* Get first worksheet */
       const wsname = wb.SheetNames[0];
@@ -72,7 +72,7 @@ class ExcelReader extends Component {
 
       let tempContainer = {
         file: file,
-        data
+        data,
       };
 
       //Check for correct columns in project file
@@ -103,7 +103,7 @@ class ExcelReader extends Component {
         accumalator.push({
           name: project['Project Name'] ? project['Project Name'] : 'N/A',
           returning: project['Returning (Y/N)'] === 'Y',
-          skills: skillsArray[0] ? skillsArray : []
+          skills: skillsArray[0] ? skillsArray : [],
         });
         return accumalator;
       }, []);
@@ -119,17 +119,17 @@ class ExcelReader extends Component {
   }
 
   handleStudentFile(file) {
-    const { changeStudentsArray, setMaxPossibleChoices, maxPossibleChoices } = this.props;
+    const { changeStudentsArray, setMaxPossibleChoices } = this.props;
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
 
-    reader.onload = e => {
+    reader.onload = (e) => {
       /* Parse data */
       const bstr = e.target.result;
       const wb = XLSX.read(bstr, {
         type: rABS ? 'binary' : 'array',
-        bookVBA: true
+        bookVBA: true,
       });
       /* Get first worksheet */
       const wsname = wb.SheetNames[0];
@@ -139,7 +139,7 @@ class ExcelReader extends Component {
 
       let tempContainer = {
         file: file,
-        data
+        data,
       };
 
       //                  Check for correct columns in student file
@@ -153,7 +153,7 @@ class ExcelReader extends Component {
         'Gender',
         'Skill 1',
         'Skill 2',
-        'Skill 3'
+        'Skill 3',
       ];
 
       let actualColNames = [];
@@ -210,7 +210,7 @@ class ExcelReader extends Component {
           gender: student['Gender'] ? student['Gender'] : 'N/A',
           skills: studentSkillsArray[0] ? studentSkillsArray : [],
           found_team: false,
-          choice_num_awarded: 0
+          choice_num_awarded: 0,
         });
 
         return accumalator;
@@ -236,12 +236,12 @@ class ExcelReader extends Component {
   };
 
   //Setup file drops like a normal file input event
-  onProjectDrop = files => {
+  onProjectDrop = (files) => {
     const event = { target: { files } };
     this.handleChangeProjects(event);
   };
 
-  onStudentDrop = files => {
+  onStudentDrop = (files) => {
     const event = { target: { files } };
     this.handleChangeStudents(event);
   };
@@ -302,6 +302,6 @@ ExcelReader.propTypes = {
   changeProjectsArray: PropTypes.func,
   changeStudentsArray: PropTypes.func,
   setMaxPossibleChoices: PropTypes.func,
-  maxPossibleChoices: PropTypes.number
+  maxPossibleChoices: PropTypes.number,
 };
 export default ExcelReader;

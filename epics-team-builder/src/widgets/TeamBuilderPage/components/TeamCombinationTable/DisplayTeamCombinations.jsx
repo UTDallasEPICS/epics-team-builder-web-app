@@ -47,7 +47,7 @@ DisplayTeamCombinations.propTypes = {
   selectCombo: PropTypes.func,
   selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
-  regrenerateTeam: PropTypes.func
+  regrenerateTeam: PropTypes.func,
 };
 
 export default DisplayTeamCombinations;

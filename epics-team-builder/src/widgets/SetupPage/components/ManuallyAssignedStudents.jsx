@@ -3,10 +3,6 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 export default class MAS extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   delete(SL, OS) {
     var copy = Object.assign({}, OS);
     var inputElements = document.getElementsByClassName('messageCheckbox');
@@ -19,8 +15,8 @@ export default class MAS extends React.Component {
     this.props.removeStudent(copy);
   }
 
-  onClickHandler = index => {
-    if (document.getElementById('checkbox' + index).checked == true) {
+  onClickHandler = (index) => {
+    if (document.getElementById('checkbox' + index).checked === true) {
       document.getElementById('checkbox' + index).checked = false;
     } else {
       document.getElementById('checkbox' + index).checked = true;
@@ -96,5 +92,5 @@ MAS.propTypes = {
   students: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
   changeStudentsArray: PropTypes.func,
-  removeStudent: PropTypes.func
+  removeStudent: PropTypes.func,
 };

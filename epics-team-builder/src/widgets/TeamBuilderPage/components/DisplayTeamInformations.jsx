@@ -59,7 +59,7 @@ const DisplayTeamInformations = ({ team }) => {
 };
 
 DisplayTeamInformations.propTypes = {
-  team: PropTypes.object
+  team: PropTypes.object,
 };
 
 export default DisplayTeamInformations;
