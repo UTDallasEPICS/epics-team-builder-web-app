@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Table, CardDeck } from 'react-bootstrap';
-import TeamComboRow from './teamComboRow';
+import TeamComboRow from './TeamComboRow';
+
 /* eslint-disable react/prop-types */
 function DisplayTeamCombinations(props) {
-  const [seclectedCombo, SetSeclectedCombo] = React.useState({});
-  const [checked, setChecked] = React.useState([]);
+  // const [selectedCombo, SetSelectedCombo] = React.useState({});
+  // const [checked, setChecked] = React.useState([]);
 
   const showCombinations = teamCombos => (
     <div className='pb-4'>
@@ -18,7 +19,7 @@ function DisplayTeamCombinations(props) {
                 {teamCombos.map((combo, index) => {
                   return (
                     <tr key={index}>
-                      <TeamComboRow selectCombination={props.selectCombination} combo={combo} index={index} />
+                      <TeamComboRow selectCombination={props.selectCombo} combo={combo} index={index} />
                     </tr>
                   );
                 })}
@@ -41,7 +42,8 @@ function DisplayTeamCombinations(props) {
 
 DisplayTeamCombinations.propTypes = {
   selectCombination: PropTypes.func,
-  teamCombos: PropTypes.object,
+  teamCombos: PropTypes.array,
+  onSeclectHandler: PropTypes.func,
   regrenerateTeam: PropTypes.func
 };
 

@@ -7,8 +7,6 @@ export default class ManuallyAssignProjects extends React.Component {
     const { projects, students } = this.props;
     let projectByStudentId = {};
 
-    var j = 0;
-
     //Get name of selected project
     let projectName = null;
     for (let project of projects) {
@@ -37,14 +35,14 @@ export default class ManuallyAssignProjects extends React.Component {
   };
 
   //Handle clicks on table row to effect associated checkbox
-  onProjectClickHandler = name => {
-    this.props.projects.forEach(project => {
+  onProjectClickHandler = (name) => {
+    this.props.projects.forEach((project) => {
       document.getElementById(project.name).checked = false;
     });
     document.getElementById(name).checked = !document.getElementById(name).checked;
   };
 
-  onStudentClickHandler = id => {
+  onStudentClickHandler = (id) => {
     document.getElementById(id).checked = !document.getElementById(id).checked;
   };
 
@@ -132,5 +130,5 @@ ManuallyAssignProjects.propTypes = {
   students: PropTypes.array,
   projects: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
-  assignProjToStudents: PropTypes.func
+  assignProjToStudents: PropTypes.func,
 };
