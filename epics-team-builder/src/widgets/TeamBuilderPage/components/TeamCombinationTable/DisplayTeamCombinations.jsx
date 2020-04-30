@@ -25,7 +25,11 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
             ) : (
               <Table striped bordered hover>
                 <tbody>
-                  {orderBy(teamCombos, [...checked, 'coVarMembers'], 'asc').map((combo, index) => {
+                  {orderBy(
+                    teamCombos,
+                    [...checked, 'coVarMembers'],
+                    [...checked.map((attribute) => (attribute === 'skillsMetRatio' ? 'desc' : 'asc')), 'desc']
+                  ).map((combo, index) => {
                     return (
                       <tr key={index}>
                         <TeamComboRow
@@ -61,7 +65,7 @@ DisplayTeamCombinations.propTypes = {
   selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
   regrenerateTeam: PropTypes.func,
-  checked: PropTypes.array
+  checked: PropTypes.array,
 };
 
 export default DisplayTeamCombinations;
