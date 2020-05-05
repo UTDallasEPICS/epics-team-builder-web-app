@@ -16,7 +16,7 @@ class TeamBuilderPage extends React.Component {
       loading: true,
       combo: {},
       team: {},
-      checked: [],
+      checked: []
     };
   }
 
@@ -30,15 +30,15 @@ class TeamBuilderPage extends React.Component {
     }
   }
 
-  setCombo = (combo) => {
+  setCombo = combo => {
     this.setState({ combo });
   };
 
-  setTeam = (team) => {
+  setTeam = team => {
     this.setState({ team });
   };
 
-  setChecked = (checked) => {
+  setChecked = checked => {
     this.setState({ loading: true }, () => {
       setTimeout(() => {
         this.setState({ checked });
@@ -59,7 +59,7 @@ class TeamBuilderPage extends React.Component {
     this.waitToGenerateTeams();
   };
 
-  selectCombo = (comboInformation) => {
+  selectCombo = comboInformation => {
     this.props.selectCombination(comboInformation);
   };
 
@@ -154,7 +154,7 @@ TeamBuilderPage.propTypes = {
   generateTeams: PropTypes.func,
   selectCombination: PropTypes.func,
   selectProjects: PropTypes.func,
-  selectMembers: PropTypes.func,
+  selectMembers: PropTypes.func
 };
 
 export default TeamBuilderPage;

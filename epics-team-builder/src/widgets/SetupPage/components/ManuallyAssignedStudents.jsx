@@ -15,7 +15,7 @@ export default class MAS extends React.Component {
     this.props.removeStudent(copy);
   }
 
-  onClickHandler = index => {
+  onClickHandler = (index) => {
     if (document.getElementById('checkbox' + index).checked === true) {
       document.getElementById('checkbox' + index).checked = false;
     } else {
@@ -30,6 +30,7 @@ export default class MAS extends React.Component {
         temp.push(students[key]);
       }
     }
+    console.log(temp);
     return temp;
   }
   render() {
@@ -92,5 +93,5 @@ MAS.propTypes = {
   students: PropTypes.array,
   manuallyAssignedStudents: PropTypes.object,
   changeStudentsArray: PropTypes.func,
-  removeStudent: PropTypes.func
+  removeStudent: PropTypes.func,
 };

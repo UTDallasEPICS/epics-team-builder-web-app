@@ -9,8 +9,10 @@ function DisplayProjectRow({ combo, selectTeam, teamName }) {
   return (
     <Fragment>
       <td>
-        <div className={(Object.keys(combo.teams[teamName].members).length < 3) ? 'text-danger' : null}>{teamName}</div>
-        <div className='text-danger small'>{(Object.keys(combo.teams[teamName].members).length < 3) ? '*Minimum team size not met' : null}</div>
+        <div className={Object.keys(combo.teams[teamName].members).length < 3 ? 'text-danger' : null}>{teamName}</div>
+        <div className='text-danger small'>
+          {Object.keys(combo.teams[teamName].members).length < 3 ? '*Minimum team size not met' : null}
+        </div>
       </td>
       <td>
         <button onClick={onSelectHandlerMembers} style={{ width: '8rem' }} className='dark-gray text-center'>

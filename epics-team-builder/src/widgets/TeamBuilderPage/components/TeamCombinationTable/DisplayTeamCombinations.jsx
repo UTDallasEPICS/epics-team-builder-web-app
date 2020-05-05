@@ -28,7 +28,7 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
                   {orderBy(
                     teamCombos,
                     [...checked, 'coVarMembers'],
-                    [...checked.map((attribute) => (attribute === 'skillsMetRatio' ? 'desc' : 'asc')), 'desc']
+                    [...checked.map(attribute => (attribute === 'skillsMetRatio' ? 'desc' : 'asc')), 'desc']
                   ).map((combo, index) => {
                     return (
                       <tr key={index}>
@@ -65,7 +65,7 @@ DisplayTeamCombinations.propTypes = {
   selectTeam: PropTypes.func,
   teamCombos: PropTypes.array,
   regrenerateTeam: PropTypes.func,
-  checked: PropTypes.array,
+  checked: PropTypes.array
 };
 
 export default DisplayTeamCombinations;
