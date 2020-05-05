@@ -30,7 +30,6 @@ export default class MAS extends React.Component {
         temp.push(students[key]);
       }
     }
-    console.log(temp);
     return temp;
   }
   render() {
