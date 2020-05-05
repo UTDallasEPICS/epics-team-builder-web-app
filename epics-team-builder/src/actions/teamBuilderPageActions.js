@@ -232,7 +232,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       temp += Math.exp(newTeams[team].members.length - avgMembersPerTeam, 2);
     }
 
-    let coVarMembers = 1 - Math.sqrt(temp / totalMembers) / avgMembersPerTeam;
+    let coVarMembers = Math.sqrt(temp / totalMembers) / avgMembersPerTeam;
 
     teamCombos.push({
       teams: newTeams,
