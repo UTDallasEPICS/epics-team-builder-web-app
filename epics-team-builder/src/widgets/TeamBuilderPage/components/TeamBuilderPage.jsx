@@ -17,6 +17,7 @@ class TeamBuilderPage extends React.Component {
       combo: {},
       team: {},
       checked: [],
+      showTooltip: false,
     };
   }
 
@@ -67,14 +68,42 @@ class TeamBuilderPage extends React.Component {
     alert('Does not work!!');
   };
 
+  showTooltipText = (e) => {
+    e.stopPropagation();
+    this.setState({ showTooltip: true });
+  };
+
+  hideTooltipText = () => {
+    this.setState({ showTooltip: false });
+  };
+
   renderTopSection = () => (
     <div className='team-builder-header-options'>
       <button onClick={this.props.switchToSetup} className='px-3 py-2 back-button green'>
         Go Back
       </button>
       <div className='team-builder-attributes'>
-        <div className='font-weight-bolder py-2'>
-          <h3>Attribute Importance</h3>
+        <div className='font-weight-bolder py-2' style={{ display: 'inline-block' }}>
+          <h3 className='attribute-header'>Attribute Importance</h3>
+          <div className='attribute-tooltip' onClick={this.showTooltipText}>
+            <div className='tooltip-question-mark'>?</div>
+            {!this.state.showTooltip ? null : (
+              <div className='tooltip-textbox'>
+                Numbers that appear in checkboxes displays the order in which the table is sorted by.
+                <br />
+                <b>Avg Project Preference Choice</b>: The average project choice a student is given.
+                <br />
+                <b>Classification Weight</b>: Considers spread of student classification per team. The closer to 0 the
+                better.
+                <br />
+                <b>Percent of Skills Matched</b>: The percentage of skills matched by the students in all the teams. (A
+                team skill is matched if at least one student on the team matches it)
+                <br />
+                <b>Members Per Team Weight</b>: Considers spread of students across teams. The closer to 0, the better.
+                Always sorted by this value since filling out teams is always the most important.
+              </div>
+            )}
+          </div>
         </div>
         <div className='d-md-flex md-flex-row justify-content-center'>
           <AttributeCheckboxes setChecked={this.setChecked} checked={this.state.checked} />
@@ -125,7 +154,7 @@ class TeamBuilderPage extends React.Component {
 
   render() {
     return (
-      <div className='team-builder-page'>
+      <div className='team-builder-page' onClick={this.hideTooltipText}>
         <Header />
         {this.renderTopSection()}
         <Row>

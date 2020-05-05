@@ -16,6 +16,99 @@
 
     .team-builder-attributes {
       text-align: center;
+
+      .attribute-header {
+        float: left;
+        margin-right: 20px;
+      }
+      .attribute-tooltip {
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        display: inline-block;
+        vertical-align: middle;
+        border: black 1px solid;
+        border-radius: 8px;
+
+        .tooltip-question-mark {
+          position: relative;
+          bottom: 2px;
+        }
+
+        &:hover {
+          color: blue;
+          border: blue 1px solid;
+          cursor: pointer;
+        }
+
+        .tooltip-textbox {
+          position: absolute;
+          color: black;
+          font-weight: 400;
+          background-color: white;
+          border: 1px black solid;
+          z-index: 97;
+          text-align: left;
+          width: 500px;
+          padding: 4px;
+
+          &:before {
+            border: solid;
+            border-color: transparent white;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid white;
+            content: '';
+            position: absolute;
+            z-index: 99;
+            top: -8px;
+            left: 2px;
+          }
+
+          &:after {
+            border: solid;
+            border-color: transparent black;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid black;
+            content: '';
+            position: absolute;
+            z-index: 98;
+            top: -9px;
+            left: 2px;
+          }
+
+          &:hover {
+            cursor: default;
+          }
+        }
+      }
+
+      .attribute-checkboxes {
+        .checkbox {
+          width: 16px;
+          height: 16px;
+          background-color: white;
+          border: black 1px solid;
+          vertical-align: middle;
+          display: inline-block;
+
+          .checkbox-pos {
+            font-size: 12px;
+            position: relative;
+            bottom: 2px;
+          }
+
+          &:hover {
+            border: blue 1px solid;
+            cursor: pointer;
+          }
+        }
+
+        label {
+          vertical-align: middle;
+        }
+      }
     }
   }
 

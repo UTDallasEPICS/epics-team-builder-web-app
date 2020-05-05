@@ -10,26 +10,26 @@ module.exports = function(grunt) {
         singleQuote: true,
         printWidth: 120,
         tabWidth: 2,
-        semi: true,
+        semi: true
       },
       files: {
-        src: ['*.js', 'src/**/*.js', 'src/**/*.jsx'],
-      },
+        src: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
+      }
     },
     eslint: {
-      target: ['*.js', 'src/**/*.js', 'src/**/*.jsx'],
+      target: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
     },
     run: {
       options: {
         // ...
       },
       npm_start: {
-        exec: 'npm run start',
+        exec: 'npm run start'
       },
       npm_build: {
-        exec: 'npm run build',
-      },
-    },
+        exec: 'npm run build'
+      }
+    }
   });
 
   grunt.registerTask('default', ['prettier', 'eslint', 'run:npm_start']);

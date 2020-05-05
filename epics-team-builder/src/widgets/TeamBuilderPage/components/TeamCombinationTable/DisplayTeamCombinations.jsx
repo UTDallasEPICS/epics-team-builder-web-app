@@ -28,7 +28,7 @@ function DisplayTeamCombinations({ teamCombos = [], selectCombo, regrenerateTeam
                   {orderBy(
                     teamCombos,
                     [...checked, 'coVarMembers'],
-                    [...checked.map((attribute) => (attribute === 'skillsMetRatio' ? 'desc' : 'asc')), 'desc']
+                    [...checked.map((attribute) => (attribute === 'skillsMetRatio' ? 'desc' : 'asc')), 'asc']
                   ).map((combo, index) => {
                     return (
                       <tr key={index}>

@@ -3,40 +3,40 @@ import { SELECT_TEAM_COMBINATION } from './actionTypes/teamBuilderActionTypes';
 
 export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects }) => {
   const teams = {};
-
-  projects.forEach(project => {
+  let tempStudents = JSON.parse(JSON.stringify(students));
+  projects.forEach((project) => {
     teams[`${project.name}`] = {
       project,
       members: [],
-      value: 0
+      value: 0,
     };
   });
 
   //First assign manually assigned students
   for (let sid in manuallyAssignedStudents) {
     //Change students to map from sid to their info
-    for (let i = 0; i < students.length; i++) {
-      if (parseInt(students[i].id) === parseInt(sid)) {
-        students[i].assigned = true;
-        teams[manuallyAssignedStudents[sid]].members.push(students[i]);
-        students.splice(i, 1);
+    for (let i = 0; i < tempStudents.length; i++) {
+      if (parseInt(tempStudents[i].id) === parseInt(sid)) {
+        tempStudents[i].assigned = true;
+        teams[manuallyAssignedStudents[sid]].members.push(tempStudents[i]);
+        tempStudents.splice(i, 1);
         break;
       }
     }
   }
 
   //Pull out all students who did not respond
-  let noResponseStudents = students.filter(student => !student.response);
-  students = students.filter(student => student.response);
+  let noResponseStudents = tempStudents.filter((student) => !student.response);
+  tempStudents = tempStudents.filter((student) => student.response);
 
   //Let returning students get priority in project choice first
-  for (let i = 0; i < students.length; i++) {
-    if (students[i].returning) {
-      for (let j = 0; j < students[i].choices.length; j++) {
-        if (teams[`${students[i].choices[j]}`].members.length < 5) {
-          students[i].choice_num_awarded = j + 1;
-          teams[`${students[i].choices[j]}`].members.push(students[i]);
-          students.splice(i, 1);
+  for (let i = 0; i < tempStudents.length; i++) {
+    if (tempStudents[i].returning) {
+      for (let j = 0; j < tempStudents[i].choices.length; j++) {
+        if (teams[`${tempStudents[i].choices[j]}`].members.length < 5) {
+          tempStudents[i].choice_num_awarded = j + 1;
+          teams[`${tempStudents[i].choices[j]}`].members.push(tempStudents[i]);
+          tempStudents.splice(i, 1);
           break;
         }
       }
@@ -47,7 +47,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   //Loop through creation of teams
   for (let i = 0; i < 1000; i++) {
     //Make copies to start off on
-    let randomStudents = JSON.parse(JSON.stringify(students));
+    let randomStudents = JSON.parse(JSON.stringify(tempStudents));
     let newTeams = JSON.parse(JSON.stringify(teams));
 
     //Shuffle students to hopefully get different results
@@ -134,7 +134,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     }
     let unassignedReturn = 0;
     let unassignedNormal = 0;
-    randomStudents.forEach(student => {
+    randomStudents.forEach((student) => {
       student.returning ? unassignedReturn++ : unassignedNormal++;
     });
 
@@ -147,7 +147,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       let teamTotalChoice = 0;
 
       //Filter out assigned and returning students from calculations
-      let teamMembers = newTeams[team].members.filter(student =>
+      let teamMembers = newTeams[team].members.filter((student) =>
         student.returning || student.assigned ? false : true
       );
 
@@ -156,7 +156,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       }
 
       //Calculate the average choice and spread of students by classsification
-      teamMembers.forEach(student => {
+      teamMembers.forEach((student) => {
         teamTotalChoice += student.choice_num_awarded;
         switch (student.classification) {
           case 'Freshman':
@@ -191,7 +191,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //For each team find how many skills are met by its members
     for (let team in newTeams) {
       newTeams[team].skillsMet = 0;
-      newTeams[team].project.skills.forEach(skill => {
+      newTeams[team].project.skills.forEach((skill) => {
         let foundSkill = false;
         for (let j = 0; j < newTeams[team].members.length; j++) {
           for (let k = 0; k < newTeams[team].members[j].skills.length; k++) {
@@ -232,7 +232,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       temp += Math.exp(newTeams[team].members.length - avgMembersPerTeam, 2);
     }
 
-    let coVarMembers = 1 - Math.sqrt(temp / totalMembers) / avgMembersPerTeam;
+    let coVarMembers = Math.sqrt(temp / totalMembers) / avgMembersPerTeam;
 
     teamCombos.push({
       teams: newTeams,
@@ -243,13 +243,13 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       unassignedReturn,
       unassignedNormal,
       noResponseStudents,
-      unassignedStudents: randomStudents
+      unassignedStudents: randomStudents,
     });
   }
 
   return {
     type: INITIATE_TEAM_GENERATION,
-    payload: teamCombos
+    payload: teamCombos,
   };
 };
 
@@ -278,9 +278,9 @@ function findTeamForStudent(student, teams, numOfPrefProjects) {
   return false;
 }
 
-export const selectCombination = value => {
+export const selectCombination = (value) => {
   return {
     type: SELECT_TEAM_COMBINATION,
-    payload: value
+    payload: value,
   };
 };
