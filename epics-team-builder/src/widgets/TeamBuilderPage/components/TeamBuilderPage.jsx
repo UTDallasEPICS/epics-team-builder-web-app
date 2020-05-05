@@ -17,7 +17,7 @@ class TeamBuilderPage extends React.Component {
       combo: {},
       team: {},
       checked: [],
-      showTooltip: false,
+      showTooltip: false
     };
   }
 
@@ -31,15 +31,15 @@ class TeamBuilderPage extends React.Component {
     }
   }
 
-  setCombo = (combo) => {
+  setCombo = combo => {
     this.setState({ combo });
   };
 
-  setTeam = (team) => {
+  setTeam = team => {
     this.setState({ team });
   };
 
-  setChecked = (checked) => {
+  setChecked = checked => {
     this.setState({ loading: true }, () => {
       setTimeout(() => {
         this.setState({ checked });
@@ -60,7 +60,7 @@ class TeamBuilderPage extends React.Component {
     this.waitToGenerateTeams();
   };
 
-  selectCombo = (comboInformation) => {
+  selectCombo = comboInformation => {
     this.props.selectCombination(comboInformation);
   };
 
@@ -68,9 +68,9 @@ class TeamBuilderPage extends React.Component {
     alert('Does not work!!');
   };
 
-  showTooltipText = (e) => {
+  switchTooltipText = e => {
     e.stopPropagation();
-    this.setState({ showTooltip: true });
+    this.setState({ showTooltip: !this.state.showTooltip });
   };
 
   hideTooltipText = () => {
@@ -85,7 +85,7 @@ class TeamBuilderPage extends React.Component {
       <div className='team-builder-attributes'>
         <div className='font-weight-bolder py-2' style={{ display: 'inline-block' }}>
           <h3 className='attribute-header'>Attribute Importance</h3>
-          <div className='attribute-tooltip' onClick={this.showTooltipText}>
+          <div className='attribute-tooltip' onClick={this.switchTooltipText}>
             <div className='tooltip-question-mark'>?</div>
             {!this.state.showTooltip ? null : (
               <div className='tooltip-textbox'>
@@ -183,7 +183,7 @@ TeamBuilderPage.propTypes = {
   generateTeams: PropTypes.func,
   selectCombination: PropTypes.func,
   selectProjects: PropTypes.func,
-  selectMembers: PropTypes.func,
+  selectMembers: PropTypes.func
 };
 
 export default TeamBuilderPage;

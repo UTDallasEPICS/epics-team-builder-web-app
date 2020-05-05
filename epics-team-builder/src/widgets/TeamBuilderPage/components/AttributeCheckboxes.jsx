@@ -5,10 +5,10 @@ const AttributeCheckboxes = ({ setChecked, checked }) => {
   const categories = [
     { value: 'avgScoreChoice', display_name: 'Project Preference' },
     { value: 'avgScoreClass', display_name: 'Classification' },
-    { value: 'skillsMetRatio', display_name: 'Skill Match' },
+    { value: 'skillsMetRatio', display_name: 'Skill Match' }
   ];
 
-  const handleToggle = (c) => () => {
+  const handleToggle = c => () => {
     const currentCategoryName = checked.indexOf(c);
     const newCheckedCategory = [...checked];
     if (currentCategoryName === -1) {
@@ -37,7 +37,7 @@ const AttributeCheckboxes = ({ setChecked, checked }) => {
 
 AttributeCheckboxes.propTypes = {
   setChecked: PropTypes.func,
-  checked: PropTypes.array,
+  checked: PropTypes.array
 };
 
 export default AttributeCheckboxes;

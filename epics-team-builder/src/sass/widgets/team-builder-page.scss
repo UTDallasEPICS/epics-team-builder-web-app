@@ -33,6 +33,7 @@
         .tooltip-question-mark {
           position: relative;
           bottom: 2px;
+          user-select: none;
         }
 
         &:hover {
