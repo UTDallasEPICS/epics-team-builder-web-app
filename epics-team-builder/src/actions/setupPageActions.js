@@ -4,7 +4,8 @@ import {
   CHANGE_STUDENTS_ARRAY,
   ASSIGN_PROJ_TO_STUDENT,
   REMOVE_STUDENT,
-  SET_MAX_POSSIBLE_CHOICES
+  SET_MAX_POSSIBLE_CHOICES,
+  SET_MAX_TEAM_SIZE
 } from './actionTypes/setupPageActionTypes';
 
 export const removeStudent = value => {
@@ -45,6 +46,13 @@ export const assignProjToStudents = value => {
 export const setMaxPossibleChoices = value => {
   return {
     type: SET_MAX_POSSIBLE_CHOICES,
+    payload: value
+  };
+};
+
+export const setMaxTeamSize = value => {
+  return {
+    type: SET_MAX_TEAM_SIZE,
     payload: value
   };
 };

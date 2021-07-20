@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Nouislider from 'react-nouislider';
 
-function PreferredProjectsSlider({ numOfPrefProjects, maxPossibleChoices, changeNumOfPreferredProjects }) {
+function TeamSettings({ numOfPrefProjects, maxPossibleChoices, changeNumOfPreferredProjects, maxTeamSize, setMaxTeamSize }) {
   const [checked, setChecked] = useState(true);
   const sliderRef = React.createRef();
-
+  
   const switchChecked = () => {
     if (!checked) {
       changeNumOfPreferredProjects(maxPossibleChoices);
@@ -18,9 +18,13 @@ function PreferredProjectsSlider({ numOfPrefProjects, maxPossibleChoices, change
     changeNumOfPreferredProjects(value[0]);
   };
 
+  const updateTeamSize = (a) => {
+    setMaxTeamSize(Number(a.target.value))
+  }
+
   return (
     <div className='preferred-project-slider'>
-      <h5>Number of Preferred Projects:</h5>
+      {/* <h5>Number of Preferred Projects:</h5>
       <Nouislider
         instanceRef={sliderRef}
         range={{ min: 1, max: maxPossibleChoices ? maxPossibleChoices : 2 }}
@@ -29,24 +33,30 @@ function PreferredProjectsSlider({ numOfPrefProjects, maxPossibleChoices, change
         step={1}
         onSlide={moveSlider}
         disabled={maxPossibleChoices ? false : true}
-      />
+      /> */}
       <div className='auto-checkbox-container'>
-        <label>Auto Max</label>
+        {/* <label>Auto Max</label>
         <input
           type='checkbox'
           className='checkbox'
           onChange={switchChecked}
           checked={checked}
           disabled={maxPossibleChoices ? false : true}
-        />
+        /> */}
+        <div className="team-size-input">
+          <p>Max Team Size: </p>
+          <input type="number" value={maxTeamSize} onChange={updateTeamSize}></input>
+        </div>
       </div>
     </div>
   );
 }
 
-PreferredProjectsSlider.propTypes = {
+TeamSettings.propTypes = {
   numOfPrefProjects: PropTypes.number,
   maxPossibleChoices: PropTypes.number,
-  changeNumOfPreferredProjects: PropTypes.func
+  changeNumOfPreferredProjects: PropTypes.func,
+  maxTeamSize: PropTypes.number,
+  setMaxTeamSize: PropTypes.func
 };
-export default PreferredProjectsSlider;
+export default TeamSettings;

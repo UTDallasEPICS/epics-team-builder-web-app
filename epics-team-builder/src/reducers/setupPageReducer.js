@@ -5,8 +5,9 @@ import {
   CHANGE_PROJECTS_ARRAY,
   ASSIGN_PROJ_TO_STUDENT,
   REMOVE_STUDENT,
-  SET_MAX_POSSIBLE_CHOICES
-} from '../actions/actionTypes/setupPageActionTypes';
+  SET_MAX_POSSIBLE_CHOICES,
+  SET_MAX_TEAM_SIZE
+} from 'actions/actionTypes/setupPageActionTypes';
 
 const students = (state = [], { type, payload }) => {
   switch (type) {
@@ -58,10 +59,20 @@ const maxChoicesConsidered = (state = 0, { type, payload }) => {
   }
 };
 
+const maxTeamSize = (state = 5, { type, payload }) => {
+  switch (type) {
+    case SET_MAX_TEAM_SIZE:
+      return payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   students,
   projects,
   manuallyAssignedStudents,
   numOfPreferredProjects,
-  maxChoicesConsidered
+  maxChoicesConsidered,
+  maxTeamSize
 });

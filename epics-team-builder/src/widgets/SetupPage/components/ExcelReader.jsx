@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import XLSX from 'xlsx';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
-
 class ExcelReader extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +16,7 @@ class ExcelReader extends Component {
     this.studentBtnRef = React.createRef();
     this.handleChangeProjects = this.handleChangeProjects.bind(this);
     this.handleChangeStudents = this.handleChangeStudents.bind(this);
+    this.numProjects = 0;
   }
 
   getExtension = fileName => {
@@ -109,6 +109,7 @@ class ExcelReader extends Component {
       }, []);
 
       this.props.changeProjectsArray(projectsArray);
+      this.numProjects = projectsArray.length
     };
 
     if (rABS) {
@@ -119,7 +120,7 @@ class ExcelReader extends Component {
   }
 
   handleStudentFile(file) {
-    const { changeStudentsArray, setMaxPossibleChoices } = this.props;
+    const { changeStudentsArray, setMaxPossibleChoices, changeNumOfPreferredProjects, setMaxTeamSize } = this.props;
     /* Boilerplate to set up FileReader */
     const reader = new FileReader();
     const rABS = !!reader.readAsBinaryString;
@@ -157,10 +158,15 @@ class ExcelReader extends Component {
       ];
 
       let actualColNames = [];
+      const choiceArray = []
       const columnCount = XLSX.utils.decode_range(ws['!ref']).e.c + 1;
       for (let i = 0; i < columnCount; ++i) {
         actualColNames[i] = ws[`${XLSX.utils.encode_col(i)}1`].v;
+        if (actualColNames[i].includes("Choice")) choiceArray.push(actualColNames[i])
       }
+      setMaxPossibleChoices(choiceArray.length)
+      changeNumOfPreferredProjects(choiceArray.length)
+      console.log(`Detected number of choices: ${choiceArray.length}`)
 
       let error = expectedColNames.reduce((accumalator, name) => {
         if (!actualColNames.includes(name)) {
@@ -174,8 +180,6 @@ class ExcelReader extends Component {
         return alert(error.slice(0, -1));
       }
 
-      let minimumChoices = Number.POSITIVE_INFINITY;
-
       //Reduce file object down to new object with formatted data
       let studentsArray = tempContainer.data.reduce((accumalator, student) => {
         if (student['Student Major']) {
@@ -187,24 +191,14 @@ class ExcelReader extends Component {
 
         let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
-        let i = 1;
-        let choiceArray = [];
-        while (student[`Choice ${i}`]) {
-          choiceArray.push(student[`Choice ${i}`]);
-          i++;
-        }
-
-        i--;
-        if (i && i < minimumChoices) {
-          minimumChoices = i;
-        }
+        let studentChoices = choiceArray.map(choice => student[choice])
 
         accumalator.push({
           name: student['Student'] ? student['Student'] : 'N/A',
           response: student['Response Date'] ? true : false,
           id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
           returning: student['Course'] === 'EPCS 3200',
-          choices: choiceArray,
+          choices: studentChoices,
           major: studentMajor,
           classification: student['Student Classification'] ? student['Student Classification'] : 'N/A',
           gender: student['Gender'] ? student['Gender'] : 'N/A',
@@ -217,7 +211,7 @@ class ExcelReader extends Component {
       }, []);
 
       changeStudentsArray(studentsArray);
-      setMaxPossibleChoices(minimumChoices);
+      setMaxTeamSize(Math.ceil(studentsArray.length/this.numProjects))
     };
 
     if (rABS) {
@@ -302,6 +296,7 @@ ExcelReader.propTypes = {
   changeProjectsArray: PropTypes.func,
   changeStudentsArray: PropTypes.func,
   setMaxPossibleChoices: PropTypes.func,
-  maxPossibleChoices: PropTypes.number
+  maxPossibleChoices: PropTypes.number,
+  setMaxTeamSize: PropTypes.func
 };
 export default ExcelReader;

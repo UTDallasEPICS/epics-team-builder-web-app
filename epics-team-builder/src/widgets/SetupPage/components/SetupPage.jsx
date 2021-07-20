@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../common/Header';
+import Header from 'widgets/common/Header';
 import MAS from './ManuallyAssignedStudents';
 import ManuallyAssignProjects from './ManuallyAssignProjects';
 import ExcelReader from './ExcelReader';
-import PreferredProjectsSlider from './PreferredProjectsSlider';
+import TeamSettings from './TeamSettings';
 
 class SetupPage extends React.Component {
   render() {
@@ -18,6 +18,8 @@ class SetupPage extends React.Component {
       manuallyAssignedStudents,
       removeStudent,
       setMaxPossibleChoices,
+      setMaxTeamSize,
+      maxTeamSize,
       maxPossibleChoices,
       changeNumOfPreferredProjects,
       switchToTeamBuilder
@@ -32,6 +34,8 @@ class SetupPage extends React.Component {
             changeProjectsArray={changeProjectsArray}
             setMaxPossibleChoices={setMaxPossibleChoices}
             maxPossibleChoices={maxPossibleChoices}
+            changeNumOfPreferredProjects={changeNumOfPreferredProjects}
+            setMaxTeamSize={setMaxTeamSize}
           />
 
           <ManuallyAssignProjects
@@ -49,12 +53,13 @@ class SetupPage extends React.Component {
             />
           </div>
         </div>
-        <PreferredProjectsSlider
+        <TeamSettings
           numOfPrefProjects={numOfPrefProjects}
-          onSlide={this.onSlide}
           maxPossibleChoices={maxPossibleChoices}
           changeNumOfPreferredProjects={changeNumOfPreferredProjects}
-        />
+          maxTeamSize={maxTeamSize}
+          setMaxTeamSize={setMaxTeamSize}
+        /> 
         <button
           className='orange generate-teams-btn'
           onClick={switchToTeamBuilder}

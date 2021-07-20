@@ -1,7 +1,7 @@
 import { INITIATE_TEAM_GENERATION } from './actionTypes/teamBuilderActionTypes';
 import { SELECT_TEAM_COMBINATION } from './actionTypes/teamBuilderActionTypes';
 
-export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects }) => {
+export const generateTeams = ({ projects, students, manuallyAssignedStudents, numOfPrefProjects, maxTeamSize }) => {
   const teams = {};
   let tempStudents = JSON.parse(JSON.stringify(students));
   projects.forEach(project => {
@@ -33,7 +33,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   for (let i = 0; i < tempStudents.length; i++) {
     if (tempStudents[i].returning) {
       for (let j = 0; j < tempStudents[i].choices.length; j++) {
-        if (teams[`${tempStudents[i].choices[j]}`].members.length < 5) {
+        if (teams[`${tempStudents[i].choices[j]}`].members.length < maxTeamSize) {
           tempStudents[i].choice_num_awarded = j + 1;
           teams[`${tempStudents[i].choices[j]}`].members.push(tempStudents[i]);
           tempStudents.splice(i, 1);
@@ -74,7 +74,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
 
     //Try to find teams for students who still have not been placed on a team
     for (let j = randomStudents.length - 1; j >= 0; j--) {
-      if (findTeamForStudent(randomStudents[j], newTeams, numOfPrefProjects)) {
+      if (findTeamForStudent(randomStudents[j], newTeams, numOfPrefProjects, maxTeamSize)) {
         randomStudents.splice(j, 1);
       }
     }
@@ -253,7 +253,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   };
 };
 
-function findTeamForStudent(student, teams, numOfPrefProjects) {
+function findTeamForStudent(student, teams, numOfPrefProjects, maxTeamSize) {
   //Iterate through student's choices
   for (let i = 0; i < numOfPrefProjects && i < student.choices.length; i++) {
     let team = teams[`${student.choices[i]}`];
@@ -262,7 +262,7 @@ function findTeamForStudent(student, teams, numOfPrefProjects) {
       if (!team.members[j].returning && !team.members[j].assigned) {
         for (let k = 0; k < numOfPrefProjects; k++) {
           //If member can be moved to new team, move student and then add other student to team
-          if (teams[`${team.members[j].choices[k]}`].members.length < 5) {
+          if (teams[`${team.members[j].choices[k]}`].members.length < maxTeamSize) {
             team.members[j].choice_num_awarded = k + 1;
             student.choice_num_awarded = i + 1;
 

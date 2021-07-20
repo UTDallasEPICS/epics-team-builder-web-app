@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../../common/Header';
+import Header from 'widgets/common/Header';
 import AttributeCheckboxes from './AttributeCheckboxes';
 import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinations';
 import { Row, Col } from 'react-bootstrap';
@@ -50,8 +50,8 @@ class TeamBuilderPage extends React.Component {
   waitToGenerateTeams() {
     //Let component fully render before dispatching
     setTimeout(() => {
-      const { students, projects, manuallyAssignedStudents, numOfPrefProjects, generateTeams } = this.props;
-      generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects });
+      const { students, projects, manuallyAssignedStudents, numOfPrefProjects, generateTeams, maxTeamSize } = this.props;
+      generateTeams({ students, projects, manuallyAssignedStudents, numOfPrefProjects, maxTeamSize });
     }, 100);
   }
 

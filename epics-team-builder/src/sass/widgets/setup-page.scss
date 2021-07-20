@@ -113,7 +113,6 @@
 
   .preferred-project-slider {
     position: relative;
-    height: 70px;
     width: 650px;
     left: 50%;
     transform: translate(-50%);
@@ -166,15 +165,22 @@
     }
 
     .auto-checkbox-container {
-      width: 100px;
-      margin-left: 180px;
-
+      margin-left: 25%;
+      width: 50%;
       label {
         vertical-align: top;
       }
       .checkbox {
         margin-left: 14px;
         margin-top: 6px;
+      }
+      .team-size-input {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        margin: 5px;
+        input {
+          width: 50px;
+        }
       }
     }
   }
