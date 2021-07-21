@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React/* , { useState } */ from 'react';
 import PropTypes from 'prop-types';
-import Nouislider from 'react-nouislider';
+//import Nouislider from 'react-nouislider';
 
-function TeamSettings({ numOfPrefProjects, maxPossibleChoices, changeNumOfPreferredProjects, maxTeamSize, setMaxTeamSize }) {
-  const [checked, setChecked] = useState(true);
-  const sliderRef = React.createRef();
-  
+function TeamSettings({ /* numOfPrefProjects, maxPossibleChoices, changeNumOfPreferredProjects,*/ maxTeamSize, setMaxTeamSize }) {
+  /* const [checked, setChecked] = useState(true);
+  const sliderRef = React.createRef(); *
+
   const switchChecked = () => {
     if (!checked) {
       changeNumOfPreferredProjects(maxPossibleChoices);
@@ -17,7 +17,7 @@ function TeamSettings({ numOfPrefProjects, maxPossibleChoices, changeNumOfPrefer
     setChecked(false);
     changeNumOfPreferredProjects(value[0]);
   };
-
+ */
   const updateTeamSize = (a) => {
     setMaxTeamSize(Number(a.target.value))
   }

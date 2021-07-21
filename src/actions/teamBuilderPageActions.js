@@ -191,20 +191,14 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     //For each team find how many skills are met by its members
     for (let team in newTeams) {
       newTeams[team].skillsMet = 0;
-      newTeams[team].project.skills.forEach(skill => {
-        let foundSkill = false;
-        for (let j = 0; j < newTeams[team].members.length; j++) {
-          for (let k = 0; k < newTeams[team].members[j].skills.length; k++) {
-            if (newTeams[team].members[j].skills[k] === skill) {
-              skillsMet++;
-              newTeams[team].skillsMet++;
-              foundSkill = true;
-              break;
-            }
+      for (let skill in newTeams[team].project.skills) {
+        for (let member of newTeams[team]) {
+          if (member.skills.includes(skill)) {
+            skillsMet++;
+            newTeams[team].skillsMet++;
           }
-          if (foundSkill) break;
         }
-      });
+      }
     }
 
     //average skills met per team
