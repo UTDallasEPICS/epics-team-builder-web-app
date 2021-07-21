@@ -166,7 +166,6 @@ class ExcelReader extends Component {
       }
       setMaxPossibleChoices(choiceArray.length)
       changeNumOfPreferredProjects(choiceArray.length)
-      console.log(`Detected number of choices: ${choiceArray.length}`)
 
       let error = expectedColNames.reduce((accumalator, name) => {
         if (!actualColNames.includes(name)) {
@@ -192,20 +191,24 @@ class ExcelReader extends Component {
         let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
         let studentChoices = choiceArray.map(choice => student[choice])
-
-        accumalator.push({
-          name: student['Student'] ? student['Student'] : 'N/A',
-          response: student['Response Date'] ? true : false,
-          id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
-          returning: student['Course'] === 'EPCS 3200',
-          choices: studentChoices,
-          major: studentMajor,
-          classification: student['Student Classification'] ? student['Student Classification'] : 'N/A',
-          gender: student['Gender'] ? student['Gender'] : 'N/A',
-          skills: studentSkillsArray[0] ? studentSkillsArray : [],
-          found_team: false,
-          choice_num_awarded: 0
-        });
+        if(studentChoices.some(c => !c) || studentSkillsArray.some(c => !c)) {
+          alert(`Student ${student["Student"]} has not filled out all choice/skill entries`)
+        }
+        else {
+          accumalator.push({
+            name: student['Student'] ? student['Student'] : 'N/A',
+            response: student['Response Date'] ? true : false,
+            id: student['SSO ID'] ? student['SSO ID'] : 'N/A',
+            returning: student['Course'] === 'EPCS 3200',
+            choices: studentChoices,
+            major: studentMajor,
+            classification: student['Student Classification'] ? student['Student Classification'] : 'N/A',
+            gender: student['Gender'] ? student['Gender'] : 'N/A',
+            skills: studentSkillsArray[0] ? studentSkillsArray : [],
+            found_team: false,
+            choice_num_awarded: 0
+          });
+        }
 
         return accumalator;
       }, []);

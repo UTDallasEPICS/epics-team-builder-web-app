@@ -192,7 +192,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     for (let team in newTeams) {
       newTeams[team].skillsMet = 0;
       for (let skill in newTeams[team].project.skills) {
-        for (let member of newTeams[team]) {
+        for (let member of newTeams[team].members) {
           if (member.skills.includes(skill)) {
             skillsMet++;
             newTeams[team].skillsMet++;
