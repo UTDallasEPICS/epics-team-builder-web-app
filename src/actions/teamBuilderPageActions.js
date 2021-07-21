@@ -81,6 +81,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
 
     //Check if a student couldn't be assigned to any of their choices
     if (randomStudents.length > 1) {
+      console.log(randomStudents)
       console.log('Students who responded could not be placed on team based on choices');
     }
 

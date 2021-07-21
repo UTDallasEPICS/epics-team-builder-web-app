@@ -6,6 +6,7 @@ import DisplayTeamCombinations from './TeamCombinationTable/DisplayTeamCombinati
 import { Row, Col } from 'react-bootstrap';
 import DisplayProjects from './DisplayProjectsTable/DisplayProjects';
 import DisplayTeamInformations from './DisplayTeamInformations';
+import DisplayUnassignedStudents from './DisplayUnassignedStudents';
 //npm startimport * as FileSaver from 'file-saver';
 //import * as XLSX from 'xlsx';
 
@@ -142,6 +143,16 @@ class TeamBuilderPage extends React.Component {
     </div>
   );
 
+  renderUnassignedStudents = () => (
+    // <div className='py-2' style={{ height: 'auto' }}>
+    <div className='team-combo-view'>
+      <div className='font-weight-bolder text-center '>
+        <h4>Unassigned Students</h4>
+      </div>
+      <DisplayUnassignedStudents students={this.state.combo.unassignedStudents} />
+    </div>
+  );
+
   renderTeamInformations = () => (
     // <div className='py-2' style={{ height: 'auto' }}>
     <div className='team-combo-view'>
@@ -158,13 +169,16 @@ class TeamBuilderPage extends React.Component {
         <Header />
         {this.renderTopSection()}
         <Row>
-          <Col xs={12} md={4} className='bg-light'>
+          <Col xs={12} md={3} className='bg-light'>
             {this.renderTeamCombinations()}
           </Col>
-          <Col xs={12} md={4} className='bg-light'>
+          <Col xs={12} md={3} className='bg-light'>
+            {this.renderUnassignedStudents()}
+          </Col>
+          <Col xs={12} md={3} className='bg-light'>
             {this.renderViewProjects()}
           </Col>
-          <Col xs={12} md={4} className='bg-light'>
+          <Col xs={12} md={3} className='bg-light'>
             {this.renderTeamInformations()}
           </Col>
         </Row>
