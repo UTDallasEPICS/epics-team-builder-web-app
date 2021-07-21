@@ -1,0 +1,22 @@
+name: Deploy to Github Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Go to root
+        uses: actions/checkout@v2.1.0
+      - name: Install deps
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy to GH Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: gh-pages 
+          folder: dist 
