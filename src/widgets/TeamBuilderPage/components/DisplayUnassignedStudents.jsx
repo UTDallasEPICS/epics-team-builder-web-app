@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Card, Table, CardDeck } from 'react-bootstrap';
-import { Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const DisplayUnassignedStudents = ({ students }) => {
