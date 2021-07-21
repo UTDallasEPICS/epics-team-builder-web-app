@@ -178,7 +178,7 @@ class ExcelReader extends Component {
         this.setState({ studentFileName: 'Or drag file here' });
         return alert(error.slice(0, -1));
       }
-
+      const incorrectStudents = []
       //Reduce file object down to new object with formatted data
       let studentsArray = tempContainer.data.reduce((accumalator, student) => {
         if (student['Student Major']) {
@@ -192,7 +192,7 @@ class ExcelReader extends Component {
 
         let studentChoices = choiceArray.map(choice => student[choice])
         if(studentChoices.some(c => !c) || studentSkillsArray.some(c => !c)) {
-          alert(`Student ${student["Student"]} has not filled out all choice/skill entries`)
+          incorrectStudents.push(student["Student"]) 
         }
         else {
           accumalator.push({
@@ -212,7 +212,7 @@ class ExcelReader extends Component {
 
         return accumalator;
       }, []);
-
+      alert(`The following students have not filled out one or more skills/choices: \n ${incorrectStudents.join("\n")}`)
       changeStudentsArray(studentsArray);
       setMaxTeamSize(Math.ceil(studentsArray.length/this.numProjects))
     };
