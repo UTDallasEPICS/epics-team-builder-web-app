@@ -200,8 +200,6 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
         }
       }
     }
-    console.log(skillsMet)
-    console.log(Object.keys(newTeams).length)
 
     //average skills met per team
     let avgSkillsMet = skillsMet / Object.keys(newTeams).length;
