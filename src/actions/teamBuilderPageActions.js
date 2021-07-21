@@ -188,11 +188,10 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     let avgScoreClass = Math.abs(teamAverageClass / totalWeighedTeams) / 2;
 
     let skillsMet = 0;
-
     //For each team find how many skills are met by its members
     for (let team in newTeams) {
       newTeams[team].skillsMet = 0;
-      for (let skill in newTeams[team].project.skills) {
+      for (let skill of newTeams[team].project.skills) {
         for (let member of newTeams[team].members) {
           if (member.skills.includes(skill)) {
             skillsMet++;
@@ -201,6 +200,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
         }
       }
     }
+    console.log(skillsMet)
+    console.log(Object.keys(newTeams).length)
 
     //average skills met per team
     let avgSkillsMet = skillsMet / Object.keys(newTeams).length;

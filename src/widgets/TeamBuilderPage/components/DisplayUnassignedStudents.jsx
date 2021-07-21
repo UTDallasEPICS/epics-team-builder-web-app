@@ -4,11 +4,9 @@ import { Card, Table, CardDeck } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const DisplayUnassignedStudents = ({ students }) => {
-  console.log(students)
   return (
     <div className='pb-4'>
     <div className='px-3 text-info'>
-      {/* <div> {team.project?  (<span>{team.project.name}</span>) :null}</div> */}
       Total Unassigned Students: {students ? <span>{students.length}</span> : null}
     </div>
       <div className='teamcombination-wrapper p-3'>
