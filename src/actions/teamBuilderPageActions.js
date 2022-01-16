@@ -44,12 +44,12 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   }
 
   let teamCombos = [];
+  let wrongNames = []
   //Loop through creation of teams
   for (let i = 0; i < 1000; i++) {
     //Make copies to start off on
     let randomStudents = JSON.parse(JSON.stringify(tempStudents));
     let newTeams = JSON.parse(JSON.stringify(teams));
-
     //Shuffle students to hopefully get different results
     for (var k = randomStudents.length - 1; k > 0; k--) {
       var j = Math.floor(Math.random() * (k + 1));
@@ -57,13 +57,12 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       randomStudents[k] = randomStudents[j];
       randomStudents[j] = temp;
     }
-    let wrongNames = []
     //Place normal students in their top choices if possible
     for (let j = randomStudents.length - 1; j >= 0; j--) {
       for (let k = 0; k < numOfPrefProjects; k++) {
         if (randomStudents[j].choices[k]) {
           if (!newTeams[`${randomStudents[j].choices[k]}`]) {
-            wrongNames.push({name: `${randomStudents[i].firstName} ${randomStudents[i].lastName}`, choice: k})
+            wrongNames.push(`${randomStudents[j].name}, choice ${k+1}`)
           } else if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 3) {
             randomStudents[j].choice_num_awarded = k + 1;
             newTeams[`${randomStudents[j].choices[k]}`].members.push(randomStudents[j]);
@@ -73,8 +72,6 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
         }
       }
     }
-    if (wrongNames.length) 
-      alert(`Following students have nonexistent choices: \n ${wrongNames.map(w => w.name + ", choice " + w.choice).join("\n")}`)
 
     //Try to find teams for students who still have not been placed on a team
     for (let j = randomStudents.length - 1; j >= 0; j--) {
@@ -244,6 +241,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       unassignedStudents: randomStudents
     });
   }
+  if (wrongNames.length) 
+    alert(`Following students have nonexistent choices: \n ${[...new Set(wrongNames)].join("\n")}`)
 
   return {
     type: INITIATE_TEAM_GENERATION,

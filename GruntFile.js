@@ -16,9 +16,6 @@ module.exports = function(grunt) {
         src: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
       }
     },
-    eslint: {
-      target: ['*.js', 'src/**/*.js', 'src/**/*.jsx']
-    },
     run: {
       options: {
         // ...
