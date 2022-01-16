@@ -57,14 +57,14 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
       randomStudents[k] = randomStudents[j];
       randomStudents[j] = temp;
     }
-
+    let wrongNames = []
     //Place normal students in their top choices if possible
     for (let j = randomStudents.length - 1; j >= 0; j--) {
       for (let k = 0; k < numOfPrefProjects; k++) {
         if (randomStudents[j].choices[k]) {
-          if (!newTeams[`${randomStudents[j].choices[k]}`]) alert(`student ${randomStudents[j]}, choice ${k} does not exist`)
-        
-          if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 3) {
+          if (!newTeams[`${randomStudents[j].choices[k]}`]) {
+            wrongNames.push({name: `${randomStudents[i].firstName} ${randomStudents[i].lastName}`, choice: k})
+          } else if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 3) {
             randomStudents[j].choice_num_awarded = k + 1;
             newTeams[`${randomStudents[j].choices[k]}`].members.push(randomStudents[j]);
             randomStudents.splice(j, 1);
@@ -73,6 +73,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
         }
       }
     }
+    if (wrongNames.length) 
+      alert(`Following students have nonexistent choices: \n ${wrongNames.map(w => w.name + ", choice " + w.choice).join("\n")}`)
 
     //Try to find teams for students who still have not been placed on a team
     for (let j = randomStudents.length - 1; j >= 0; j--) {
