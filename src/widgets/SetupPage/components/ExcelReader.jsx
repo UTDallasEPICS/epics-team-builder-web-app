@@ -212,7 +212,7 @@ class ExcelReader extends Component {
 
         return accumalator;
       }, []);
-      alert(`The following students have not filled out one or more skills/choices: \n ${incorrectStudents.join("\n")}`)
+      if (incorrectStudents.length) alert(`The following students have not filled out one or more skills/choices: \n ${incorrectStudents.join("\n")}`)
       changeStudentsArray(studentsArray);
       setMaxTeamSize(Math.ceil(studentsArray.length/this.numProjects))
     };

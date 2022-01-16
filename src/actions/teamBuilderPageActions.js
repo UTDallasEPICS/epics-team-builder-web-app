@@ -62,6 +62,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     for (let j = randomStudents.length - 1; j >= 0; j--) {
       for (let k = 0; k < numOfPrefProjects; k++) {
         if (randomStudents[j].choices[k]) {
+          if (!newTeams[`${randomStudents[j].choices[k]}`]) alert(`student ${randomStudents[j]}, choice ${k} does not exist`)
+        
           if (newTeams[`${randomStudents[j].choices[k]}`].members.length < 3) {
             randomStudents[j].choice_num_awarded = k + 1;
             newTeams[`${randomStudents[j].choices[k]}`].members.push(randomStudents[j]);
