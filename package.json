@@ -11,18 +11,19 @@
     "bootstrap": "^4.4.1",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
+    "grunt-eslint": "^22.0.0",
     "grunt-prettier": "^1.3.0",
     "grunt-run": "^0.8.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
+    "react": "^17.0.1",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-csv": "^2.0.3",
     "react-dom": "^16.12.0",
     "react-dropzone": "^10.2.1",
     "react-nouislider": "^2.0.1",
     "react-redux": "^7.1.3",
-    "react-scripts": "5.0.0",
+    "react-scripts": "3.3.1",
     "read-excel-file": "^4.0.5",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
@@ -38,6 +39,9 @@
     "client": "npm start --prefix client",
     "dev": "concurrently\"npm run server\" \"npm run client\"",
     "server": "nodemon server.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [
