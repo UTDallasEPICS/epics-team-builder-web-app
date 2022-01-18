@@ -101,13 +101,12 @@ class ExcelReader extends Component {
         let skillsArray = [project['Skill 1'], project['Skill 2'], project['Skill 3']];
 
         accumalator.push({
-          name: project['Project Name'] ? project['Project Name'] : 'N/A',
+          name: project['Project Name'] ? project['Project Name'].trim() : 'N/A',
           returning: project['Returning (Y/N)'] === 'Y',
           skills: skillsArray[0] ? skillsArray : []
         });
         return accumalator;
       }, []);
-
       this.props.changeProjectsArray(projectsArray);
       this.numProjects = projectsArray.length
     };
@@ -190,7 +189,7 @@ class ExcelReader extends Component {
 
         let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
-        let studentChoices = choiceArray.map(choice => student[choice])
+        let studentChoices = choiceArray.map(choice => student[choice]?.trim())
         if(studentChoices.some(c => !c) || studentSkillsArray.some(c => !c)) {
           incorrectStudents.push(student["Student"]) 
         }

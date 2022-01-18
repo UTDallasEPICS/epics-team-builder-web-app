@@ -254,11 +254,13 @@ function findTeamForStudent(student, teams, numOfPrefProjects, maxTeamSize) {
   //Iterate through student's choices
   for (let i = 0; i < numOfPrefProjects && i < student.choices.length; i++) {
     let team = teams[`${student.choices[i]}`];
+    if(!team) {console.log("choice", student.choices[i])}
     //Check if member on team has another choice which they can switch to
     for (let j = team.members.length - 1; j >= 0; j--) {
       if (!team.members[j].returning && !team.members[j].assigned) {
         for (let k = 0; k < numOfPrefProjects; k++) {
           //If member can be moved to new team, move student and then add other student to team
+          if (!teams[`${team.members[j].choices[k]}`]) console.log("other", team.members[j].choices[k], team.members[j])
           if (teams[`${team.members[j].choices[k]}`].members.length < maxTeamSize) {
             team.members[j].choice_num_awarded = k + 1;
             student.choice_num_awarded = i + 1;
