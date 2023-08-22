@@ -9,6 +9,10 @@ jobs:
     steps:
       - name: Go to root
         uses: actions/checkout@v2.1.0
+      - name: Setup Node
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: "19.x"
       - name: Install deps
         run: npm install
       - name: Build
@@ -18,5 +22,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: gh-pages 
-          folder: build 
+          branch: gh-pages
+          folder: build
