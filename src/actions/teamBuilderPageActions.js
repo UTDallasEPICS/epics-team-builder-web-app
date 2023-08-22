@@ -33,8 +33,8 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   for (let i = 0; i < tempStudents.length; i++) {
     if (tempStudents[i].returning) {
       for (let j = 0; j < tempStudents[i].choices.length; j++) {
-        if (!teams[`${tempStudents[i].choices[j]}`]) {
-          console.error(`${tempStudents[i]}, ${choices[j]} does not exist in teams list`)
+        if (!teams[`${tempStudents[i]?.choices[j]}`]) {
+          console.error(`${tempStudents[i]}, ${tempStudents[i]?.choices[j]} does not exist in teams list`)
           continue
         }
         if (teams[`${tempStudents[i].choices[j]}`].members.length < maxTeamSize) {
