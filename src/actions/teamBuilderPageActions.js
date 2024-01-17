@@ -50,7 +50,7 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
   let teamCombos = [];
   let wrongNames = []
   //Loop through creation of teams
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 100; i++) {
     //Make copies to start off on
     let randomStudents = JSON.parse(JSON.stringify(tempStudents));
     let newTeams = JSON.parse(JSON.stringify(teams));
@@ -103,22 +103,12 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
     }
 
     //go through every small team and check if students from larger teams can be swapped over
-    while (smallTeams.length > 0) {
-      let sTeam = smallTeams[0];
-      let sTeamFilled = false;
-
-      for (let j = largeTeams.length - 1; j >= 0; j--) {
-        let lTeam = largeTeams[j];
-
+/*     smallTeams.forEach((sTeam) => {
+      largeTeams.forEach((lTeam) => {
         for (let k = lTeam.members.length - 1; k >= 0; k--) {
           let member = lTeam.members[k];
           if (member.returning || member.assigned) {
             continue;
-          }
-
-          if (lTeam.members.length <= 3) {
-            largeTeams.pop();
-            break;
           }
 
           member.choices.forEach((choice, ind) => {
@@ -130,14 +120,13 @@ export const generateTeams = ({ projects, students, manuallyAssignedStudents, nu
           });
 
           if (newTeams[`${sTeam.project.name}`].members.length >= 3) {
-            sTeamFilled = true;
             break;
           }
         }
-        if (sTeamFilled) break;
-      }
-      smallTeams.pop();
-    }
+      })
+
+    }) */
+
     let unassignedReturn = 0;
     let unassignedNormal = 0;
     randomStudents.forEach(student => {
@@ -258,7 +247,9 @@ function findTeamForStudent(student, teams, numOfPrefProjects, maxTeamSize) {
   //Iterate through student's choices
   for (let i = 0; i < numOfPrefProjects && i < student.choices.length; i++) {
     let team = teams[`${student.choices[i]}`];
-    if(!team) {console.log(`choice ${i} for ${student.id}`, student.choices[i])}
+    if (!team) {
+      console.log(`choice ${i} for ${student.id}`, student.choices[i]);
+    }
     //Check if member on team has another choice which they can switch to
     for (let j = team.members.length - 1; j >= 0; j--) {
       if (!team.members[j].returning && !team.members[j].assigned) {
