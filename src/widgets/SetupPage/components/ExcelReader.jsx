@@ -110,7 +110,7 @@ class ExcelReader extends Component {
       }, []);
       this.props.changeProjectsArray(projectsArray);
       this.numProjects = projectsArray.length
-      this.choicesArray = projectsArray
+      this.choicesArray = projectsArray.map(({name}) => name)
     };
 
     if (rABS) {
