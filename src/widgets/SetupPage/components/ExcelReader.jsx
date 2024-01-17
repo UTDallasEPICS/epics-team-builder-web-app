@@ -190,6 +190,11 @@ class ExcelReader extends Component {
         let studentSkillsArray = [student['Skill 1'], student['Skill 2'], student['Skill 3']];
 
         let studentChoices = choiceArray.map(choice => student[choice]?.trim())
+        const borked = studentChoices.filter(s => !choiceArray.includes(s))
+        if (borked.length) {
+          console.log(`Borked Choices for ${student["Student"]}: ${borked.join(', ')}`)
+          return 
+        }
         if(studentChoices.some(c => !c) || studentSkillsArray.some(c => !c)) {
           incorrectStudents.push(student["Student"]) 
         }
