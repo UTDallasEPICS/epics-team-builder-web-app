@@ -193,7 +193,7 @@ class ExcelReader extends Component {
         const borked = studentChoices.filter(s => !choiceArray.includes(s))
         if (borked.length) {
           console.log(`Borked Choices for ${student["Student"]}: ${borked.join(', ')}`)
-          return accumulator
+          return accumalator
         }
         if(studentChoices.some(c => !c) || studentSkillsArray.some(c => !c)) {
           incorrectStudents.push(student["Student"]) 
